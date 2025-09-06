@@ -1,0 +1,12 @@
+Flask
+Flask-CORS
+Flask-SQLAlchemy
+Flask-JWT-Extended
+Flask-Bcrypt
+Flask-Migrate
+python-dotenv
+PyPDF2
+openpyxl
+Pillow
+python-multipart
+Werkzeug
