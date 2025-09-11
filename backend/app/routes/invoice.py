@@ -32,7 +32,7 @@ def create_or_replace_invoices():
     new_invoices = []
     for item in items:
         invoice = Invoice(
-            category_identifier=identifier,
+            category_identifier=item.get("category_identifier"),
             datum=item.get("datum"),
             omschrijving=item.get("omschrijving"),
             kg=safe_float(item.get("kg")),
@@ -57,3 +57,9 @@ def create_or_replace_invoices():
 def get_invoices_by_identifier(identifier):
     invoices = Invoice.query.filter_by(category_identifier=identifier).all()
     return jsonify([inv.to_dict() for inv in invoices])
+
+@invoice.route("/", methods=["GET"])
+@jwt_required()
+def list_documents():
+    invoices = Invoice.query.order_by(Invoice.created_at.desc()).all()
+    return jsonify([d.to_dict() for d in invoices])

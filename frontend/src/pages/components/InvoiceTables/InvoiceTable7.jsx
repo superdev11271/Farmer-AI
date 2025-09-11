@@ -61,6 +61,7 @@ export default function InvoiceTable({ categoryIdentifier }) {
   const handleAddItem = () => {
     const newItem = {
       id: Date.now(),
+      category_identifier: categoryIdentifier,
       datum: "",
       omschrijving: "",
       kg: null,
@@ -143,6 +144,7 @@ export default function InvoiceTable({ categoryIdentifier }) {
           <table className="min-w-full divide-y divide-gray-200 table-fixed">
             <thead className="bg-gray-50">
               <tr>
+                <th className="w-1/6 table-header">Category ID</th>
                 <th className="w-1/6 table-header">Datum</th>
                 <th className="w-1/4 table-header">kWh</th>
                 <th className="w-1/6 table-header text-right">Bedrag</th>
@@ -154,7 +156,7 @@ export default function InvoiceTable({ categoryIdentifier }) {
             <tbody className="bg-white divide-y divide-gray-200">
               {draftInvoices.map(invoice => (
                 <tr key={invoice.id} className="hover:bg-gray-50 transition-colors duration-150">
-                  {["datum", "kg", "bedrag", "btw"].map(field => (
+                  {["category_identifier", "datum", "kg", "bedrag", "btw"].map(field => (
                     <td
                       key={field}
                       className={`px-3 py-2 text-sm ${field === "bedrag" || field === "btw" ? "text-right" : ""}`}

@@ -1,4 +1,5 @@
 from app.db import db
+from datetime import datetime
 
 class Invoice(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -12,6 +13,7 @@ class Invoice(db.Model):
     zk = db.Column(db.Float, nullable=True)
     bedrag = db.Column(db.Float, nullable=True)
     btw = db.Column(db.Float, nullable=True)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
     
     def to_dict(self):
         return {
@@ -25,5 +27,6 @@ class Invoice(db.Model):
             "mv": self.mv,
             "zk": self.zk,
             "bedrag": self.bedrag,
-            "btw": self.btw
+            "btw": self.btw,
+            "created_at": self.created_at.isoformat()
         }

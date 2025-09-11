@@ -13,12 +13,15 @@ import fitz
 import base64
 from app.routes.data.prompt import get_prompt
 import threading
+from dotenv import load_dotenv
+load_dotenv()
 
 document = Blueprint("document", __name__)
 
 ALLOWED_EXTENSIONS = {"pdf"}
 
-proxy_url = current_app.config['PROXY_URL']
+
+proxy_url = os.getenv("PROXY_URL")
 os.environ["HTTP_PROXY"] = proxy_url
 os.environ["HTTPS_PROXY"] = proxy_url
 
@@ -27,7 +30,7 @@ openai.proxy = {
     "https": proxy_url,
 }
 
-OPEN_API_KEY = current_app.config['OPENAI_KEY']
+OPEN_API_KEY = os.getenv("OPENAI_KEY")
 
 def process_pdf(path, prompt):
     try:
@@ -60,6 +63,7 @@ def process_pdf(path, prompt):
             model="gpt-5",
             messages=[
                 {"role": "system", "content": prompt},
+                # {"role": "system", "content": "	coopertex-d is not dipmiddelen"},
                 {
                     "role": "user",
                     "content": [
@@ -127,19 +131,20 @@ def handle_result(data, doc_id):
     else:
         print("Processing succeeded. Result:")
         for item in data:
-            invoice = Invoice(
-                category_identifier=item.get("category_identifier"),
-                datum=item.get("Datum"),
-                omschrijving=item.get("Omschrijving"),
-                kg=safe_float(item.get("Amount")),
-                mk=safe_float(item.get("MK")),
-                jv=safe_float(item.get("JV")),
-                mv=safe_float(item.get("MV")),
-                zk=safe_float(item.get("ZK")),
-                bedrag=safe_float(item.get("Bedrag")),  # e.g., "5" → 5.0
-                btw=safe_float(item.get("BTW"))         # e.g., 21 → 21.0
-            )
-            db.session.add(invoice)
+            if item.get("category_identifier"):
+                invoice = Invoice(
+                    category_identifier=item.get("category_identifier"),
+                    datum=item.get("Datum"),
+                    omschrijving=item.get("Omschrijving"),
+                    kg=safe_float(item.get("Amount")),
+                    mk=safe_float(item.get("MK")),
+                    jv=safe_float(item.get("JV")),
+                    mv=safe_float(item.get("MV")),
+                    zk=safe_float(item.get("ZK")),
+                    bedrag=safe_float(item.get("Bedrag")),  # e.g., "5" → 5.0
+                    btw=safe_float(item.get("BTW"))         # e.g., 21 → 21.0
+                )
+                db.session.add(invoice)
         try:
             db.session.commit()
             doc = Document.query.get_or_404(doc_id)
@@ -148,6 +153,7 @@ def handle_result(data, doc_id):
 
             db.session.commit()
         except Exception as e:
+            print(e)
             db.session.rollback()
 
 

@@ -12,12 +12,12 @@ def make_possible_category(category_data):
         result_string += f"{category["name"]}   description:{category["description"]}\n"
         for sub_item in category["sub_items"]:
             if len(sub_item["items"]) == 0:
-                result_string += f"         {sub_item["name"]}     identifier:{sub_item["identifier"]}\n"
+                result_string += f"         {sub_item["name"]}      description:{sub_item["description"]}     identifier:{sub_item["identifier"]}\n"
             else:
-                result_string += f"         {sub_item["name"]}\n"
+                result_string += f"         {sub_item["name"]}      description:{sub_item["description"]}\n"
 
                 for item in sub_item["items"]:
-                    result_string += f"                 {item["name"]}     identifier:{item["identifier"]}\n"
+                    result_string += f"                 {item["name"]}      description:{item["description"]}     identifier:{item["identifier"]}\n"
     return result_string
 
 

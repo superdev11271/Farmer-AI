@@ -92,7 +92,7 @@ export default function CategorySelector({ setCurrentCategoryIdentifier }) {
           >
             {selectedCategory.level1?.sub_items?.map((sub, idx) => (
               <option key={sub.identifier || idx} value={sub.identifier}>
-                {formatCategoryName(sub.name)}
+                {idx + 1}: {formatCategoryName(sub.name)}
               </option>
             ))}
           </select>
@@ -113,7 +113,7 @@ export default function CategorySelector({ setCurrentCategoryIdentifier }) {
           >
             {selectedCategory.level2?.items?.map((subsub, idx) => (
               <option key={subsub.identifier || idx} value={subsub.identifier}>
-                {formatCategoryName(subsub.name)}
+                {idx + 1}: {formatCategoryName(subsub.name)}
               </option>
             ))}
           </select>

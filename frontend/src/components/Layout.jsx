@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext.jsx';
+import { useNotification } from '../contexts/NotificationContext.jsx';
 import {
   Menu,
   X,
@@ -10,12 +11,13 @@ import {
   LogOut,
   User,
   Bell,
-  Search
+  BellOff
 } from 'lucide-react';
 
 const Layout = ({ children }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const { user, logout } = useAuth();
+  const { notificationsEnabled, toggleNotifications } = useNotification();
   const location = useLocation();
 
   const navigation = [
@@ -141,27 +143,30 @@ const Layout = ({ children }) => {
             <Menu className="h-6 w-6" />
           </button>
 
-          {/* Search */}
-          <div className="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
-            <div className="relative flex flex-1">
-              <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                <Search className="h-5 w-5 text-gray-400" />
-              </div>
-              <input
-                type="text"
-                className="block h-full w-full border-0 py-0 pl-10 pr-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm"
-                placeholder="Search invoices..."
-              />
-            </div>
+          {/* Page Title */}
+          <div className="flex flex-1 items-center justify-center">
+            <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              Invoice Automation System
+            </h1>
           </div>
 
           {/* Right side */}
           <div className="flex items-center gap-x-4 lg:gap-x-6">
             <button
               type="button"
-              className="-m-2.5 p-2.5 text-gray-400 hover:text-gray-500"
+              onClick={toggleNotifications}
+              className={`-m-2.5 p-2.5 transition-colors duration-200 ${
+                notificationsEnabled 
+                  ? 'text-blue-500 hover:text-blue-600' 
+                  : 'text-gray-400 hover:text-gray-500'
+              }`}
+              title={notificationsEnabled ? 'Disable notifications' : 'Enable notifications'}
             >
-              <Bell className="h-6 w-6" />
+              {notificationsEnabled ? (
+                <Bell className="h-6 w-6" />
+              ) : (
+                <BellOff className="h-6 w-6" />
+              )}
             </button>
           </div>
         </div>
