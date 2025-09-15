@@ -17,6 +17,7 @@ import {
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, PieChart, Pie, Cell } from 'recharts';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { apiConfig } from '../config/api';
 
 const Dashboard = () => {
   const [dashboardData, setDashboardData] = useState({
@@ -44,11 +45,11 @@ const Dashboard = () => {
       setDashboardData(prev => ({ ...prev, loading: true }));
       
       // Fetch documents data
-      const documentsResponse = await axios.get('http://192.168.130.162:9004/api/document/');
+      const documentsResponse = await axios.get(apiConfig.endpoints.documents);
       const documents = documentsResponse.data;
       
       // Fetch invoices data
-      const invoicesResponse = await axios.get('http://192.168.130.162:9004/api/invoice/');
+      const invoicesResponse = await axios.get(apiConfig.endpoints.invoices);
       const invoices = invoicesResponse.data;
       
       // Process documents data

@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import { apiConfig } from '../config/api';
 
 const AuthContext = createContext();
 
@@ -30,7 +31,7 @@ export const AuthProvider = ({ children }) => {
 
   const checkAuthStatus = async () => {
     try {
-      const response = await axios.get('http://192.168.130.162:9004/api/auth/profile');
+      const response = await axios.get(`${apiConfig.endpoints.auth}/profile`);
       setUser(response.data.user);
       setIsAuthenticated(true);
     } catch (error) {
@@ -43,7 +44,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (username, password) => {
     try {
-      const response = await axios.post('http://192.168.130.162:9004/api/auth/login', {
+      const response = await axios.post(`${apiConfig.endpoints.auth}/login`, {
         username,
         password
       });
@@ -67,7 +68,7 @@ export const AuthProvider = ({ children }) => {
 
   const register = async (userData) => {
     try {
-      const response = await axios.post('http://192.168.130.162:9004/api/auth/register', userData);
+      const response = await axios.post(`${apiConfig.endpoints.auth}/register`, userData);
       
       const { access_token, user: newUser } = response.data;
       

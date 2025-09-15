@@ -11,7 +11,8 @@ import {
   LogOut,
   User,
   Bell,
-  BellOff
+  BellOff,
+  BookOpen
 } from 'lucide-react';
 
 const Layout = ({ children }) => {
@@ -24,6 +25,7 @@ const Layout = ({ children }) => {
     { name: 'Dashboard', href: '/dashboard', icon: BarChart3 },
     { name: 'Documents', href: '/document', icon: FileText },
     { name: 'Invoices', href: '/invoice', icon: FileText },
+    { name: 'References', href: '/references', icon: BookOpen },
     { name: 'Export', href: '/export', icon: Download },
   ];
 

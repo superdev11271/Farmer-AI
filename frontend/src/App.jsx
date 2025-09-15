@@ -9,6 +9,7 @@ import Dashboard from './pages/Dashboard.jsx';
 import Settings from './pages/Settings.jsx';
 import Invoice from './pages/Invoice.jsx';
 import Document from './pages/Document.jsx';
+import References from './pages/References.jsx';
 import Layout from './components/Layout.jsx';
 
 // Protected Route Component
@@ -114,6 +115,11 @@ function App() {
               <Route path="/invoice" element={
                 <ProtectedRoute>
                   <Layout><Invoice /></Layout>
+                </ProtectedRoute>
+              } />
+              <Route path="/references" element={
+                <ProtectedRoute>
+                  <Layout><References /></Layout>
                 </ProtectedRoute>
               } />
               <Route path="/export" element={
