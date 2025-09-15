@@ -10,7 +10,6 @@ import {
 } from "lucide-react";
 import { toast } from "react-hot-toast";
 import axios from "axios";
-import { apiConfig } from '../config/api';
 
 // Reusable Confirmation Modal
 const ConfirmModal = ({ open, title, message, onConfirm, onCancel }) => {
@@ -40,6 +39,8 @@ const ConfirmModal = ({ open, title, message, onConfirm, onCancel }) => {
   );
 };
 
+const API_URL = import.meta.env.VITE_API_BASE_URL + "/api/document";
+
 const DocumentUpload = () => {
   const [documents, setDocuments] = useState([]);
   const [modalData, setModalData] = useState(null);
@@ -47,7 +48,7 @@ const DocumentUpload = () => {
   // Fetch docs on load
   const fetchDocuments = async () => {
     try {
-      const res = await axios.get(apiConfig.endpoints.documents + "/", {
+      const res = await axios.get(API_URL + "/", {
         headers: { Authorization: "Bearer " + localStorage.getItem("token") },
       });
       setDocuments(res.data);
@@ -71,7 +72,7 @@ const DocumentUpload = () => {
       formData.append("file", file);
 
       try {
-        await axios.post(apiConfig.endpoints.documents + "/", formData, {
+        await axios.post(API_URL + "/", formData, {
           headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),
             "Content-Type": "multipart/form-data",
@@ -111,7 +112,7 @@ const DocumentUpload = () => {
       message: "Are you sure you want to remove this document?",
       onConfirm: async () => {
         try {
-          await axios.delete(`${apiConfig.endpoints.documents}/${id}`, {
+          await axios.delete(`${API_URL}/${id}`, {
             headers: { Authorization: "Bearer " + localStorage.getItem("token") },
           });
           toast.success("Document removed");
@@ -132,7 +133,7 @@ const DocumentUpload = () => {
       message: "Are you sure you want to remove all documents?",
       onConfirm: async () => {
         try {
-          await axios.delete(`${apiConfig.endpoints.documents}/remove_all`, {
+          await axios.delete(`${API_URL}/remove_all`, {
             headers: { Authorization: "Bearer " + localStorage.getItem("token") },
           });
           toast.success("All documents removed");
@@ -228,7 +229,7 @@ const DocumentUpload = () => {
                   <button
                     className="p-1 text-blue-500 hover:text-blue-700 transition"
                     onClick={() =>
-                      window.open(apiConfig.getDocumentUrl(doc.path), "_blank")
+                      window.open(`${import.meta.env.VITE_API_BASE_URL}/${doc.path}`, "_blank")
                     }
                   >
                     <Eye className="h-5 w-5" />

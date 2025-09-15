@@ -9,7 +9,7 @@ const TotalsTable = memo(({ sub_index, item_index, sub_name, categoryIdentifier,
     const fetchTotals = async () => {
         try {
             const res = await axios.get(
-                `http://192.168.130.162:9004/api/invoice/${categoryIdentifier}`
+                `${import.meta.env.VITE_API_BASE_URL}/api/invoice/${categoryIdentifier}`
             );
 
             const totalExcl = res.data.reduce(

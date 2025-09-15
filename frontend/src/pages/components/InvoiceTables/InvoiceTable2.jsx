@@ -13,7 +13,7 @@ export default function InvoiceTable({ categoryIdentifier }) {
   // Load invoices from backend
   const fetchInvoices = async () => {
     try {
-      const res = await axios.get(`http://192.168.130.162:9004/api/invoice/${categoryIdentifier}`);
+      const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/invoice/${categoryIdentifier}`);
       // Add calculated BedragIncl field
       const data = res.data.map(inv => ({
         ...inv,
@@ -86,7 +86,7 @@ export default function InvoiceTable({ categoryIdentifier }) {
     try {
       // Send to backend using backend keys
       const payload = draftInvoices.map(({ BedragIncl, ...rest }) => rest);
-      await axios.post("http://192.168.130.162:9004/api/invoice/", {
+      await axios.post(import.meta.env.VITE_API_BASE_URL + "/api/invoice/", {
         category_identifier: categoryIdentifier,
         items: payload,
       });

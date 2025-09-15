@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Plus, Edit, Trash2, Save, X, BookOpen } from 'lucide-react';
 import toast from 'react-hot-toast';
-import { apiConfig } from '../config/api';
 
 const References = () => {
   const [prompts, setPrompts] = useState([]);
@@ -14,7 +13,7 @@ const References = () => {
   const fetchPrompts = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(apiConfig.endpoints.prompts, {
+      const response = await fetch('http://localhost:9004/api/prompts', {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json',
@@ -51,8 +50,8 @@ const References = () => {
     try {
       const token = localStorage.getItem('token');
       const url = editingPrompt 
-        ? `${apiConfig.endpoints.prompts}/${editingPrompt.id}`
-        : apiConfig.endpoints.prompts;
+        ? `http://localhost:9004/api/prompts/${editingPrompt.id}`
+        : 'http://localhost:9004/api/prompts';
       
       const method = editingPrompt ? 'PUT' : 'POST';
       
@@ -94,7 +93,7 @@ const References = () => {
     
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`${apiConfig.endpoints.prompts}/${promptId}`, {
+      const response = await fetch(`http://localhost:9004/api/prompts/${promptId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`,
