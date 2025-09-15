@@ -5,6 +5,7 @@ import os, uuid
 from datetime import datetime
 from app.models import Invoice
 from app.models import Document
+from app.models import Prompt
 from app.db import db
 import json
 import openai
@@ -186,7 +187,8 @@ def upload_document():
     file_path = os.path.join(upload_dir, unique_filename)
     file.save(file_path)
 
-    prompt = get_prompt()
+    prompts = Prompt.query.all()
+    prompt = get_prompt(prompts)
     # Start thread to process PDF
 
     # Save to DB

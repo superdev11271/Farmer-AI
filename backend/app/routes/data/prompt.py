@@ -22,8 +22,10 @@ def make_possible_category(category_data):
 
 
 
-def get_prompt():
-    
+def get_prompt(prompts):
+    all_refercence = ""
+    for prompt in prompts:
+        all_refercence += f"{prompt.text}\n"
     prompt = """
     I am going to make automation system to handle farm invoice document to table. 
 
@@ -69,6 +71,9 @@ def get_prompt():
     And you should return only name as lowercase about Omschrijving if it contain some other information like "LANDBOUWZOUT 99% NACL FIJN 25 KG (Voedermiddel, 38% natrium)".
 
     If you can't find information about specific json key, you can make it as null.
+
+    Here is the reference prompts:
+    """ + all_refercence + """
     """
 
     return prompt
