@@ -121,9 +121,9 @@ def safe_float(value):
         return None
 # Example callback function
 def handle_result(data, doc_id):
+    doc = Document.query.get_or_404(doc_id)
     if data is None:
         print("Processing failed.")
-        doc = Document.query.get_or_404(doc_id)
 
         doc.status = 4
 
@@ -142,12 +142,13 @@ def handle_result(data, doc_id):
                     mv=safe_float(item.get("MV")),
                     zk=safe_float(item.get("ZK")),
                     bedrag=safe_float(item.get("Bedrag")),  # e.g., "5" → 5.0
+                    source_doc = doc.original_name,
                     btw=safe_float(item.get("BTW"))         # e.g., 21 → 21.0
                 )
                 db.session.add(invoice)
         try:
             db.session.commit()
-            doc = Document.query.get_or_404(doc_id)
+            
 
             doc.status = 3
 

@@ -41,7 +41,8 @@ def create_or_replace_invoices():
             mv=safe_float(item.get("mv")),
             zk=safe_float(item.get("zk")),
             bedrag=safe_float(item.get("bedrag")),  # e.g., "5" → 5.0
-            btw=safe_float(item.get("btw"))         # e.g., 21 → 21.0
+            source_doc=item.get("source_doc"),         # e.g., 21 → 21.0
+            btw=safe_float(item.get("btw"))
         )
         db.session.add(invoice)
 

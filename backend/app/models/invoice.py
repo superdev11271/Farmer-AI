@@ -5,7 +5,7 @@ class Invoice(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     category_identifier = db.Column(db.String, nullable=False)
     datum = db.Column(db.String)  # or db.Date
-    omschrijving = db.Column(db.String)
+    omschrijving = db.Column(db.String, nullable=True)
     kg = db.Column(db.Float, nullable=True)
     mk = db.Column(db.Float, nullable=True)
     jv = db.Column(db.Float, nullable=True)
@@ -13,6 +13,7 @@ class Invoice(db.Model):
     zk = db.Column(db.Float, nullable=True)
     bedrag = db.Column(db.Float, nullable=True)
     btw = db.Column(db.Float, nullable=True)
+    source_doc = db.Column(db.String, nullable=True)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     
     def to_dict(self):
@@ -28,5 +29,6 @@ class Invoice(db.Model):
             "zk": self.zk,
             "bedrag": self.bedrag,
             "btw": self.btw,
+            "source_doc": self.source_doc,
             "created_at": self.created_at.isoformat()
         }
