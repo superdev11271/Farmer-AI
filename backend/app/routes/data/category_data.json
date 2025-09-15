@@ -37,7 +37,7 @@
             {
                 "name": "GEBOUWEN EN BIJHORENDE UITRUSTING",
                 "identifier": "R2-6",
-                "description": "Dure herstellingen ( vanaf 3.000 EUR ) worden in het inventarisboek geschrevem Hier 00k de onroerende voorheffng van de gebouwen noterem",
+                "description": "Dure herstellingen ( vanaf 3.000 EUR ) worden in het inventarisboek geschrevem Hier 00k de onroerende voorheffng van de gebouwen noterem. example: Spoel zend/ontvanger vc4, deksels zender - ontvanger, werk krachtvoerbox",
                 "items": [
                     {
                         "name": "AANTAL STALPLAATSTEN (enkel voor melkvee: melkkoeien en jongvee)",
@@ -255,13 +255,13 @@
             {
                 "name": "DIPMIDDELEN",
                 "identifier": "R6-5",
-                "description": "",
+                "description": "Example: ms cow udder sepia",
                 "items": []
             },
             {
                 "name": "ANDERE VEEKOSTEN",
                 "identifier": "R6-6",
-                "description": "De kosten worden opgesplitst volgens diersoort- In deze rubriek vullen we in: de kosten voor oornummers, reinigingsproducten voor det melkmachine, buisfilters, ontsmettingsproducten, ontledinqen voeders, delvotest, klauvwerzorqinq,",
+                "description": "De kosten worden opgesplitst volgens diersoort- In deze rubriek vullen we in: de kosten voor oornummers, reinigingsproducten voor det melkmachine, buisfilters, ontsmettingsproducten, ontledinqen voeders, delvotest, klauvwerzorqinq. example: coopertix-d",
                 "items": []
             },
             {

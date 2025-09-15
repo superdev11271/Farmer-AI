@@ -152,6 +152,7 @@ export default function InvoiceTable({ categoryIdentifier }) {
           <table className="min-w-full divide-y divide-gray-200 table-fixed">
             <thead className="bg-gray-50">
               <tr>
+                <th className="w-1/6 table-header">Category ID</th>
                 <th className="w-1/6 table-header text-right">Datum</th>
                 <th className="w-1/6 table-header text-right">Kg</th>
                 <th className="w-1/6 table-header text-right">MK</th>
