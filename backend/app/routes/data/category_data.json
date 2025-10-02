@@ -1,5 +1,49 @@
 [
     {
+        "name": "Gronden en teelten",
+        "identifier": "R1",
+        "description": "In dit hoofdstuk dient alles ingevuld te worden m-b-t- de gronden en teeltem M-b-t- de gronden vragen we hier naar de perceelsgrootte, ha eigendom, ha pacht, Voor de teelten dient u eerst het teeltplan in te vullen waarna de tabbladen van deze teelten tevoorschijn zullen komen om hier dan alle kosten (kunstmest, loonwerk,---) en opbrengsten in te vullem",
+        "sub_items": [
+            {
+                "name": "BEDRIJFSGEGEVENS",
+                "identifier": "R1-1",
+                "description": "",
+                "items": []
+            },
+            {
+                "name": "PACHTEN",
+                "identifier": "R1-2",
+                "description": "",
+                "items": [
+                    {
+                        "name": "REGULIERE PACHTEN",
+                        "identifier": "R1-2-1",
+                        "description": "",
+                        "items": []
+                    },
+                    {
+                        "name": "SEIZOENS PACHTE",
+                        "identifier": "R1-2-2",
+                        "description": "",
+                        "items": []
+                    }
+                ]
+            },
+            {
+                "name": "ONROERENDE VOORHEFFING OP GROND",
+                "identifier": "R1-3",
+                "description": "Onroerende voorheffng op de gebouwen in hoofdstuk 2 bij de kosten van de gebouwen noterem",
+                "items": []
+            },
+            {
+                "name": "TEELTPLAN",
+                "identifier": "R1-4",
+                "description": "Vooraleer u kan invullen djent u oppetvlakte per teelt in te vullen in onderstaande lijst. Bij invullen van oppetvlakte per teelt verschijnt onderaan het tabblad van deze teelt en kan u deze teelt",
+                "items": []
+            }
+        ]
+    },
+    {
         "name": "Dood kapitaal",
         "identifier": "R2",
         "description": "Hier komen de onkosten van de herstellingen van uw tractoren, machines en gebouwen terrecht.",
@@ -219,6 +263,31 @@
                 "name": "AANKOOP MINERALEN, VITAMINEN, KERNEN",
                 "description": "",
                 "identifier": "R4-4",
+                "items": []
+            }
+        ]
+    },
+    {
+        "name": "Melkproduktie en melkbestemming",
+        "identifier": "R5",
+        "description": "In dit bestand kan u het volgdende ingeven: geleverde liters en ontvangen melkgeld. Melk die verkocht is aan derden of voor eigen gebruik. Melk voor de kalveren of probleemmelk dat in de put wordt gedaan.",
+        "sub_items": [
+            {
+                "name": "MELKGELD EERSTE BEDRIJF",
+                "identifier": "R5-1",
+                "description": "",
+                "items": []
+            },
+            {
+                "name": "MELKGELD TWEEDE BEDRIJF",
+                "identifier": "R5-2",
+                "description": "",
+                "items": []
+            },
+            {
+                "name": "ANDERE BESTEMMINGEN VAN MELK",
+                "identifier": "R5-3",
+                "description": "",
                 "items": []
             }
         ]

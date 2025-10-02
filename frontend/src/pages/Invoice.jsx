@@ -13,6 +13,13 @@ import InvoiceTable8 from "./components/InvoiceTables/InvoiceTable8";
 import InvoiceTable9 from "./components/InvoiceTables/InvoiceTable9";
 import InvoiceTable10 from "./components/InvoiceTables/InvoiceTable10";
 import InvoiceTable11 from "./components/InvoiceTables/InvoiceTable11";
+import InvoiceTable12 from "./components/InvoiceTables/InvoiceTable12";
+import InvoiceTable13 from "./components/InvoiceTables/InvoiceTable13";
+import InvoiceTable14 from "./components/InvoiceTables/InvoiceTable14";
+import InvoiceTableR1_1 from "./components/InvoiceTables/InvoiceTableR1-1";
+import InvoiceTableR1_4 from "./components/InvoiceTables/InvoiceTableR1-4";
+import InvoiceTableR8_2 from "./components/InvoiceTables/InvoiceTableR8-2";
+
 
 const Invoices = () => {
 
@@ -32,7 +39,13 @@ const Invoices = () => {
       {invoice_types.type9.includes(currentCateoryIdentifier) && <InvoiceTable9 categoryIdentifier={currentCateoryIdentifier} />}
       {invoice_types.type10.includes(currentCateoryIdentifier) && <InvoiceTable10 categoryIdentifier={currentCateoryIdentifier} />}
       {invoice_types.type11.includes(currentCateoryIdentifier) && <InvoiceTable11 categoryIdentifier={currentCateoryIdentifier} />}
+      {invoice_types.type12.includes(currentCateoryIdentifier) && <InvoiceTable12 categoryIdentifier={currentCateoryIdentifier} />}
+      {invoice_types.type13.includes(currentCateoryIdentifier) && <InvoiceTable13 categoryIdentifier={currentCateoryIdentifier} />}
+      {invoice_types.type14.includes(currentCateoryIdentifier) && <InvoiceTable14 categoryIdentifier={currentCateoryIdentifier} />}
 
+      {currentCateoryIdentifier == "R1-1" && <InvoiceTableR1_1 />}
+      {currentCateoryIdentifier == "R1-4" && <InvoiceTableR1_4 />}
+      {currentCateoryIdentifier == "R8-2" && <InvoiceTableR8_2 />}
     </div>
   );
 };

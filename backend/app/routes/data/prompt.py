@@ -46,9 +46,9 @@ def get_prompt(prompts):
 
     And also I want to get below information from invoice document pdf.
 
-    Datum, Omschrijving, Amount(Kg, kWh, Uren ...), MK, JV, MV, ZK, Bedrag, BTW, Liters_Totaal, Liters_privé ,Uren ,
+    Datum, Omschrijving, Amount(Kg, kWh,Oppervlakte, Uren ...), MK, JV, MV, ZK, Bedrag, BTW,
 
-    not all items are required.
+    not all items are required. you should return only exist value items.
 
     Output only valid JSON. The JSON array should have objects like:
 
