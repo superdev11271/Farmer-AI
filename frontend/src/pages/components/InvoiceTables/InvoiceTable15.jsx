@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Trash2, Plus, Save, X, DollarSign, TrendingUp ,Clock } from "lucide-react";
+import { Trash2, Plus, Save, X, DollarSign, TrendingUp } from "lucide-react";
 import toast from "react-hot-toast";
 import axios from "axios";
 
@@ -64,10 +64,12 @@ export default function InvoiceTable({ categoryIdentifier }) {
       category_identifier: categoryIdentifier,
       source_doc: "",
       datum: "",
-      uren: null,
       bedrag: 0,
       btw: 21,
       BedragIncl: 0,
+      liters_totaal: 0,
+      liters_privé: 0,
+      liters_bedrijf: 0
     };
     setDraftInvoices(prev => [...prev, newItem]);
     setHasChanges(true);
@@ -97,7 +99,6 @@ export default function InvoiceTable({ categoryIdentifier }) {
   };
 
   // Totals
-  const totalUren = draftInvoices.reduce((sum, inv) => sum + Number(inv.uren || 0), 0);
   const totalExcl = draftInvoices.reduce((sum, inv) => sum + Number(inv.bedrag || 0), 0);
   const totalIncl = draftInvoices.reduce((sum, inv) => sum + Number(inv.BedragIncl || 0), 0);
 
@@ -143,7 +144,9 @@ export default function InvoiceTable({ categoryIdentifier }) {
                 <th className="w-1/6 table-header">Category ID</th>
                 <th className="w-1/3 table-header">Source Doc</th>
                 <th className="w-1/6 table-header">Datum</th>
-                <th className="w-1/4 table-header">Uren</th>
+                <th className="w-1/6 table-header text-right">Liters Totaal</th>
+                <th className="w-1/6 table-header text-right">Liters Privé</th>
+                <th className="w-1/6 table-header text-right">Liters bedrijf</th>
                 <th className="w-1/6 table-header text-right">Bedrag</th>
                 <th className="w-1/12 table-header text-right">BTW %</th>
                 <th className="w-1/6 table-header text-right">Bedrag Incl.</th>
@@ -153,7 +156,7 @@ export default function InvoiceTable({ categoryIdentifier }) {
             <tbody className="bg-white divide-y divide-gray-200">
               {draftInvoices.map(invoice => (
                 <tr key={invoice.id} className="hover:bg-gray-50 transition-colors duration-150">
-                  {["category_identifier", "source_doc", "datum", "uren", "bedrag", "btw"].map(field => (
+                  {["category_identifier", "source_doc", "datum", "liters_totaal", "liters_privé", "liters_bedrijf", "bedrag", "btw"].map(field => (
                     <td
                       key={field}
                       className={`px-3 py-2 text-sm ${field === "bedrag" || field === "btw" ? "text-right" : ""}`}
@@ -193,17 +196,7 @@ export default function InvoiceTable({ categoryIdentifier }) {
       </div>
 
       {/* Totals dashboard card */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        {/* Total Uren */}
-        <div className="flex items-center p-4 bg-white shadow rounded-lg">
-          <div className="p-3 rounded-full bg-blue-100 text-blue-600 mr-4">
-            <Clock  className="h-6 w-6" />
-          </div>
-          <div>
-            <p className="text-sm text-gray-500">Total Uren</p>
-            <p className="text-lg font-semibold text-gray-900">€{(totalUren/2200).toFixed(2)}</p>
-          </div>
-        </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {/* Total excl */}
         <div className="flex items-center p-4 bg-white shadow rounded-lg">
           <div className="p-3 rounded-full bg-blue-100 text-blue-600 mr-4">

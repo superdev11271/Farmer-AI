@@ -180,7 +180,7 @@ export default function MilkPayoutSheet({categoryIdentifier}) {
     const load = async () => {
       try {
         setLoading(true);
-        const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/milk-sheet/${categoryIdentifier}`, {
+        const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/invoice/${categoryIdentifier}`, {
           headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
         });
         if (res.ok) {
@@ -202,7 +202,7 @@ export default function MilkPayoutSheet({categoryIdentifier}) {
   const saveToServer = async () => {
     try {
       setSaving(true);
-      await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/milk-sheet/`, {
+      await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/invoice/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

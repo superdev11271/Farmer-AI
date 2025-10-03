@@ -33,9 +33,9 @@ const emptyNumRec = () =>
 const fmt = (n) =>
   isFinite(n)
     ? n.toLocaleString(undefined, {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2,
-      })
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    })
     : "";
 
 const parseNum = (v) => {
@@ -104,7 +104,7 @@ const LABEL = {
   eiwitgehalte: "Eiwitgehalte (%)",
   voorschotOntvangen: "Ontvangen voorschot",
   btwOpVoorschot: "BTW op voorschot",
-  voorschotOntvangenInclBTW:"Ontvangen voorschot incl. BTW",
+  voorschotOntvangenInclBTW: "Ontvangen voorschot incl. BTW",
   melkgeldVet: "Melkgeld vet",
   melkgeldEiwit: "Melkgeld eiwit",
   negatieveGrondstofprijs: "Negatieve grondstofprijs",
@@ -162,7 +162,7 @@ const ROWS_ORDER = [
 ];
 
 // --- Component -------------------------------------------------------------
-export default function MilkPayoutSheet({categoryIdentifier}) {
+export default function MilkPayoutSheet({ categoryIdentifier }) {
   const [data, setData] = useState(() => baseState());
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
@@ -180,20 +180,26 @@ export default function MilkPayoutSheet({categoryIdentifier}) {
     const load = async () => {
       try {
         setLoading(true);
-        const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/milk-sheet/${categoryIdentifier}`, {
+        const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/invoice/${categoryIdentifier}`, {
           headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
         });
         if (res.ok) {
           const json = await res.json();
           if (json && json.data) {
             try {
-              const serverData = JSON.parse(json.data);
-              setData(serverData);
-              setBaseline(serverData);
-            } catch {}
+              if (json.data.length > 0) {
+
+                const serverData = json.data[0];
+                setData(serverData);
+                setBaseline(serverData);
+
+              }
+            } catch {
+              console.log("xxxxxxxxxxxxxxxxxxx")
+            }
           }
         }
-      } catch {}
+      } catch { }
       finally { setLoading(false); }
     };
     load();
@@ -202,17 +208,17 @@ export default function MilkPayoutSheet({categoryIdentifier}) {
   const saveToServer = async () => {
     try {
       setSaving(true);
-      await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/milk-sheet/`, {
+      await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/invoice/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${localStorage.getItem('token')}`
         },
-        body: JSON.stringify({ category_identifier: categoryIdentifier, data: JSON.stringify(data) })
+        body: JSON.stringify({ category_identifier: categoryIdentifier, data: [data] })
       });
       setBaseline(data);
       setHasChanges(false);
-    } catch {}
+    } catch { }
     finally { setSaving(false); }
   };
 
@@ -226,7 +232,7 @@ export default function MilkPayoutSheet({categoryIdentifier}) {
 
     const d = baseState();
     Object.assign(d, data);
-    
+
     months.forEach((m) => {
 
       d.totaalBasisMelkgeld[m] =
@@ -249,7 +255,7 @@ export default function MilkPayoutSheet({categoryIdentifier}) {
 
       d.totaalMelkgeld[m] = d.totaalBasisMelkgeld[m] + premies - kosten - heffingen;
       d.voorschotOntvangenInclBTW[m] = d.voorschotOntvangen[m] + d.btwOpVoorschot[m];
-      d.btwHeffingenBijdragen[m] = heffingen ;
+      d.btwHeffingenBijdragen[m] = heffingen;
 
       d.totaalOntvangen[m] =
         d.totaalMelkgeld[m] +
@@ -270,7 +276,7 @@ export default function MilkPayoutSheet({categoryIdentifier}) {
 
   const handleChange = (row, m, value) => {
     if (!isInputRow(row)) return;
-    
+
     setData((prev) => ({
       ...prev,
       [row]: { ...prev[row], [m]: parseNum(value) },
@@ -320,7 +326,7 @@ export default function MilkPayoutSheet({categoryIdentifier}) {
                       {m}
                     </th>
                   ))}
-                  
+
                 </tr>
               </thead>
               <tbody>

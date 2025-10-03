@@ -164,14 +164,14 @@ const ROWS_ORDER = [
 export default function MilkPayoutSheet() {
   const [data, setData] = useState(() => {
     try {
-      const raw = localStorage.getItem("milk-sheet");
+      const raw = localStorage.getItem("invoice");
       if (raw) return JSON.parse(raw);
     } catch {}
     return baseState();
   });
   
   useEffect(() => {
-    localStorage.setItem("milk-sheet", JSON.stringify(data));
+    localStorage.setItem("invoice", JSON.stringify(data));
   }, [data]);
 
 

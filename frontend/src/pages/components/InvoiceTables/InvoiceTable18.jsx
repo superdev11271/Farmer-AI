@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Trash2, Plus, Save, X, DollarSign, TrendingUp ,Clock } from "lucide-react";
+import { Trash2, Plus, Save, X, DollarSign, TrendingUp } from "lucide-react";
 import toast from "react-hot-toast";
 import axios from "axios";
 
@@ -14,10 +14,7 @@ export default function InvoiceTable({ categoryIdentifier }) {
     try {
       const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/invoice/${categoryIdentifier}`);
       // Add calculated BedragIncl field
-      const data = res.data.data.map(inv => ({
-        ...inv,
-        BedragIncl: +(Number(inv.bedrag || 0) + Number(inv.bedrag || 0) * (Number(inv.btw || 0) / 100)).toFixed(2)
-      }));
+      const data = res.data.data
       setInvoices(data);
       setDraftInvoices(data);
     } catch (err) {
@@ -38,12 +35,6 @@ export default function InvoiceTable({ categoryIdentifier }) {
       prev.map(inv => {
         if (inv.id === id) {
           const updated = { ...inv, [field]: value };
-          if (field === "bedrag" || field === "btw") {
-            const amountNum = parseFloat(updated.bedrag) || 0;
-            const vatPerc = parseFloat(updated.btw) || 0;
-            updated.btw = vatPerc;
-            updated.BedragIncl = +(amountNum + amountNum * (vatPerc / 100)).toFixed(2);
-          }
           return updated;
         }
         return inv;
@@ -63,11 +54,10 @@ export default function InvoiceTable({ categoryIdentifier }) {
       id: Date.now(),
       category_identifier: categoryIdentifier,
       source_doc: "",
-      datum: "",
-      uren: null,
-      bedrag: 0,
-      btw: 21,
-      BedragIncl: 0,
+      naam: "",
+      geboortejaar: "",
+      uren: 0,
+      AK: 21
     };
     setDraftInvoices(prev => [...prev, newItem]);
     setHasChanges(true);
@@ -76,7 +66,7 @@ export default function InvoiceTable({ categoryIdentifier }) {
   const handleSave = async () => {
     try {
       // Send to backend using backend keys
-      const payload = draftInvoices.map(({ BedragIncl, ...rest }) => rest);
+      const payload = draftInvoices;
       await axios.post(import.meta.env.VITE_API_BASE_URL + "/api/invoice/", {
         category_identifier: categoryIdentifier,
         data: payload,
@@ -98,8 +88,7 @@ export default function InvoiceTable({ categoryIdentifier }) {
 
   // Totals
   const totalUren = draftInvoices.reduce((sum, inv) => sum + Number(inv.uren || 0), 0);
-  const totalExcl = draftInvoices.reduce((sum, inv) => sum + Number(inv.bedrag || 0), 0);
-  const totalIncl = draftInvoices.reduce((sum, inv) => sum + Number(inv.BedragIncl || 0), 0);
+  const totalAK = draftInvoices.reduce((sum, inv) => sum + Number(inv.AK || 0), 0);
 
   return (
     <div className="space-y-6">
@@ -142,18 +131,17 @@ export default function InvoiceTable({ categoryIdentifier }) {
               <tr>
                 <th className="w-1/6 table-header">Category ID</th>
                 <th className="w-1/3 table-header">Source Doc</th>
-                <th className="w-1/6 table-header">Datum</th>
-                <th className="w-1/4 table-header">Uren</th>
-                <th className="w-1/6 table-header text-right">Bedrag</th>
-                <th className="w-1/12 table-header text-right">BTW %</th>
-                <th className="w-1/6 table-header text-right">Bedrag Incl.</th>
+                <th className="w-1/6 table-header">Naam</th>
+                <th className="w-1/4 table-header">Geboortejaar</th>
+                <th className="w-1/6 table-header text-right">Uren/jiaar</th>
+                <th className="w-1/12 table-header text-right">AK</th>
                 <th className="w-1/12 table-header text-center">Actions</th>
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
               {draftInvoices.map(invoice => (
                 <tr key={invoice.id} className="hover:bg-gray-50 transition-colors duration-150">
-                  {["category_identifier", "source_doc", "datum", "uren", "bedrag", "btw"].map(field => (
+                  {["category_identifier", "source_doc", "datum", "omschrijving", "bedrag", "btw"].map(field => (
                     <td
                       key={field}
                       className={`px-3 py-2 text-sm ${field === "bedrag" || field === "btw" ? "text-right" : ""}`}
@@ -175,7 +163,6 @@ export default function InvoiceTable({ categoryIdentifier }) {
                       )}
                     </td>
                   ))}
-                  <td className="px-3 py-2 text-right font-semibold">€{invoice.BedragIncl.toFixed(2)}</td>
                   <td className="px-3 py-2 text-center">
                     <button
                       onClick={() => handleRemove(invoice.id)}
@@ -193,25 +180,15 @@ export default function InvoiceTable({ categoryIdentifier }) {
       </div>
 
       {/* Totals dashboard card */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        {/* Total Uren */}
-        <div className="flex items-center p-4 bg-white shadow rounded-lg">
-          <div className="p-3 rounded-full bg-blue-100 text-blue-600 mr-4">
-            <Clock  className="h-6 w-6" />
-          </div>
-          <div>
-            <p className="text-sm text-gray-500">Total Uren</p>
-            <p className="text-lg font-semibold text-gray-900">€{(totalUren/2200).toFixed(2)}</p>
-          </div>
-        </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {/* Total excl */}
         <div className="flex items-center p-4 bg-white shadow rounded-lg">
           <div className="p-3 rounded-full bg-blue-100 text-blue-600 mr-4">
             <DollarSign className="h-6 w-6" />
           </div>
           <div>
-            <p className="text-sm text-gray-500">Bedrag (excl)[EUR]</p>
-            <p className="text-lg font-semibold text-gray-900">€{totalExcl.toFixed(2)}</p>
+            <p className="text-sm text-gray-500">Uren/jaar</p>
+            <p className="text-lg font-semibold text-gray-900">€{totalUren.toFixed(2)}</p>
           </div>
         </div>
 
@@ -221,8 +198,8 @@ export default function InvoiceTable({ categoryIdentifier }) {
             <TrendingUp className="h-6 w-6" />
           </div>
           <div>
-            <p className="text-sm text-gray-500">BTW Bedrag[EUR]</p>
-            <p className="text-lg font-semibold text-gray-900">€{totalIncl.toFixed(2)}</p>
+            <p className="text-sm text-gray-500">AK</p>
+            <p className="text-lg font-semibold text-gray-900">€{totalAK.toFixed(2)}</p>
           </div>
         </div>
       </div>

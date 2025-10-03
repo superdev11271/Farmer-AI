@@ -1,34 +1,21 @@
 from app.db import db
 from datetime import datetime
+import uuid
 
 class Invoice(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    category_identifier = db.Column(db.String, nullable=False)
-    datum = db.Column(db.String)  # or db.Date
-    omschrijving = db.Column(db.String, nullable=True)
-    kg = db.Column(db.Float, nullable=True)
-    mk = db.Column(db.Float, nullable=True)
-    jv = db.Column(db.Float, nullable=True)
-    mv = db.Column(db.Float, nullable=True)
-    zk = db.Column(db.Float, nullable=True)
-    bedrag = db.Column(db.Float, nullable=True)
-    btw = db.Column(db.Float, nullable=True)
-    source_doc = db.Column(db.String, nullable=True)
+    id = db.Column(db.String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
+    category_identifier = db.Column(db.String, nullable=False, index=True)
+    # Store sheet state as JSON/string to avoid many columns and allow flexibility
+    data = db.Column(db.Text, nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
     def to_dict(self):
         return {
             "id": self.id,
             "category_identifier": self.category_identifier,
-            "datum": self.datum,
-            "omschrijving": self.omschrijving,
-            "kg": self.kg,
-            "mk": self.mk,
-            "jv": self.jv,
-            "mv": self.mv,
-            "zk": self.zk,
-            "bedrag": self.bedrag,
-            "btw": self.btw,
-            "source_doc": self.source_doc,
-            "created_at": self.created_at.isoformat()
+            "data": self.data,
+            "created_at": self.created_at.isoformat(),
+            "updated_at": self.updated_at.isoformat(),
         }
+        

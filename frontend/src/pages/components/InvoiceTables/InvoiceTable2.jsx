@@ -15,7 +15,7 @@ export default function InvoiceTable({ categoryIdentifier }) {
     try {
       const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/invoice/${categoryIdentifier}`);
       // Add calculated BedragIncl field
-      const data = res.data.map(inv => ({
+      const data = res.data.data.map(inv => ({
         ...inv,
         BedragIncl: +(Number(inv.bedrag || 0) + Number(inv.bedrag || 0) * (Number(inv.btw || 0) / 100)).toFixed(2),
         Prijs: Number(inv.kg) > 0 ? +((Number(inv.bedrag || 0) / Number(inv.kg || 1)) * 100).toFixed(2) : 0
@@ -67,7 +67,6 @@ export default function InvoiceTable({ categoryIdentifier }) {
       category_identifier: categoryIdentifier,
       source_doc: "",
       datum: "",
-      omschrijving: "",
       kg: null,
       mk: null,
       jv: null,

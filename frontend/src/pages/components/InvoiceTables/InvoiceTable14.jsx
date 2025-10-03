@@ -117,17 +117,23 @@ export default function MilkPayoutSheet({ categoryIdentifier }) {
     const load = async () => {
       try {
         setLoading(true);
-        const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/milk-sheet/${categoryIdentifier}`, {
+        const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/invoice/${categoryIdentifier}`, {
           headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
         });
         if (res.ok) {
           const json = await res.json();
           if (json && json.data) {
             try {
-              const serverData = JSON.parse(json.data);
-              setData(serverData);
-              setBaseline(serverData);
-            } catch { }
+              if (json.data.length > 0) {
+
+                const serverData = json.data[0];
+                setData(serverData);
+                setBaseline(serverData);
+
+              }
+            } catch {
+              console.log("xxxxxxxxxxxxxxxxxxx")
+            }
           }
         }
       } catch { }
@@ -139,13 +145,13 @@ export default function MilkPayoutSheet({ categoryIdentifier }) {
   const saveToServer = async () => {
     try {
       setSaving(true);
-      await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/milk-sheet/`, {
+      await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/invoice/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${localStorage.getItem('token')}`
         },
-        body: JSON.stringify({ category_identifier: categoryIdentifier, data: JSON.stringify(data) })
+        body: JSON.stringify({ category_identifier: categoryIdentifier, data: [data] })
       });
       setBaseline(data);
       setHasChanges(false);

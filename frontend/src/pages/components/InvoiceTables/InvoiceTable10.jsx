@@ -14,7 +14,7 @@ export default function InvoiceTable({ categoryIdentifier }) {
     try {
       const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/invoice/${categoryIdentifier}`);
       // Add calculated BedragIncl field
-      const data = res.data.map(inv => ({
+      const data = res.data.data.map(inv => ({
         ...inv,
         BedragIncl: +(Number(inv.bedrag || 0) + Number(inv.bedrag || 0) * (Number(inv.btw || 0) / 100)).toFixed(2)
       }));
@@ -65,11 +65,7 @@ export default function InvoiceTable({ categoryIdentifier }) {
       source_doc: "",
       datum: "",
       omschrijving: "",
-      kg: null,
-      mk: null,
-      jv: null,
-      mv: null,
-      zk: null,
+      kwh: null,
       bedrag: 0,
       btw: 21,
       BedragIncl: 0,
@@ -84,7 +80,7 @@ export default function InvoiceTable({ categoryIdentifier }) {
       const payload = draftInvoices.map(({ BedragIncl, ...rest }) => rest);
       await axios.post(import.meta.env.VITE_API_BASE_URL + "/api/invoice/", {
         category_identifier: categoryIdentifier,
-        items: payload,
+        data: payload,
       });
       setInvoices(draftInvoices);
       setHasChanges(false);
@@ -102,7 +98,7 @@ export default function InvoiceTable({ categoryIdentifier }) {
   };
 
   // Totals
-  const totalKWH = draftInvoices.reduce((sum, inv) => sum + Number(inv.kg || 0), 0);
+  const totalKWH = draftInvoices.reduce((sum, inv) => sum + Number(inv.kwh || 0), 0);
   const totalExcl = draftInvoices.reduce((sum, inv) => sum + Number(inv.bedrag || 0), 0);
   const totalIncl = draftInvoices.reduce((sum, inv) => sum + Number(inv.BedragIncl || 0), 0);
 
@@ -159,7 +155,7 @@ export default function InvoiceTable({ categoryIdentifier }) {
             <tbody className="bg-white divide-y divide-gray-200">
               {draftInvoices.map(invoice => (
                 <tr key={invoice.id} className="hover:bg-gray-50 transition-colors duration-150">
-                  {["category_identifier", "source_doc", "datum", "omschrijving", "kg", "bedrag", "btw"].map(field => (
+                  {["category_identifier", "source_doc", "datum", "omschrijving", "kwh", "bedrag", "btw"].map(field => (
                     <td
                       key={field}
                       className={`px-3 py-2 text-sm ${field === "bedrag" || field === "btw" ? "text-right" : ""}`}

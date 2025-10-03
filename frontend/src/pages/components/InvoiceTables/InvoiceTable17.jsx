@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Trash2, Plus, Save, X, DollarSign, TrendingUp ,Clock } from "lucide-react";
+import { Trash2, Plus, Save, X, DollarSign, Scale, Factory, Briefcase, Users, Building2, TrendingUp, Droplet } from "lucide-react";
+
 import toast from "react-hot-toast";
 import axios from "axios";
 
@@ -16,7 +17,9 @@ export default function InvoiceTable({ categoryIdentifier }) {
       // Add calculated BedragIncl field
       const data = res.data.data.map(inv => ({
         ...inv,
-        BedragIncl: +(Number(inv.bedrag || 0) + Number(inv.bedrag || 0) * (Number(inv.btw || 0) / 100)).toFixed(2)
+        BedragIncl: +(Number(inv.bedrag || 0) + Number(inv.bedrag || 0) * (Number(inv.btw || 0) / 100)).toFixed(2),
+        kg_ds: +(Number(inv.kg || 0) * Number(inv.ds_percent || 0) / 100).toFixed(2),
+        Prijs: Number(inv.kg) > 0 ? +((Number(inv.bedrag || 0) / Number(inv.kg || 1)) * 100).toFixed(2) : 0
       }));
       setInvoices(data);
       setDraftInvoices(data);
@@ -38,12 +41,15 @@ export default function InvoiceTable({ categoryIdentifier }) {
       prev.map(inv => {
         if (inv.id === id) {
           const updated = { ...inv, [field]: value };
-          if (field === "bedrag" || field === "btw") {
-            const amountNum = parseFloat(updated.bedrag) || 0;
-            const vatPerc = parseFloat(updated.btw) || 0;
-            updated.btw = vatPerc;
-            updated.BedragIncl = +(amountNum + amountNum * (vatPerc / 100)).toFixed(2);
-          }
+          const amountNum = parseFloat(updated.bedrag) || 0;
+          const vatPerc = parseFloat(updated.btw) || 0;
+          const weight = parseFloat(updated.kg) || 0;
+          const kg = parseFloat(updated.kg) || 0;
+          const ds_percent = parseFloat(updated.ds_percent) || 0;
+          updated.btw = vatPerc;
+          updated.BedragIncl = +(amountNum + amountNum * (vatPerc / 100)).toFixed(2);
+          updated.Prijs = weight > 0 ? +((amountNum / weight) * 100).toFixed(2) : 0;
+          updated.kg_ds = +((kg * ds_percent) / 100).toFixed(2);
           return updated;
         }
         return inv;
@@ -64,10 +70,17 @@ export default function InvoiceTable({ categoryIdentifier }) {
       category_identifier: categoryIdentifier,
       source_doc: "",
       datum: "",
-      uren: null,
+      kg: null,
+      ds_percent: 0,
+      kg_ds: 0,
+      mk: null,
+      jv: null,
+      mv: null,
+      zk: null,
       bedrag: 0,
       btw: 21,
       BedragIncl: 0,
+      Prijs: 0
     };
     setDraftInvoices(prev => [...prev, newItem]);
     setHasChanges(true);
@@ -76,10 +89,10 @@ export default function InvoiceTable({ categoryIdentifier }) {
   const handleSave = async () => {
     try {
       // Send to backend using backend keys
-      const payload = draftInvoices.map(({ BedragIncl, ...rest }) => rest);
+      const payload = draftInvoices.map(({ kg_ds, BedragIncl, ...rest }) => rest);
       await axios.post(import.meta.env.VITE_API_BASE_URL + "/api/invoice/", {
         category_identifier: categoryIdentifier,
-        data: payload,
+        items: payload,
       });
       setInvoices(draftInvoices);
       setHasChanges(false);
@@ -97,9 +110,14 @@ export default function InvoiceTable({ categoryIdentifier }) {
   };
 
   // Totals
-  const totalUren = draftInvoices.reduce((sum, inv) => sum + Number(inv.uren || 0), 0);
   const totalExcl = draftInvoices.reduce((sum, inv) => sum + Number(inv.bedrag || 0), 0);
   const totalIncl = draftInvoices.reduce((sum, inv) => sum + Number(inv.BedragIncl || 0), 0);
+  const totalKg = draftInvoices.reduce((sum, inv) => sum + Number(inv.kg || 0), 0);
+  const totalKgDs = draftInvoices.reduce((sum, inv) => sum + Number(inv.kg_ds || 0), 0);
+  const totalMK = draftInvoices.reduce((sum, inv) => sum + Number(inv.mk || 0), 0);
+  const totalJV = draftInvoices.reduce((sum, inv) => sum + Number(inv.jv || 0), 0);
+  const totalMV = draftInvoices.reduce((sum, inv) => sum + Number(inv.mv || 0), 0);
+  const totalZK = draftInvoices.reduce((sum, inv) => sum + Number(inv.zk || 0), 0);
 
   return (
     <div className="space-y-6">
@@ -142,21 +160,28 @@ export default function InvoiceTable({ categoryIdentifier }) {
               <tr>
                 <th className="w-1/6 table-header">Category ID</th>
                 <th className="w-1/3 table-header">Source Doc</th>
-                <th className="w-1/6 table-header">Datum</th>
-                <th className="w-1/4 table-header">Uren</th>
+                <th className="w-1/6 table-header text-right">Datum</th>
+                <th className="w-1/6 table-header text-right">Kg</th>
+                <th className="w-1/6 table-header text-right">% D.S.</th>
+                <th className="w-1/6 table-header text-right">Kg D.s.</th>
+                <th className="w-1/6 table-header text-right">MK</th>
+                <th className="w-1/6 table-header text-right">JV</th>
+                <th className="w-1/6 table-header text-right">MV</th>
+                <th className="w-1/6 table-header text-right">ZK</th>
                 <th className="w-1/6 table-header text-right">Bedrag</th>
                 <th className="w-1/12 table-header text-right">BTW %</th>
                 <th className="w-1/6 table-header text-right">Bedrag Incl.</th>
+                <th className="w-1/6 table-header text-right">Prijs/100 kg</th>
                 <th className="w-1/12 table-header text-center">Actions</th>
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
               {draftInvoices.map(invoice => (
                 <tr key={invoice.id} className="hover:bg-gray-50 transition-colors duration-150">
-                  {["category_identifier", "source_doc", "datum", "uren", "bedrag", "btw"].map(field => (
+                  {["category_identifier", "source_doc", "datum", "kg", "ds_percent"].map(field => (
                     <td
                       key={field}
-                      className={`px-3 py-2 text-sm ${field === "bedrag" || field === "btw" ? "text-right" : ""}`}
+                      className={`px-3 py-2 text-sm text-right`}
                       onDoubleClick={() => handleDoubleClick(invoice.id, field)}
                     >
                       {editingCell.id === invoice.id && editingCell.field === field ? (
@@ -164,7 +189,30 @@ export default function InvoiceTable({ categoryIdentifier }) {
                           type={field === "bedrag" || field === "btw" ? "number" : "text"}
                           autoFocus
                           onBlur={handleBlur}
-                          value={invoice[field] != null ? invoice[field] : ""}
+                          value={invoice[field] ? invoice[field] : ""}
+                          onChange={e => handleChange(invoice.id, field, e.target.value)}
+                          className="w-full border border-blue-400 rounded px-2 py-1 text-sm text-right focus:outline-none box-border"
+                        />
+                      ) : field === "bedrag" || field === "btw" ? (
+                        invoice[field]
+                      ) : (
+                        invoice[field]
+                      )}
+                    </td>
+                  ))}
+                  <td className="px-3 py-2 text-right font-semibold">{invoice.kg_ds.toFixed(2)}</td>
+                  {["mk", "jv", "mv", "zk", "bedrag", "btw"].map(field => (
+                    <td
+                      key={field}
+                      className={`px-3 py-2 text-sm text-right`}
+                      onDoubleClick={() => handleDoubleClick(invoice.id, field)}
+                    >
+                      {editingCell.id === invoice.id && editingCell.field === field ? (
+                        <input
+                          type={field === "bedrag" || field === "btw" ? "number" : "text"}
+                          autoFocus
+                          onBlur={handleBlur}
+                          value={invoice[field] ? invoice[field] : ""}
                           onChange={e => handleChange(invoice.id, field, e.target.value)}
                           className="w-full border border-blue-400 rounded px-2 py-1 text-sm text-right focus:outline-none box-border"
                         />
@@ -176,6 +224,9 @@ export default function InvoiceTable({ categoryIdentifier }) {
                     </td>
                   ))}
                   <td className="px-3 py-2 text-right font-semibold">€{invoice.BedragIncl.toFixed(2)}</td>
+                  <td className="px-3 py-2 text-right font-semibold">€{invoice.Prijs.toFixed(2)}</td>
+
+
                   <td className="px-3 py-2 text-center">
                     <button
                       onClick={() => handleRemove(invoice.id)}
@@ -193,20 +244,75 @@ export default function InvoiceTable({ categoryIdentifier }) {
       </div>
 
       {/* Totals dashboard card */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        {/* Total Uren */}
+      <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
+        {/* Total Kg */}
         <div className="flex items-center p-4 bg-white shadow rounded-lg">
           <div className="p-3 rounded-full bg-blue-100 text-blue-600 mr-4">
-            <Clock  className="h-6 w-6" />
+            <Scale className="h-6 w-6" />
           </div>
           <div>
-            <p className="text-sm text-gray-500">Total Uren</p>
-            <p className="text-lg font-semibold text-gray-900">€{(totalUren/2200).toFixed(2)}</p>
+            <p className="text-sm text-gray-500">Total Kg</p>
+            <p className="text-lg font-semibold text-gray-900">€{totalKg.toFixed(2)}</p>
           </div>
         </div>
-        {/* Total excl */}
+        {/* Total Kg */}
         <div className="flex items-center p-4 bg-white shadow rounded-lg">
           <div className="p-3 rounded-full bg-blue-100 text-blue-600 mr-4">
+            <Droplet className="h-6 w-6" />
+          </div>
+          <div>
+            <p className="text-sm text-gray-500">Kg D.S</p>
+            <p className="text-lg font-semibold text-gray-900">{totalKgDs.toFixed(2)}</p>
+          </div>
+        </div>
+
+        {/* Total MK */}
+        <div className="flex items-center p-4 bg-white shadow rounded-lg">
+          <div className="p-3 rounded-full bg-purple-100 text-purple-600 mr-4">
+            <Factory className="h-6 w-6" />
+          </div>
+          <div>
+            <p className="text-sm text-gray-500">Total MK</p>
+            <p className="text-lg font-semibold text-gray-900">{totalMK.toFixed(2)}</p>
+          </div>
+        </div>
+
+        {/* Total JV */}
+        <div className="flex items-center p-4 bg-white shadow rounded-lg">
+          <div className="p-3 rounded-full bg-orange-100 text-orange-600 mr-4">
+            <Briefcase className="h-6 w-6" />
+          </div>
+          <div>
+            <p className="text-sm text-gray-500">Total JV</p>
+            <p className="text-lg font-semibold text-gray-900">{totalJV.toFixed(2)}</p>
+          </div>
+        </div>
+
+        {/* Total MV */}
+        <div className="flex items-center p-4 bg-white shadow rounded-lg">
+          <div className="p-3 rounded-full bg-yellow-100 text-yellow-600 mr-4">
+            <Users className="h-6 w-6" />
+          </div>
+          <div>
+            <p className="text-sm text-gray-500">Total MV</p>
+            <p className="text-lg font-semibold text-gray-900">{totalMV.toFixed(2)}</p>
+          </div>
+        </div>
+
+        {/* Total ZK */}
+        <div className="flex items-center p-4 bg-white shadow rounded-lg">
+          <div className="p-3 rounded-full bg-pink-100 text-pink-600 mr-4">
+            <Building2 className="h-6 w-6" />
+          </div>
+          <div>
+            <p className="text-sm text-gray-500">Total ZK</p>
+            <p className="text-lg font-semibold text-gray-900">{totalZK.toFixed(2)}</p>
+          </div>
+        </div>
+
+        {/* Bedrag (excl)[EUR] */}
+        <div className="flex items-center p-4 bg-white shadow rounded-lg">
+          <div className="p-3 rounded-full bg-indigo-100 text-indigo-600 mr-4">
             <DollarSign className="h-6 w-6" />
           </div>
           <div>
@@ -215,7 +321,7 @@ export default function InvoiceTable({ categoryIdentifier }) {
           </div>
         </div>
 
-        {/* Total incl */}
+        {/* BTW Bedrag[EUR] */}
         <div className="flex items-center p-4 bg-white shadow rounded-lg">
           <div className="p-3 rounded-full bg-green-100 text-green-600 mr-4">
             <TrendingUp className="h-6 w-6" />

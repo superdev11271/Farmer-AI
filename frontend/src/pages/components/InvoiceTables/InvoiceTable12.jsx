@@ -14,10 +14,7 @@ export default function InvoiceTable({ categoryIdentifier }) {
     try {
       const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/invoice/${categoryIdentifier}`);
       // Add calculated BedragIncl field
-      const data = res.data.map(inv => ({
-        ...inv,
-        BedragIncl: +(Number(inv.bedrag || 0) + Number(inv.bedrag || 0) * (Number(inv.btw || 0) / 100)).toFixed(2)
-      }));
+      const data = res.data.data;
       setInvoices(data);
       setDraftInvoices(data);
     } catch (err) {
@@ -65,14 +62,8 @@ export default function InvoiceTable({ categoryIdentifier }) {
       source_doc: "",
       datum: "",
       omschrijving: "",
-      kg: null,
-      mk: null,
-      jv: null,
-      mv: null,
-      zk: null,
+      oppervlakte: null,
       bedrag: 0,
-      btw: 21,
-      BedragIncl: 0,
     };
     setDraftInvoices(prev => [...prev, newItem]);
     setHasChanges(true);
@@ -84,7 +75,7 @@ export default function InvoiceTable({ categoryIdentifier }) {
       const payload = draftInvoices.map(({ BedragIncl, ...rest }) => rest);
       await axios.post(import.meta.env.VITE_API_BASE_URL + "/api/invoice/", {
         category_identifier: categoryIdentifier,
-        items: payload,
+        data: payload,
       });
       setInvoices(draftInvoices);
       setHasChanges(false);
