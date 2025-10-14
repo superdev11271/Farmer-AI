@@ -11,15 +11,16 @@ const TotalsTable = memo(({ sub_index, item_index, sub_name, categoryIdentifier,
             const res = await axios.get(
                 `${import.meta.env.VITE_API_BASE_URL}/api/invoice/${categoryIdentifier}`
             );
-            const totalKWh = res.data.reduce(
+            const data = res.data.data || [];
+            const totalKWh = data.reduce(
                 (sum, inv) => sum + Number(inv.kg || 0),
                 0
             );
-            const totalExcl = res.data.reduce(
+            const totalExcl = data.reduce(
                 (sum, inv) => sum + Number(inv.bedrag || 0),
                 0
             );
-            const totalIncl = res.data.reduce(
+            const totalIncl = data.reduce(
                 (sum, inv) =>
                     sum +
                     Number(inv.bedrag || 0) +

@@ -92,7 +92,7 @@ export default function InvoiceTable({ categoryIdentifier }) {
       const payload = draftInvoices.map(({ kg_ds, BedragIncl, ...rest }) => rest);
       await axios.post(import.meta.env.VITE_API_BASE_URL + "/api/invoice/", {
         category_identifier: categoryIdentifier,
-        items: payload,
+        data: payload,
       });
       setInvoices(draftInvoices);
       setHasChanges(false);

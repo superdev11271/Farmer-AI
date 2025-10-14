@@ -133,24 +133,11 @@ def handle_result(data, doc_id):
         print("Processing succeeded. Result:")
         for item in data:
             if item.get("category_identifier"):
-                invoice = Invoice(
-                    category_identifier=item.get("category_identifier"),
-                    datum=item.get("Datum"),
-                    omschrijving=item.get("Omschrijving"),
-                    kg=safe_float(item.get("Amount")),
-                    mk=safe_float(item.get("MK")),
-                    jv=safe_float(item.get("JV")),
-                    mv=safe_float(item.get("MV")),
-                    zk=safe_float(item.get("ZK")),
-                    bedrag=safe_float(item.get("Bedrag")),  # e.g., "5" → 5.0
-                    source_doc = doc.original_name,
-                    btw=safe_float(item.get("BTW"))         # e.g., 21 → 21.0
-                )
-                db.session.add(invoice)
+                sheet = Invoice(category_identifier=item.get("category_identifier"), data=json.dumps(item))
+                db.session.add(sheet)
         try:
             db.session.commit()
             
-
             doc.status = 3
 
             db.session.commit()

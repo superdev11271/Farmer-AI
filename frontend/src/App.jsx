@@ -6,7 +6,7 @@ import { NotificationProvider, useNotification } from './contexts/NotificationCo
 import Login from './pages/Login.jsx';
 import Register from './pages/Register.jsx';
 import Dashboard from './pages/Dashboard.jsx';
-import Settings from './pages/Settings.jsx';
+import Export from './pages/Export.jsx';
 import Invoice from './pages/Invoice.jsx';
 import Document from './pages/Document.jsx';
 import References from './pages/References.jsx';
@@ -124,7 +124,7 @@ function App() {
               } />
               <Route path="/export" element={
                 <ProtectedRoute>
-                  <Layout><Settings /></Layout>
+                  <Layout><Export /></Layout>
                 </ProtectedRoute>
               } />
               <Route path="/" element={<Navigate to="/dashboard" replace />} />

@@ -13,6 +13,13 @@ import ExportTotalsCard8 from './components/ExportTables/ExportTable8';
 import ExportTotalsCard9 from './components/ExportTables/ExportTable9';
 import ExportTotalsCard10 from './components/ExportTables/ExportTable10';
 import ExportTotalsCard11 from './components/ExportTables/ExportTable11';
+import ExportTotalsCard12 from './components/ExportTables/ExportTable12';
+import ExportTotalsCard13 from './components/ExportTables/ExportTable13';
+import ExportTotalsCard14 from './components/ExportTables/ExportTable14';
+import ExportTotalsCard15 from './components/ExportTables/ExportTable15';
+import ExportTotalsCard16 from './components/ExportTables/ExportTable16';
+import ExportTotalsCard17 from './components/ExportTables/ExportTable17';
+import ExportTotalsCard18 from './components/ExportTables/ExportTable18';
 
 const Dashboard = () => {
   const [currentCateoryIdentifier, setCurrentCategoryIdentifier] = useState(null);
@@ -44,6 +51,20 @@ const Dashboard = () => {
       return <ExportTotalsCard10 key={key} sub_index={sub_index} item_index={item_index} sub_name={sub_name} categoryIdentifier={categoryIdentifier} setExportJsonArray={setExportJsonArray} />
     if (invoice_types.type11.includes(categoryIdentifier))
       return <ExportTotalsCard11 key={key} sub_index={sub_index} item_index={item_index} sub_name={sub_name} categoryIdentifier={categoryIdentifier} setExportJsonArray={setExportJsonArray} />
+    if (invoice_types.type12.includes(categoryIdentifier))
+      return <ExportTotalsCard12 key={key} sub_index={sub_index} item_index={item_index} sub_name={sub_name} categoryIdentifier={categoryIdentifier} setExportJsonArray={setExportJsonArray} />
+    if (invoice_types.type13.includes(categoryIdentifier))
+      return <ExportTotalsCard13 key={key} sub_index={sub_index} item_index={item_index} sub_name={sub_name} categoryIdentifier={categoryIdentifier} setExportJsonArray={setExportJsonArray} />
+    if (invoice_types.type14.includes(categoryIdentifier))
+      return <ExportTotalsCard14 key={key} sub_index={sub_index} item_index={item_index} sub_name={sub_name} categoryIdentifier={categoryIdentifier} setExportJsonArray={setExportJsonArray} />
+    if (invoice_types.type15.includes(categoryIdentifier))
+      return <ExportTotalsCard15 key={key} sub_index={sub_index} item_index={item_index} sub_name={sub_name} categoryIdentifier={categoryIdentifier} setExportJsonArray={setExportJsonArray} />
+    if (invoice_types.type16.includes(categoryIdentifier))
+      return <ExportTotalsCard16 key={key} sub_index={sub_index} item_index={item_index} sub_name={sub_name} categoryIdentifier={categoryIdentifier} setExportJsonArray={setExportJsonArray} />
+    if (invoice_types.type17.includes(categoryIdentifier))
+      return <ExportTotalsCard17 key={key} sub_index={sub_index} item_index={item_index} sub_name={sub_name} categoryIdentifier={categoryIdentifier} setExportJsonArray={setExportJsonArray} />
+    if (invoice_types.type18.includes(categoryIdentifier))
+      return <ExportTotalsCard18 key={key} sub_index={sub_index} item_index={item_index} sub_name={sub_name} categoryIdentifier={categoryIdentifier} setExportJsonArray={setExportJsonArray} />
   }
   return (
     <div className="space-y-6">

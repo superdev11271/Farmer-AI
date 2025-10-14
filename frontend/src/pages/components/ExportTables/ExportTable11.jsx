@@ -12,7 +12,8 @@ const TotalsTable = memo(({ sub_index, item_index, sub_name, categoryIdentifier,
                 `${import.meta.env.VITE_API_BASE_URL}/api/invoice/${categoryIdentifier}`
             );
 
-            const totalExcl = res.data.reduce(
+            const data = res.data.data || [];
+            const totalExcl = data.reduce(
                 (sum, inv) => sum + Number(inv.bedrag || 0),
                 0
             );

@@ -51,9 +51,9 @@ const Invoices = () => {
       {invoice_types.type17.includes(currentCateoryIdentifier) && <InvoiceTable17 categoryIdentifier={currentCateoryIdentifier} />}
       {invoice_types.type18.includes(currentCateoryIdentifier) && <InvoiceTable18 categoryIdentifier={currentCateoryIdentifier} />}
 
-      {currentCateoryIdentifier == "R1-1" && <InvoiceTableR1_1 />}
-      {currentCateoryIdentifier == "R1-4" && <InvoiceTableR1_4 />}
-      {currentCateoryIdentifier == "R8-2" && <InvoiceTableR8_2 />}
+      {currentCateoryIdentifier == "R1-1" && <InvoiceTableR1_1 categoryIdentifier={currentCateoryIdentifier}/>}
+      {currentCateoryIdentifier == "R1-4" && <InvoiceTableR1_4 categoryIdentifier={currentCateoryIdentifier}/>}
+      {currentCateoryIdentifier == "R8-2" && <InvoiceTableR8_2 categoryIdentifier={currentCateoryIdentifier}/>}
     </div>
   );
 };

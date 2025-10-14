@@ -1,21 +1,18 @@
-// TotalsTable.jsx
+// ExportTable12.jsx
 import React, { useState, useEffect, memo } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 
-const TotalsTable = memo(({ sub_index, item_index, sub_name, categoryIdentifier, setExportJsonArray }) => {
-    const [totals, setTotals] = useState({ totalExcl: 0, totalIncl: 0, totalUren: 0 });
+const ExportTable12 = memo(({ sub_index, item_index, sub_name, categoryIdentifier, setExportJsonArray }) => {
+    const [totals, setTotals] = useState({ totalExcl: 0, totalIncl: 0 });
 
     const fetchTotals = async () => {
         try {
             const res = await axios.get(
                 `${import.meta.env.VITE_API_BASE_URL}/api/invoice/${categoryIdentifier}`
             );
+
             const data = res.data.data || [];
-            const totalUren = data.reduce(
-                (sum, inv) => sum + Number(inv.kg || 0),
-                0
-            );
             const totalExcl = data.reduce(
                 (sum, inv) => sum + Number(inv.bedrag || 0),
                 0
@@ -28,10 +25,10 @@ const TotalsTable = memo(({ sub_index, item_index, sub_name, categoryIdentifier,
                 0
             );
 
-            setTotals({ totalUren, totalExcl, totalIncl });
+            setTotals({ totalExcl, totalIncl });
             setExportJsonArray(prev => [...prev, {
                 table_name: `${sub_index}${item_index ? " - " + item_index : ""}: ${sub_name}`,
-                data: { "Uren": totalUren, "Bedrag (excl)[EUR]": totalExcl, "BTW Bedrag[EUR]": totalIncl }
+                data: { "Bedrag (excl)[EUR]": totalExcl, "BTW Bedrag[EUR]": totalIncl }
             }])
         } catch (err) {
             toast.error("Failed to fetch invoice data");
@@ -56,9 +53,6 @@ const TotalsTable = memo(({ sub_index, item_index, sub_name, categoryIdentifier,
                         <tr>
                             {/* Table headers with custom color */}
                             <th className="border border-gray-300 px-4 py-2 text-center bg-gray-100 text-green-700">
-                                Uren
-                            </th>
-                            <th className="border border-gray-300 px-4 py-2 text-center bg-gray-100 text-green-700">
                                 Bedrag (excl)[EUR]
                             </th>
                             <th className="border border-gray-300 px-4 py-2 text-center bg-gray-100 text-green-700">
@@ -68,7 +62,6 @@ const TotalsTable = memo(({ sub_index, item_index, sub_name, categoryIdentifier,
                     </thead>
                     <tbody>
                         <tr>
-                            <td className="border border-gray-300 px-4 py-2 text-center">{totals.totalUren.toFixed(2)}</td>
                             <td className="border border-gray-300 px-4 py-2 text-center">€{totals.totalExcl.toFixed(2)}</td>
                             <td className="border border-gray-300 px-4 py-2 text-center">
                                 €{totals.totalIncl.toFixed(2)}
@@ -81,5 +74,4 @@ const TotalsTable = memo(({ sub_index, item_index, sub_name, categoryIdentifier,
     );
 })
 
-
-export default TotalsTable
+export default ExportTable12

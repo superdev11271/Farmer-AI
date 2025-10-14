@@ -55,15 +55,8 @@ def get_prompt(prompts):
 
     [{
     category_identifier,
-    Datum:,
-    Omschrijving:,
-    Amount:, 
-    MK:, 
-    JV:, 
-    MV:, 
-    ZK:, 
-    Bedrag:, 
-    BTW: 
+    data: {
+     /////return items that are in the invoice document pdf.
     },....]
     It is necessary to recognize and distinguish decimal points and commas accurately.
     If number contain comma, remove it and return paresed number to use in code.

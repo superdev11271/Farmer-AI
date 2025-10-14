@@ -12,22 +12,23 @@ const TotalsTable = memo(({ sub_index, item_index, sub_name, categoryIdentifier,
                 `${import.meta.env.VITE_API_BASE_URL}/api/invoice/${categoryIdentifier}`
             );
 
-            const totalExcl = res.data.reduce(
+            const data = res.data.data || [];
+            const totalExcl = data.reduce(
                 (sum, inv) => sum + Number(inv.bedrag || 0),
                 0
             );
-            const totalIncl = res.data.reduce(
+            const totalIncl = data.reduce(
                 (sum, inv) =>
                     sum +
                     Number(inv.bedrag || 0) +
                     (Number(inv.bedrag || 0) * (Number(inv.btw || 0) / 100)),
                 0
             );
-            const totalKg = res.data.reduce((sum, inv) => sum + Number(inv.kg || 0), 0);
-            const totalMK = res.data.reduce((sum, inv) => sum + Number(inv.mk || 0), 0);
-            const totalJV = res.data.reduce((sum, inv) => sum + Number(inv.jv || 0), 0);
-            const totalMV = res.data.reduce((sum, inv) => sum + Number(inv.mv || 0), 0);
-            const totalZK = res.data.reduce((sum, inv) => sum + Number(inv.zk || 0), 0);
+            const totalKg = data.reduce((sum, inv) => sum + Number(inv.kg || 0), 0);
+            const totalMK = data.reduce((sum, inv) => sum + Number(inv.mk || 0), 0);
+            const totalJV = data.reduce((sum, inv) => sum + Number(inv.jv || 0), 0);
+            const totalMV = data.reduce((sum, inv) => sum + Number(inv.mv || 0), 0);
+            const totalZK = data.reduce((sum, inv) => sum + Number(inv.zk || 0), 0);
 
             setTotals({ totalKg, totalMK, totalJV, totalMV, totalZK, totalExcl, totalIncl });
             setExportJsonArray(prev => [...prev, {
