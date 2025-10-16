@@ -55,7 +55,7 @@ const baseState = () => ({
   vetgehalte: emptyNumRec(),
   eiwitgehalte: emptyNumRec(),
   voorschotOntvangen: emptyNumRec(),
-  btwOpVoorschot: emptyNumRec(),
+  BTWOpVoorschot: emptyNumRec(),
   voorschotOntvangenInclBTW: emptyNumRec(),
   melkgeldVet: emptyNumRec(),
   melkgeldEiwit: emptyNumRec(),
@@ -67,11 +67,11 @@ const baseState = () => ({
   getrouwheidspremie: emptyNumRec(),
   anderePremies: emptyNumRec(),
   ophaalKostenFabriek: emptyNumRec(),
-  bedragStrafpunten: emptyNumRec(),
+  BedragStrafpunten: emptyNumRec(),
   heffingenBijdragen: emptyNumRec(),
   totaalMelkgeld: emptyNumRec(),
-  btwMelkgeld: emptyNumRec(),
-  btwHeffingenBijdragen: emptyNumRec(),
+  BTWMelkgeld: emptyNumRec(),
+  BTWHeffingenBijdragen: emptyNumRec(),
   totaalOntvangen: emptyNumRec(),
   totaalOntvangenViaVoorschot: emptyNumRec(),
   totaalOntvangenViaAfrekening: emptyNumRec(),
@@ -82,20 +82,20 @@ const INPUT_ROWS = [
   "vetgehalte",
   "eiwitgehalte",
   "voorschotOntvangen",
-  "btwOpVoorschot",
+  "BTWOpVoorschot",
   "kwaliteitsPremie",
   "ikmPremie",
   "hoeveelheidspremie",
   "getrouwheidspremie",
   "anderePremies",
   "ophaalKostenFabriek",
-  "bedragStrafpunten",
+  "BedragStrafpunten",
   "heffingenBijdragen",
   "melkgeldVet",
   "melkgeldEiwit",
   "negatieveGrondstofprijs",
-  "btwMelkgeld",
-  "btwHeffingenBijdragen"
+  "BTWMelkgeld",
+  "BTWHeffingenBijdragen"
 ];
 
 const LABEL = {
@@ -103,7 +103,7 @@ const LABEL = {
   vetgehalte: "Vetgehalte (%)",
   eiwitgehalte: "Eiwitgehalte (%)",
   voorschotOntvangen: "Ontvangen voorschot",
-  btwOpVoorschot: "BTW op voorschot",
+  BTWOpVoorschot: "BTW op voorschot",
   voorschotOntvangenInclBTW: "Ontvangen voorschot incl. BTW",
   melkgeldVet: "Melkgeld vet",
   melkgeldEiwit: "Melkgeld eiwit",
@@ -115,11 +115,11 @@ const LABEL = {
   getrouwheidspremie: "Getrouwheidspremie",
   anderePremies: "Andere premies",
   ophaalKostenFabriek: "(Ophaal)kosten fabriek",
-  bedragStrafpunten: "Bedrag strafpunten",
+  BedragStrafpunten: "Bedrag strafpunten",
   heffingenBijdragen: "Heffingen/bijdragen",
   totaalMelkgeld: "Totaal melkgeld",
-  btwMelkgeld: "BTW melkgeld",
-  btwHeffingenBijdragen: "BTW heffingen/bijdragen",
+  BTWMelkgeld: "BTW melkgeld",
+  BTWHeffingenBijdragen: "BTW heffingen/bijdragen",
   totaalOntvangen: "Totaal ontvangen",
   totaalOntvangenViaVoorschot: "Totaal ontvangen — Via voorschot",
   totaalOntvangenViaAfrekening: "Totaal ontvangen — Via afrekening",
@@ -131,7 +131,7 @@ const SECTION_BREAK_AFTER = [
   "totaalBasisMelkgeld",
   "anderePremies",
   "heffingenBijdragen",
-  "btwHeffingenBijdragen",
+  "BTWHeffingenBijdragen",
 ];
 
 const ROWS_ORDER = [
@@ -139,7 +139,7 @@ const ROWS_ORDER = [
   "vetgehalte",
   "eiwitgehalte",
   "voorschotOntvangen",
-  "btwOpVoorschot",
+  "BTWOpVoorschot",
   "voorschotOntvangenInclBTW",
   "melkgeldVet",
   "melkgeldEiwit",
@@ -151,11 +151,11 @@ const ROWS_ORDER = [
   "getrouwheidspremie",
   "anderePremies",
   "ophaalKostenFabriek",
-  "bedragStrafpunten",
+  "BedragStrafpunten",
   "heffingenBijdragen",
   "totaalMelkgeld",
-  "btwMelkgeld",
-  "btwHeffingenBijdragen",
+  "BTWMelkgeld",
+  "BTWHeffingenBijdragen",
   "totaalOntvangen",
   "totaalOntvangenViaVoorschot",
   "totaalOntvangenViaAfrekening",
@@ -249,17 +249,17 @@ export default function MilkPayoutSheet({ categoryIdentifier }) {
 
       const kosten =
         (data.ophaalKostenFabriek[m] || 0) +
-        (data.bedragStrafpunten[m] || 0);
+        (data.BedragStrafpunten[m] || 0);
 
       const heffingen = data.heffingenBijdragen[m] || 0;
 
       d.totaalMelkgeld[m] = d.totaalBasisMelkgeld[m] + premies - kosten - heffingen;
-      d.voorschotOntvangenInclBTW[m] = d.voorschotOntvangen[m] + d.btwOpVoorschot[m];
-      d.btwHeffingenBijdragen[m] = heffingen;
+      d.voorschotOntvangenInclBTW[m] = d.voorschotOntvangen[m] + d.BTWOpVoorschot[m];
+      d.BTWHeffingenBijdragen[m] = heffingen;
 
       d.totaalOntvangen[m] =
         d.totaalMelkgeld[m] +
-        d.btwMelkgeld[m] -
+        d.BTWMelkgeld[m] -
         heffingen;
 
       d.totaalOntvangenViaVoorschot[m] = d.voorschotOntvangenInclBTW[m]

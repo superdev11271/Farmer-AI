@@ -8,6 +8,23 @@
                 "name": "BEDRIJFSGEGEVENS",
                 "identifier": "R1-1",
                 "description": "",
+                "return_value": [
+                    "companyType",
+                    "milkInstallation",
+                    "vatType",
+                    "ownership",
+                    "lostArea",
+                    "cultivatedArea",
+                    "totalPlots",
+                    "plots0to2",
+                    "plots2to5",
+                    "plotsOver5",
+                    "homePlotArea",
+                    "drainedArea",
+                    "irrigableArea",
+                    "sprinklerArea",
+                    "grazingSystem"
+                ],
                 "items": []
             },
             {
@@ -19,11 +36,23 @@
                         "name": "REGULIERE PACHTEN",
                         "identifier": "R1-2-1",
                         "description": "",
+                        "return_value": [
+                            "Datum",
+                            "Omschrijving",
+                            "Oppervlakte",
+                            "Bedrag"
+                        ],
                         "items": []
                     },
                     {
                         "name": "SEIZOENS PACHTE",
                         "identifier": "R1-2-2",
+                        "return_value": [
+                            "Datum",
+                            "Omschrijving",
+                            "Oppervlakte",
+                            "Bedrag"
+                        ],
                         "description": "",
                         "items": []
                     }
@@ -32,12 +61,20 @@
             {
                 "name": "ONROERENDE VOORHEFFING OP GROND",
                 "identifier": "R1-3",
+                "return_value": [
+                    "Datum",
+                    "Omschrijving",
+                    "Bedrag"
+                ],
                 "description": "Onroerende voorheffng op de gebouwen in hoofdstuk 2 bij de kosten van de gebouwen noterem",
                 "items": []
             },
             {
                 "name": "TEELTPLAN",
                 "identifier": "R1-4",
+                "return_value": [
+                    ""
+                ],
                 "description": "Vooraleer u kan invullen djent u oppetvlakte per teelt in te vullen in onderstaande lijst. Bij invullen van oppetvlakte per teelt verschijnt onderaan het tabblad van deze teelt en kan u deze teelt",
                 "items": []
             }
@@ -51,30 +88,62 @@
             {
                 "name": "TRAKTOREN : herstellingen, onderhoud, huur en verzekeringen",
                 "identifier": "R2-1",
+                "return_value": [
+                    "Datum",
+                    "Omschrijving",
+                    "Bedrag",
+                    "BTW"
+                ],
                 "description": "Dure herstellingen ( vanaf 3.000 EUR ) worden in het inventarisboek geschrevem",
                 "items": []
             },
             {
                 "name": "BRANDSTOF EN OLIE",
                 "identifier": "R2-2",
+                "return_value": [
+                    "Datum",
+                    "LitersTotaal",
+                    "LitersPrivé",
+                    "Litersbedrijf",
+                    "Bedrag",
+                    "BTW"
+                ],
                 "description": "Aantal liters bijgekocht dit boekjaar -",
                 "items": []
             },
             {
                 "name": "MACHINES GEBRUIKT VOOR HET VOEREN EN VOOR DE STAL :",
                 "identifier": "R2-3",
+                "return_value": [
+                    "Datum",
+                    "Omschrijving",
+                    "Bedrag",
+                    "BTW"
+                ],
                 "description": "Let op : huur van machines of het laten voeren van uw veestapel, moet hier genoteerd wordem Dure herstellingen ( vanaf 3.000 EUR ) worden in het inventarisboek geschrevem",
                 "items": []
             },
             {
                 "name": "MACHINES GEBRUIKT VOOR HET VELDWERK",
                 "identifier": "R2-4",
+                "return_value": [
+                    "Datum",
+                    "Omschrijving",
+                    "Bedrag",
+                    "BTW"
+                ],
                 "description": "De huur van machines wordt als loonwerk bij de afzonderlijke teelten ingeschrevem Dure herstellingen ( vanaf 3.000 EUR ) worden in het inventarisboek geschrevem",
                 "items": []
             },
             {
                 "name": "MACHINES OVERIGE",
                 "identifier": "R2-5",
+                "return_value": [
+                    "Datum",
+                    "Omschrijving",
+                    "Bedrag",
+                    "BTW"
+                ],
                 "description": "De huur van machines wordt als loonwerk bij de afzonderlijke teelten ingeschrevem Dure herstellingen ( vanaf 3.000 EUR ) worden in het inventarisboek geschrevem",
                 "items": []
             },
@@ -86,31 +155,65 @@
                     {
                         "name": "AANTAL STALPLAATSTEN (enkel voor melkvee: melkkoeien en jongvee)",
                         "description": "",
+                        "return_value": [
+                            "melkkoeien",
+                            "jongvee"
+                        ],
                         "identifier": "R2-6-1"
                     },
                     {
                         "name": "ONDERHOUD MELKINSTALLA TIE-ROBOT(s)",
                         "description": "",
+                        "return_value": [
+                            "Datum",
+                            "Omschrijving",
+                            "Bedrag",
+                            "BTW"
+                        ],
                         "identifier": "R2-6-2"
                     },
                     {
                         "name": "GEBOUWEN VOOR MELKVEE",
+                        "return_value": [
+                            "Datum",
+                            "Omschrijving",
+                            "Bedrag",
+                            "BTW"
+                        ],
                         "description": "(Hier NIET de dagelijkse onderhoudsprodukten zoals reinigingsmiddelen en buisfilters noterem Deze dienen in hoofdstuk 6 bij Andere veekosten genoteerd te wordem)",
                         "identifier": "R2-6-3"
                     },
                     {
                         "name": "GEBOUWEN VOOR JONGVEE",
                         "description": "",
+                        "return_value": [
+                            "Datum",
+                            "Omschrijving",
+                            "Bedrag",
+                            "BTW"
+                        ],
                         "identifier": "R2-6-4"
                     },
                     {
                         "name": "GEBOUWEN VOOR VLEESVEE",
                         "description": "",
+                        "return_value": [
+                            "Datum",
+                            "Omschrijving",
+                            "Bedrag",
+                            "BTW"
+                        ],
                         "identifier": "R2-6-5"
                     },
                     {
                         "name": "GEBOUWEN VOOR ZOOGKOEIEN",
                         "description": "",
+                        "return_value": [
+                            "Datum",
+                            "Omschrijving",
+                            "Bedrag",
+                            "BTW"
+                        ],
                         "identifier": "R2-6-6"
                     }
                 ]
@@ -119,6 +222,12 @@
                 "name": "GRONDVERBETERINGEN EN WEIDEAFRASTERINGEN : onderhoud",
                 "description": "Onkosten vanaf 3.000 EUR (vb- nivelleren, draineren) worden in het inventarisboek ingevuld-",
                 "identifier": "R2-7",
+                "return_value": [
+                    "Datum",
+                    "Omschrijving",
+                    "Bedrag",
+                    "BTW"
+                ],
                 "items": []
             }
         ]
@@ -136,32 +245,73 @@
                     {
                         "name": "LOONWERK van alle aangekochte ruwvoeders",
                         "description": "",
+                        "return_value": [
+                            "Datum",
+                            "Omschrijving",
+                            "Bedrag",
+                            "BTW"
+                        ],
                         "identifier": "R4-1-1"
                     },
                     {
                         "name": "SILOMAIS",
-                        "description": "In keuzelijst kunnen zowel kg als ha geselecteerd wordem Indien ha geselecteerd wordt: 1 ha is gelijk aan 45.000 kg product/ha",
+                        "return_value": [
+                            "Datum",
+                            "Kg_Product",
+                            "DS_Percent",
+                            "Bedrag",
+                            "BTW"
+                        ],
+                        "description": "In keuzelijst kunnen zowel kg als ha geselecteerd wordem Indien ha geselecteerd wordt: 1 ha is gelijk aan 45.000 Kg_Product/ha",
                         "identifier": "R4-1-2"
                     },
                     {
                         "name": "GRASKUIL - HOOI",
-                        "description": "In keuzelijst kunnen zowel kg als ha geselecteerd wordem Indien ha geselecteerd wordt: 1 ha is gelijk aan 1 snede van 5000 kg product/ha",
+                        "return_value": [
+                            "Datum",
+                            "Kg_Product",
+                            "DS_Percent",
+                            "Bedrag",
+                            "BTW"
+                        ],
+                        "description": "In keuzelijst kunnen zowel kg als ha geselecteerd wordem Indien ha geselecteerd wordt: 1 ha is gelijk aan 1 snede van 5000 Kg_Product/ha",
                         "identifier": "R4-1-3"
                     },
                     {
                         "name": "WEIDEGELD",
                         "description": "",
+                        "return_value": [
+                            "Datum",
+                            "Kg_Product",
+                            "DS_Percent",
+                            "Bedrag",
+                            "BTW"
+                        ],
                         "identifier": "R4-1-4"
                     },
                     {
                         "name": "LUZERNE(Hooi,kunstmatig gedroogd,...)",
                         "description": "",
+                        "return_value": [
+                            "Datum",
+                            "Kg_Product",
+                            "DS_Percent",
+                            "Bedrag",
+                            "BTW"
+                        ],
                         "identifier": "R4-1-5"
                     },
                     {
                         "name": "ANDERE (voerstro, bijproducten van marktbare teelten,---)",
                         "description": ". Indien het bijproducten van marktbare teelten van het eigen bedrijf betreft, dan deze bijproducten bij de betreffende teelt verkopen en hier voor hetzelfde bedrag als aankoop noterem",
-                        "identifier": "R4-1-6"
+                        "identifier": "R4-1-6",
+                        "return_value": [
+                            "Datum",
+                            "Kg_Product",
+                            "DS_Percent",
+                            "Bedrag",
+                            "BTW"
+                        ]
                     }
                 ]
             },
@@ -173,36 +323,113 @@
                     {
                         "name": "BIETENPERSPULP",
                         "description": "",
+                        "return_value": [
+                            "Datum",
+                            "Kg",
+                            "DS_Percent",
+                            "MK",
+                            "JV",
+                            "MV",
+                            "ZK",
+                            "Bedrag",
+                            "BTW"
+                        ],
                         "identifier": "R4-2-1"
                     },
                     {
                         "name": "BIERDRAF",
                         "description": "",
+                        "return_value": [
+                            "Datum",
+                            "Kg",
+                            "DS_Percent",
+                            "MK",
+                            "JV",
+                            "MV",
+                            "ZK",
+                            "Bedrag",
+                            "BTW"
+                        ],
                         "identifier": "R4-2-2"
                     },
                     {
                         "name": "VOEDERBIETEN",
                         "description": "",
+                        "return_value": [
+                            "Datum",
+                            "Kg",
+                            "DS_Percent",
+                            "MK",
+                            "JV",
+                            "MV",
+                            "ZK",
+                            "Bedrag",
+                            "BTW"
+                        ],
                         "identifier": "R4-2-3"
                     },
                     {
                         "name": "AARDAPPELEN",
                         "description": "",
+                        "return_value": [
+                            "Datum",
+                            "Kg",
+                            "DS_Percent",
+                            "MK",
+                            "JV",
+                            "MV",
+                            "ZK",
+                            "Bedrag",
+                            "BTW"
+                        ],
                         "identifier": "R4-2-4"
                     },
                     {
                         "name": "CORN COB MIX (C-C-M-)",
+                        "return_value": [
+                            "Datum",
+                            "Kg",
+                            "DS_Percent",
+                            "MK",
+                            "JV",
+                            "MV",
+                            "ZK",
+                            "Bedrag",
+                            "BTW"
+                        ],
                         "description": "(Indien zelf geteeld, dan verkopen bij de teelt in hoofdstuk 4 en hier aankopen voor hetzelfde bedrag)",
                         "identifier": "R4-2-5"
                     },
                     {
                         "name": "MAISKOLVENSCHROOT (MKS)",
+                        "return_value": [
+                            "Datum",
+                            "Kg",
+                            "DS_Percent",
+                            "MK",
+                            "JV",
+                            "MV",
+                            "ZK",
+                            "Bedrag",
+                            "BTW"
+                        ],
                         "description": "(Indien zelf geteeld, dan verkopen bij de teelt in hoofdstuk 4 en hier aankopen voor hetzelfde bedrag)",
                         "identifier": "R4-2-6"
                     },
                     {
                         "name": "ANDERE VOCHTRIJKE KRACHTVOEDERS",
                         "description": "",
+                        "return_value": [
+                            "Datum",
+                            "Kg",
+                            "DS_Percent",
+                            "MK",
+                            "JV",
+                            "MV",
+                            "ZK",
+                            "Bedrag",
+                            "BTW"
+                        ],
                         "identifier": "R4-2-7"
                     }
                 ]
@@ -214,47 +441,137 @@
                 "items": [
                     {
                         "name": "SOJASCHROOT",
+                        "return_value": [
+                            "Datum",
+                            "Kg",
+                            "MK",
+                            "JV",
+                            "MV",
+                            "ZK",
+                            "Bedrag",
+                            "BTW"
+                        ],
                         "description": "(Hierbij enkel zuivere soja vermelden- Mengelingen van sojaschroot en kool/raapzaadschroot noteren bij andere enkelvoudige krachtvoeders-)",
                         "identifier": "R4-3-1"
                     },
                     {
                         "name": "DROGE BIETENPULP",
                         "description": "",
+                        "return_value": [
+                            "Datum",
+                            "Kg",
+                            "MK",
+                            "JV",
+                            "MV",
+                            "ZK",
+                            "Bedrag",
+                            "BTW"
+                        ],
                         "identifier": "R4-3-2"
                     },
                     {
                         "name": "MAISGLUTEN (80-100 DVE)",
+                        "return_value": [
+                            "Datum",
+                            "Kg",
+                            "MK",
+                            "JV",
+                            "MV",
+                            "ZK",
+                            "Bedrag",
+                            "BTW"
+                        ],
                         "description": "Maisglutenmeel met circa 450 DVE bij ander droge krachtvoeders invullen Natte maisgluten bij vochtrijke krachtvoeders invullen-",
                         "identifier": "R4-3-3"
                     },
                     {
                         "name": "KOOL 1 RAAPZAAD",
                         "description": "",
+                        "return_value": [
+                            "Datum",
+                            "Kg",
+                            "MK",
+                            "JV",
+                            "MV",
+                            "ZK",
+                            "Bedrag",
+                            "BTW"
+                        ],
                         "identifier": "R4-3-4"
                     },
                     {
                         "name": "MELKPOEDER",
                         "description": "",
+                        "return_value": [
+                            "Datum",
+                            "Kg",
+                            "MK",
+                            "JV",
+                            "MV",
+                            "ZK",
+                            "Bedrag",
+                            "BTW"
+                        ],
                         "identifier": "R4-3-5"
                     },
                     {
                         "name": "GRANEN (=triticale, gerst, tame, rogge)",
                         "description": "",
+                        "return_value": [
+                            "Datum",
+                            "Kg",
+                            "MK",
+                            "JV",
+                            "MV",
+                            "ZK",
+                            "Bedrag",
+                            "BTW"
+                        ],
                         "identifier": "R4-3-6"
                     },
                     {
                         "name": "ANDERE DROGE KRACHTVOEDERS (enkevoudige)",
                         "description": "",
+                        "return_value": [
+                            "Datum",
+                            "Kg",
+                            "MK",
+                            "JV",
+                            "MV",
+                            "ZK",
+                            "Bedrag",
+                            "BTW"
+                        ],
                         "identifier": "R4-3-7"
                     },
                     {
                         "name": "EIWITRIJK SAMENGESTELD KRACHTVOEDER (25% RE of meer)",
                         "description": "",
+                        "return_value": [
+                            "Datum",
+                            "Kg",
+                            "MK",
+                            "JV",
+                            "MV",
+                            "ZK",
+                            "Bedrag",
+                            "BTW"
+                        ],
                         "identifier": "R4-3-8"
                     },
                     {
                         "name": "EIWITARM SAMENGESTELD KRACHTVOEDER (minder dan RE)",
                         "description": "",
+                        "return_value": [
+                            "Datum",
+                            "Kg",
+                            "MK",
+                            "JV",
+                            "MV",
+                            "ZK",
+                            "Bedrag",
+                            "BTW"
+                        ],
                         "identifier": "R4-3-9"
                     }
                 ]
@@ -262,6 +579,17 @@
             {
                 "name": "AANKOOP MINERALEN, VITAMINEN, KERNEN",
                 "description": "",
+                "return_value": [
+                    "Datum",
+                    "Omschrijving",
+                    "Kg",
+                    "MK",
+                    "JV",
+                    "MV",
+                    "ZK",
+                    "Bedrag",
+                    "BTW"
+                ],
                 "identifier": "R4-4",
                 "items": []
             }
@@ -275,12 +603,14 @@
             {
                 "name": "MELKGELD EERSTE BEDRIJF",
                 "identifier": "R5-1",
+                "return_value": [],
                 "description": "",
                 "items": []
             },
             {
                 "name": "MELKGELD TWEEDE BEDRIJF",
                 "identifier": "R5-2",
+                "return_value": [],
                 "description": "",
                 "items": []
             },
@@ -288,6 +618,7 @@
                 "name": "ANDERE BESTEMMINGEN VAN MELK",
                 "identifier": "R5-3",
                 "description": "",
+                "return_value": [],
                 "items": []
             }
         ]
@@ -300,12 +631,34 @@
             {
                 "name": "VEEARTS EN GENEESMIDDELEN",
                 "identifier": "R6-1",
+                "return_value": [
+                    "Datum",
+                    "Omschrijving",
+                    "Kg",
+                    "MK",
+                    "JV",
+                    "MV",
+                    "ZK",
+                    "Bedrag",
+                    "BTW"
+                ],
                 "description": "De kosten worden opgesplitst volgens diersoort- Het bedrag op de faktuur van o-a- de veearts moet U dus zelf opsplitsem Vraag aan de veearts om de verrichtingen apart op te schrijven , zo heeft U zelf 00k beter zicht op wat en hoeveel het kost- Drachtigheidstesten worden in de rubriek fokkerijkosten genoteerd- Klauwverzorqinq wordt in de rubriek overiqe veekosten qenoteerd-",
                 "items": []
             },
             {
                 "name": "FOKKERIJKOSTEN",
                 "identifier": "R6-2",
+                "return_value": [
+                    "Datum",
+                    "Omschrijving",
+                    "Kg",
+                    "MK",
+                    "JV",
+                    "MV",
+                    "ZK",
+                    "Bedrag",
+                    "BTW"
+                ],
                 "description": "De kosten worden opgesplitst volgens diersoort- Het bedrag op de faktuur van o-a- de veearts moet U dus zelf opsplitsem Vraa aan de veearts om de verrichtin en a atto te schrf n , zo heeft U zelf 00k beter zicht o wat en hoeveel het kost-",
                 "items": []
             },
@@ -313,23 +666,57 @@
                 "name": "KOSTEN VAN DE MELKCONTROLE",
                 "identifier": "R6-3",
                 "description": "",
+                "return_value": [
+                    "Datum",
+                    "Omschrijving",
+                    "Bedrag",
+                    "BTW"
+                ],
                 "items": []
             },
             {
                 "name": "STROOISEL / ZAAGSEL",
                 "identifier": "R6-4",
+                "return_value": [
+                    "Datum",
+                    "Omschrijving",
+                    "Kg",
+                    "MK",
+                    "JV",
+                    "MV",
+                    "ZK",
+                    "Bedrag",
+                    "BTW"
+                ],
                 "description": "In deze rubriek vullen we in: de kosten voor stro, strooisel, zaa meel;",
                 "items": []
             },
             {
                 "name": "DIPMIDDELEN",
                 "identifier": "R6-5",
+                "return_value": [
+                    "Datum",
+                    "Omschrijving",
+                    "Bedrag",
+                    "BTW"
+                ],
                 "description": "Example: ms cow udder sepia",
                 "items": []
             },
             {
                 "name": "ANDERE VEEKOSTEN",
                 "identifier": "R6-6",
+                "return_value": [
+                    "Datum",
+                    "Omschrijving",
+                    "Kg",
+                    "MK",
+                    "JV",
+                    "MV",
+                    "ZK",
+                    "Bedrag",
+                    "BTW"
+                ],
                 "description": "De kosten worden opgesplitst volgens diersoort- In deze rubriek vullen we in: de kosten voor oornummers, reinigingsproducten voor det melkmachine, buisfilters, ontsmettingsproducten, ontledinqen voeders, delvotest, klauvwerzorqinq. example: coopertix-d",
                 "items": []
             },
@@ -337,6 +724,12 @@
                 "name": "EXTERNE JONGVEE OPFOK",
                 "identifier": "R6-7",
                 "description": "",
+                "return_value": [
+                    "Datum",
+                    "Omschrijving",
+                    "Bedrag",
+                    "BTW"
+                ],
                 "items": []
             }
         ]
@@ -349,48 +742,91 @@
             {
                 "name": "ELEKTRICITEIT",
                 "identifier": "R7-1",
+                "return_value": [
+                    "Datum",
+                    "kWh",
+                    "Bedrag",
+                    "BTW"
+                ],
                 "description": "Enkel de kosten die voor het bedrijf bestemd zijn mogen hierin vermeld wordem De bestemming van deze kosten moet met een percentage ingevuld wordem",
                 "items": []
             },
             {
                 "name": "WATERVERBRUIK",
                 "identifier": "R7-2",
+                "return_value": [
+                    "Datum",
+                    "m3",
+                    "Bedrag",
+                    "BTW"
+                ],
                 "description": "Enkel de kosten die voor het bedrijf bestemd zijn mogen hierin vermeld wordem De bestemming van deze kosten moet met een percentage ingevuld wordem",
                 "items": []
             },
             {
                 "name": "TELEFOON - GSM - INTERNET",
                 "identifier": "R7-3",
+                "return_value": [
+                    "Datum",
+                    "Bedrag",
+                    "BTW"
+                ],
                 "description": "",
                 "items": []
             },
             {
                 "name": "AUTO",
                 "identifier": "R7-4",
+                "return_value": [
+                    ""
+                ],
                 "description": "",
                 "items": []
             },
             {
                 "name": "VERZEKERING",
                 "identifier": "R7-5",
+                "return_value": [
+                    "Datum",
+                    "Omschrijving",
+                    "Bedrag"
+                ],
                 "description": "",
                 "items": []
             },
             {
                 "name": "BEDRIJFSBEHEER, ABONNEMENTEN, LIDGELDEN",
                 "identifier": "R7-6",
+                "return_value": [
+                    "Datum",
+                    "Omschrijving",
+                    "Bedrag",
+                    "BTW"
+                ],
                 "description": "begeleiding, boekhouding, studiedagen, abonnementen, lidgelden, ,...",
                 "items": []
             },
             {
                 "name": "GRONDONTLEDING, DRIJFMESTONTLEDING",
                 "identifier": "R7-7",
+                "return_value": [
+                    "Datum",
+                    "Omschrijving",
+                    "Bedrag",
+                    "BTW"
+                ],
                 "description": "",
                 "items": []
             },
             {
                 "name": "AANKOPEN KLEIN MATERIAAL EN OVERIGE ALGEMENE KOSTEN",
                 "identifier": "R7-8",
+                "return_value": [
+                    "Datum",
+                    "Omschrijving",
+                    "Bedrag",
+                    "BTW"
+                ],
                 "description": "Bijvoorbeeld werkkleding, klein gereedschap, enz-",
                 "items": []
             }
@@ -404,12 +840,42 @@
             {
                 "name": "ARBEIDSKRACHTEN VAN HET GEZIN",
                 "identifier": "R8-1",
+                "return_value": [
+                    "Naam",
+                    "Geboortejaar",
+                    "Uren",
+                    "AK"
+                ],
                 "description": "",
                 "items": []
             },
             {
                 "name": "BENODIGD VOOR PRIVE",
                 "identifier": "R8-2",
+                "return_value": [
+                    "lening",
+                    "kleineRisico",
+                    "extraZiekte",
+                    "gewaarborgdInkomen",
+                    "verzekeringWoning",
+                    "pensioensparen",
+                    "vapz",
+                    "andere1",
+                    "andere2",
+                    "totaalNormKinderen",
+                    "studiekosten",
+                    "kinderbijslag",
+                    "studietoelage",
+                    "priveInkomen1",
+                    "priveInkomen2",
+                    "voorafbetaling",
+                    "personenBelasting",
+                    "vennootschapsBelasting",
+                    "bedrijfsVoorheffing",
+                    "socialeBijdragen",
+                    "afrekeningBijdragen",
+                    "overige"
+                ],
                 "description": "",
                 "items": []
             },
@@ -417,11 +883,23 @@
                 "name": "WERK VERRICHT VOOR DERDEN",
                 "identifier": "R8-3",
                 "description": "",
+                "return_value": [
+                    "Datum",
+                    "Omschrijving",
+                    "Bedrag",
+                    "BTW"
+                ],
                 "items": []
             },
             {
                 "name": "VREEMDE ARBEIDSKRACHTEN",
                 "identifier": "R8-4",
+                "return_value": [
+                    "Datum",
+                    "Uren",
+                    "Bedrag",
+                    "BTW"
+                ],
                 "description": "",
                 "items": []
             }
@@ -436,12 +914,24 @@
                 "name": "INKOMSTEN VAN CONTRACTVEE OF CONTRACTTEELTEN",
                 "identifier": "R9-1",
                 "description": "",
+                "return_value": [
+                    "Datum",
+                    "Omschrijving",
+                    "Bedrag",
+                    "BTW"
+                ],
                 "items": []
             },
             {
                 "name": "UITGAVEN I.V.M. CONTRACTVEE OF CONTRACTTEELTEN",
                 "identifier": "R9-2",
                 "description": "",
+                "return_value": [
+                    "Datum",
+                    "Omschrijving",
+                    "Bedrag",
+                    "BTW"
+                ],
                 "items": []
             }
         ]
@@ -454,12 +944,24 @@
             {
                 "name": "INKOMSTEN",
                 "identifier": "R11-1",
+                "return_value": [
+                    "Datum",
+                    "Omschrijving",
+                    "Bedrag",
+                    "BTW"
+                ],
                 "description": "Het betreffen grote inkomsten die dit Jaar ontvangen zijn, maar die betrekking hebben op het vorige boekjaar- Lif-steun van vorige jaren, schade-uitkeringen waarvan de onkosten in een vorig Jaar zijn gemaakt",
                 "items": []
             },
             {
                 "name": "KOSTEN",
                 "identifier": "R11-2",
+                "return_value": [
+                    "Datum",
+                    "Omschrijving",
+                    "Bedrag",
+                    "BTW"
+                ],
                 "description": "Het betreffen grote kosten die dit jaar betaald zijn, maar die betrekking hebben op het vorige boekjaar-",
                 "items": []
             }
@@ -478,11 +980,25 @@
                     {
                         "name": "Verkoop aan electriciteitsmaatschappij",
                         "description": "",
+                        "return_value": [
+                            "Datum",
+                            "Omschrijving",
+                            "kWh",
+                            "Bedrag",
+                            "BTW"
+                        ],
                         "identifier": "R12-1-1"
                     },
                     {
                         "name": "Eigen verbruik zelf geproduceerde electriciteit",
                         "description": "",
+                        "return_value": [
+                            "Datum",
+                            "Omschrijving",
+                            "kWh",
+                            "Bedrag",
+                            "BTW"
+                        ],
                         "identifier": "R12-1-2"
                     }
                 ]
@@ -495,11 +1011,23 @@
                     {
                         "name": "Groene stroom cettificaten en WKK cettificaten",
                         "description": "",
+                        "return_value": [
+                            "Datum",
+                            "Omschrijving",
+                            "kWh",
+                            "Bedrag",
+                            "BTW"
+                        ],
                         "identifier": "R12-2-1"
                     },
                     {
                         "name": "Overige subsidies (VLIF,",
                         "description": "",
+                        "return_value": [
+                            "Datum",
+                            "Omschrijving",
+                            "Bedrag"
+                        ],
                         "identifier": "R12-2-2"
                     }
                 ]
@@ -512,16 +1040,33 @@
                     {
                         "name": "Onderhoud",
                         "description": "",
+                        "return_value": [
+                            "Datum",
+                            "Omschrijving",
+                            "Bedrag",
+                            "BTW"
+                        ],
                         "identifier": "R12-3-1"
                     },
                     {
                         "name": "Verzekering",
                         "description": "",
+                        "return_value": [
+                            "Datum",
+                            "Omschrijving",
+                            "Bedrag"
+                        ],
                         "identifier": "R12-3-2"
                     },
                     {
                         "name": "Diverse kosten",
                         "description": "",
+                        "return_value": [
+                            "Datum",
+                            "Omschrijving",
+                            "Bedrag",
+                            "BTW"
+                        ],
                         "identifier": "R12-3-3"
                     }
                 ]

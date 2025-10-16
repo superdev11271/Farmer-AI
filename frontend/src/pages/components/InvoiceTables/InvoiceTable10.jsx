@@ -15,8 +15,9 @@ export default function InvoiceTable({ categoryIdentifier }) {
       const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/invoice/${categoryIdentifier}`);
       // Add calculated BedragIncl field
       const data = res.data.data.map(inv => ({
+        source_doc: inv.source_doc,
         ...inv,
-        BedragIncl: +(Number(inv.bedrag || 0) + Number(inv.bedrag || 0) * (Number(inv.btw || 0) / 100)).toFixed(2)
+        BedragIncl: +(Number(inv.Bedrag || 0) + Number(inv.Bedrag || 0) * (Number(inv.BTW || 0) / 100)).toFixed(2)
       }));
       setInvoices(data);
       setDraftInvoices(data);
@@ -38,10 +39,10 @@ export default function InvoiceTable({ categoryIdentifier }) {
       prev.map(inv => {
         if (inv.id === id) {
           const updated = { ...inv, [field]: value };
-          if (field === "bedrag" || field === "btw") {
-            const amountNum = parseFloat(updated.bedrag) || 0;
-            const vatPerc = parseFloat(updated.btw) || 0;
-            updated.btw = vatPerc;
+          if (field === "Bedrag" || field === "BTW") {
+            const amountNum = parseFloat(updated.Bedrag) || 0;
+            const vatPerc = parseFloat(updated.BTW) || 0;
+            updated.BTW = vatPerc;
             updated.BedragIncl = +(amountNum + amountNum * (vatPerc / 100)).toFixed(2);
           }
           return updated;
@@ -63,11 +64,11 @@ export default function InvoiceTable({ categoryIdentifier }) {
       id: Date.now(),
       category_identifier: categoryIdentifier,
       source_doc: "",
-      datum: "",
-      omschrijving: "",
-      kwh: null,
-      bedrag: 0,
-      btw: 21,
+      Datum: "",
+      Omschrijving: "",
+      kWh: null,
+      Bedrag: 0,
+      BTW: 21,
       BedragIncl: 0,
     };
     setDraftInvoices(prev => [...prev, newItem]);
@@ -98,8 +99,8 @@ export default function InvoiceTable({ categoryIdentifier }) {
   };
 
   // Totals
-  const totalKWH = draftInvoices.reduce((sum, inv) => sum + Number(inv.kwh || 0), 0);
-  const totalExcl = draftInvoices.reduce((sum, inv) => sum + Number(inv.bedrag || 0), 0);
+  const totalKWH = draftInvoices.reduce((sum, inv) => sum + Number(inv.kWh || 0), 0);
+  const totalExcl = draftInvoices.reduce((sum, inv) => sum + Number(inv.Bedrag || 0), 0);
   const totalIncl = draftInvoices.reduce((sum, inv) => sum + Number(inv.BedragIncl || 0), 0);
 
   return (
@@ -155,22 +156,22 @@ export default function InvoiceTable({ categoryIdentifier }) {
             <tbody className="bg-white divide-y divide-gray-200">
               {draftInvoices.map(invoice => (
                 <tr key={invoice.id} className="hover:bg-gray-50 transition-colors duration-150">
-                  {["category_identifier", "source_doc", "datum", "omschrijving", "kwh", "bedrag", "btw"].map(field => (
+                  {["category_identifier", "source_doc", "Datum", "Omschrijving", "kWh", "Bedrag", "BTW"].map(field => (
                     <td
                       key={field}
-                      className={`px-3 py-2 text-sm ${field === "bedrag" || field === "btw" ? "text-right" : ""}`}
+                      className={`px-3 py-2 text-sm ${field === "Bedrag" || field === "BTW" ? "text-right" : ""}`}
                       onDoubleClick={() => handleDoubleClick(invoice.id, field)}
                     >
                       {editingCell.id === invoice.id && editingCell.field === field ? (
                         <input
-                          type={field === "bedrag" || field === "btw" ? "number" : "text"}
+                          type={field === "Bedrag" || field === "BTW" ? "number" : "text"}
                           autoFocus
                           onBlur={handleBlur}
                           value={invoice[field] != null ? invoice[field] : ""}
                           onChange={e => handleChange(invoice.id, field, e.target.value)}
                           className="w-full border border-blue-400 rounded px-2 py-1 text-sm text-right focus:outline-none box-border"
                         />
-                      ) : field === "bedrag" || field === "btw" ? (
+                      ) : field === "Bedrag" || field === "BTW" ? (
                         invoice[field]
                       ) : (
                         invoice[field]

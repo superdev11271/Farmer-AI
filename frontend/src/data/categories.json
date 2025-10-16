@@ -160,7 +160,7 @@
                     },
                     {
                         "name": "ANDERE (voerstro, bijproducten van marktbare teelten,---)",
-                        "description": ". Indien het bijproducten van marktbare teelten van het eigen bedrijf betreft, dan deze bijproducten bij de betreffende teelt verkopen en hier voor hetzelfde bedrag als aankoop noterem",
+                        "description": ". Indien het bijproducten van marktbare teelten van het eigen bedrijf betreft, dan deze bijproducten bij de betreffende teelt verkopen en hier voor hetzelfde Bedrag als aankoop noterem",
                         "identifier": "R4-1-6"
                     }
                 ]
@@ -192,12 +192,12 @@
                     },
                     {
                         "name": "CORN COB MIX (C-C-M-)",
-                        "description": "(Indien zelf geteeld, dan verkopen bij de teelt in hoofdstuk 4 en hier aankopen voor hetzelfde bedrag)",
+                        "description": "(Indien zelf geteeld, dan verkopen bij de teelt in hoofdstuk 4 en hier aankopen voor hetzelfde Bedrag)",
                         "identifier": "R4-2-5"
                     },
                     {
                         "name": "MAISKOLVENSCHROOT (MKS)",
-                        "description": "(Indien zelf geteeld, dan verkopen bij de teelt in hoofdstuk 4 en hier aankopen voor hetzelfde bedrag)",
+                        "description": "(Indien zelf geteeld, dan verkopen bij de teelt in hoofdstuk 4 en hier aankopen voor hetzelfde Bedrag)",
                         "identifier": "R4-2-6"
                     },
                     {
@@ -209,7 +209,7 @@
             },
             {
                 "name": "AANKOOP VAN DROGE KRACHTVOEDERS",
-                "description": "Kodingen op aankoop van droge krachtvoeders (hoeveelheidskofting, bulkkodingen,---) worden rechtstreeks van het aankoopbedrag afgehoudem De getrouwheidspremie over de betreffende voeraankopen verdelen en hiervan aftrekkem",
+                "description": "Kodingen op aankoop van droge krachtvoeders (hoeveelheidskofting, bulkkodingen,---) worden rechtstreeks van het aankoopBedrag afgehoudem De getrouwheidspremie over de betreffende voeraankopen verdelen en hiervan aftrekkem",
                 "identifier": "R4-3",
                 "items": [
                     {
@@ -300,13 +300,13 @@
             {
                 "name": "VEEARTS EN GENEESMIDDELEN",
                 "identifier": "R6-1",
-                "description": "De kosten worden opgesplitst volgens diersoort- Het bedrag op de faktuur van o-a- de veearts moet U dus zelf opsplitsem Vraag aan de veearts om de verrichtingen apart op te schrijven , zo heeft U zelf 00k beter zicht op wat en hoeveel het kost- Drachtigheidstesten worden in de rubriek fokkerijkosten genoteerd- Klauwverzorqinq wordt in de rubriek overiqe veekosten qenoteerd-",
+                "description": "De kosten worden opgesplitst volgens diersoort- Het Bedrag op de faktuur van o-a- de veearts moet U dus zelf opsplitsem Vraag aan de veearts om de verrichtingen apart op te schrijven , zo heeft U zelf 00k beter zicht op wat en hoeveel het kost- Drachtigheidstesten worden in de rubriek fokkerijkosten genoteerd- Klauwverzorqinq wordt in de rubriek overiqe veekosten qenoteerd-",
                 "items": []
             },
             {
                 "name": "FOKKERIJKOSTEN",
                 "identifier": "R6-2",
-                "description": "De kosten worden opgesplitst volgens diersoort- Het bedrag op de faktuur van o-a- de veearts moet U dus zelf opsplitsem Vraa aan de veearts om de verrichtin en a atto te schrf n , zo heeft U zelf 00k beter zicht o wat en hoeveel het kost-",
+                "description": "De kosten worden opgesplitst volgens diersoort- Het Bedrag op de faktuur van o-a- de veearts moet U dus zelf opsplitsem Vraa aan de veearts om de verrichtin en a atto te schrf n , zo heeft U zelf 00k beter zicht o wat en hoeveel het kost-",
                 "items": []
             },
             {

@@ -14,21 +14,21 @@ const TotalsTable = memo(({ sub_index, item_index, sub_name, categoryIdentifier,
 
             const data = res.data.data || [];
             const totalExcl = data.reduce(
-                (sum, inv) => sum + Number(inv.bedrag || 0),
+                (sum, inv) => sum + Number(inv.Bedrag || 0),
                 0
             );
             const totalIncl = data.reduce(
                 (sum, inv) =>
                     sum +
-                    Number(inv.bedrag || 0) +
-                    (Number(inv.bedrag || 0) * (Number(inv.btw || 0) / 100)),
+                    Number(inv.Bedrag || 0) +
+                    (Number(inv.Bedrag || 0) * (Number(inv.BTW || 0) / 100)),
                 0
             );
             const totalMK = data.reduce((sum, inv) => sum + Number(inv.mk || 0), 0);
             const totalJV = data.reduce((sum, inv) => sum + Number(inv.jv || 0), 0);
             const totalMV = data.reduce((sum, inv) => sum + Number(inv.mv || 0), 0);
             const totalZK = data.reduce((sum, inv) => sum + Number(inv.zk || 0), 0);
-            const Verschil = data.length > 0 ? data.reduce((sum, inv) => ((Number(inv.mk || 0) + Number(inv.jv || 0) + Number(inv.mv || 0) + Number(inv.zk || 0)) - Number(inv.bedrag || 0))) : 0;
+            const Verschil = data.length > 0 ? data.reduce((sum, inv) => ((Number(inv.mk || 0) + Number(inv.jv || 0) + Number(inv.mv || 0) + Number(inv.zk || 0)) - Number(inv.Bedrag || 0))) : 0;
             setTotals({ totalMK, totalJV, totalMV, totalZK, totalExcl, totalIncl, Verschil });
             setExportJsonArray(prev => [...prev, {
                 table_name: `${sub_index}${item_index ? " - " + item_index : ""}: ${sub_name}`,

@@ -10,3 +10,4 @@ openpyxl
 Pillow
 python-multipart
 Werkzeug
+httpx[socks]

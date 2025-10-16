@@ -15,9 +15,10 @@ export default function InvoiceTable({ categoryIdentifier }) {
       const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/invoice/${categoryIdentifier}`);
       // Add calculated BedragIncl field
       const data = res.data.data.map(inv => ({
+        source_doc: inv.source_doc,
         ...inv,
-        BedragIncl: +(Number(inv.bedrag || 0) + Number(inv.bedrag || 0) * (Number(inv.btw || 0) / 100)).toFixed(2),
-        Verschil: +((Number(inv.mk || 0) + Number(inv.jv || 0) + Number(inv.mv || 0) + Number(inv.zk || 0)) - Number(inv.bedrag || 0)).toFixed(2)
+        BedragIncl: +(Number(inv.Bedrag || 0) + Number(inv.Bedrag || 0) * (Number(inv.BTW || 0) / 100)).toFixed(2),
+        Verschil: +((Number(inv.mk || 0) + Number(inv.jv || 0) + Number(inv.mv || 0) + Number(inv.zk || 0)) - Number(inv.Bedrag || 0)).toFixed(2)
       }));
       setInvoices(data);
       setDraftInvoices(data);
@@ -39,13 +40,13 @@ export default function InvoiceTable({ categoryIdentifier }) {
       prev.map(inv => {
         if (inv.id === id) {
           const updated = { ...inv, [field]: value };
-          const amountNum = parseFloat(updated.bedrag) || 0;
-          const vatPerc = parseFloat(updated.btw) || 0;
+          const amountNum = parseFloat(updated.Bedrag) || 0;
+          const vatPerc = parseFloat(updated.BTW) || 0;
           const mk = parseFloat(updated.mk) || 0;
           const jv = parseFloat(updated.jv) || 0;
           const mv = parseFloat(updated.mv) || 0;
           const zk = parseFloat(updated.zk) || 0;
-          updated.btw = vatPerc;
+          updated.BTW = vatPerc;
           updated.BedragIncl = +(amountNum + amountNum * (vatPerc / 100)).toFixed(2);
           updated.Verschil = +((mk + jv + mv + zk - amountNum)).toFixed(2);
 
@@ -68,14 +69,14 @@ export default function InvoiceTable({ categoryIdentifier }) {
       id: Date.now(),
       category_identifier: categoryIdentifier,
       source_doc: "",
-      datum: "",
-      omschrijving: "",
-      mk: null,
-      jv: null,
-      mv: null,
-      zk: null,
-      bedrag: 0,
-      btw: 21,
+      Datum: "",
+      Omschrijving: "",
+      MK: null,
+      JV: null,
+      MV: null,
+      ZK: null,
+      Bedrag: 0,
+      BTW: 21,
       BedragIncl: 0,
       Verschil: 0
     };
@@ -106,7 +107,7 @@ export default function InvoiceTable({ categoryIdentifier }) {
     toast("Changes canceled.");
   };
   // Totals
-  const totalExcl = draftInvoices.reduce((sum, inv) => sum + Number(inv.bedrag || 0), 0);
+  const totalExcl = draftInvoices.reduce((sum, inv) => sum + Number(inv.Bedrag || 0), 0);
   const totalIncl = draftInvoices.reduce((sum, inv) => sum + Number(inv.BedragIncl || 0), 0);
 
   const totalMK = draftInvoices.reduce((sum, inv) => sum + Number(inv.mk || 0), 0);
@@ -172,7 +173,7 @@ export default function InvoiceTable({ categoryIdentifier }) {
             <tbody className="bg-white divide-y divide-gray-200">
               {draftInvoices.map(invoice => (
                 <tr key={invoice.id} className="hover:bg-gray-50 transition-colors duration-150">
-                  {["category_identifier", "source_doc", "datum", "omschrijving", "mk", "jv", "mv", "zk", "bedrag", "btw"].map(field => (
+                  {["category_identifier", "source_doc", "Datum", "Omschrijving", "MK", "JV", "MV", "ZK", "Bedrag", "BTW"].map(field => (
                     <td
                       key={field}
                       className={`px-3 py-2 text-sm text-right`}
@@ -180,14 +181,14 @@ export default function InvoiceTable({ categoryIdentifier }) {
                     >
                       {editingCell.id === invoice.id && editingCell.field === field ? (
                         <input
-                          type={field === "bedrag" || field === "btw" ? "number" : "text"}
+                          type={field === "Bedrag" || field === "BTW" ? "number" : "text"}
                           autoFocus
                           onBlur={handleBlur}
                           value={invoice[field] ? invoice[field] : ""}
                           onChange={e => handleChange(invoice.id, field, e.target.value)}
                           className="w-full border border-blue-400 rounded px-2 py-1 text-sm text-right focus:outline-none box-border"
                         />
-                      ) : field === "bedrag" || field === "btw" ? (
+                      ) : field === "Bedrag" || field === "BTW" ? (
                         invoice[field]
                       ) : (
                         invoice[field]

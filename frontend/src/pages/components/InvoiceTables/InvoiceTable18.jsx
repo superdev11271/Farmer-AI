@@ -48,15 +48,14 @@ export default function InvoiceTable({ categoryIdentifier }) {
     setHasChanges(true);
     toast("Item removed.");
   };
-
   const handleAddItem = () => {
     const newItem = {
       id: Date.now(),
       category_identifier: categoryIdentifier,
       source_doc: "",
-      naam: "",
-      geboortejaar: "",
-      uren: 0,
+      Naam: "",
+      Geboortejaar: "",
+      Uren: 0,
       AK: 21
     };
     setDraftInvoices(prev => [...prev, newItem]);
@@ -87,7 +86,7 @@ export default function InvoiceTable({ categoryIdentifier }) {
   };
 
   // Totals
-  const totalUren = draftInvoices.reduce((sum, inv) => sum + Number(inv.uren || 0), 0);
+  const totalUren = draftInvoices.reduce((sum, inv) => sum + Number(inv.Uren || 0), 0);
   const totalAK = draftInvoices.reduce((sum, inv) => sum + Number(inv.AK || 0), 0);
 
   return (
@@ -141,22 +140,22 @@ export default function InvoiceTable({ categoryIdentifier }) {
             <tbody className="bg-white divide-y divide-gray-200">
               {draftInvoices.map(invoice => (
                 <tr key={invoice.id} className="hover:bg-gray-50 transition-colors duration-150">
-                  {["category_identifier", "source_doc", "datum", "omschrijving", "bedrag", "btw"].map(field => (
+                  {["category_identifier", "source_doc", "Naam", "Geboortejaar", "Uren", "AK"].map(field => (
                     <td
                       key={field}
-                      className={`px-3 py-2 text-sm ${field === "bedrag" || field === "btw" ? "text-right" : ""}`}
+                      className={`px-3 py-2 text-sm ${field === "Bedrag" || field === "BTW" ? "text-right" : ""}`}
                       onDoubleClick={() => handleDoubleClick(invoice.id, field)}
                     >
                       {editingCell.id === invoice.id && editingCell.field === field ? (
                         <input
-                          type={field === "bedrag" || field === "btw" ? "number" : "text"}
+                          type={field === "Bedrag" || field === "BTW" ? "number" : "text"}
                           autoFocus
                           onBlur={handleBlur}
                           value={invoice[field] != null ? invoice[field] : ""}
                           onChange={e => handleChange(invoice.id, field, e.target.value)}
                           className="w-full border border-blue-400 rounded px-2 py-1 text-sm text-right focus:outline-none box-border"
                         />
-                      ) : field === "bedrag" || field === "btw" ? (
+                      ) : field === "Bedrag" || field === "BTW" ? (
                         invoice[field]
                       ) : (
                         invoice[field]

@@ -52,9 +52,9 @@ const DEFAULTS = {
 // --- Rows ------------------------------------------------------------------
 const baseState = () => ({
   liters: emptyNumRec(),
-  bedrag: emptyNumRec(),
-  btw_percent: emptyNumRec(),
-  btw: emptyNumRec(),
+  Bedrag: emptyNumRec(),
+  BTW_percent: emptyNumRec(),
+  BTW: emptyNumRec(),
   Huishoudenliters: emptyNumRec(),
   Kalverenliters: emptyNumRec(),
   Probleemmelk: emptyNumRec()
@@ -62,8 +62,8 @@ const baseState = () => ({
 
 const INPUT_ROWS = [
   "liters",
-  "bedrag",
-  "btw_percent",
+  "Bedrag",
+  "BTW_percent",
   "Huishoudenliters",
   "Kalverenliters",
   "Probleemmelk"
@@ -71,9 +71,9 @@ const INPUT_ROWS = [
 
 const LABEL = {
   liters: "Liters",
-  bedrag: "bedrag (excl.)",
-  btw_percent: "% BTW",
-  btw: "BTW",
+  Bedrag: "Bedrag (excl.)",
+  BTW_percent: "% BTW",
+  BTW: "BTW",
   Huishoudenliters: "Huishouden (liters)",
   Kalverenliters: "Kalveren (liters)",
   Probleemmelk: "Probleemmelk"
@@ -85,14 +85,14 @@ const SECTION_BREAK_AFTER = [
   "totaalBasisMelkgeld",
   "anderePremies",
   "heffingenBijdragen",
-  "btwHeffingenBijdragen",
+  "BTWHeffingenBijdragen",
 ];
 
 const ROWS_ORDER = [
   "liters",
-  "bedrag",
-  "btw_percent",
-  "btw",
+  "Bedrag",
+  "BTW_percent",
+  "BTW",
   "Huishoudenliters",
   "Kalverenliters",
   "Probleemmelk"
@@ -172,7 +172,7 @@ export default function MilkPayoutSheet({ categoryIdentifier }) {
 
     months.forEach((m) => {
 
-      d.btw[m] = d.btw_percent[m] * d.bedrag[m];
+      d.BTW[m] = d.BTW_percent[m] * d.Bedrag[m];
 
     });
 
@@ -272,7 +272,7 @@ export default function MilkPayoutSheet({ categoryIdentifier }) {
                             )}
                           </td>
                         ))}
-                        {rowKey == "btw_percent" ? "" : <td className="border-b p-1 text-right font-semibold">
+                        {rowKey == "BTW_percent" ? "" : <td className="border-b p-1 text-right font-semibold">
                           <span className="block select-none rounded-md bg-yellow-200 px-2 py-1">
                             {fmt(colTotal(row))}
                           </span>

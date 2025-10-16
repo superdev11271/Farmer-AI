@@ -60,8 +60,8 @@ const Dashboard = () => {
       };
       
       // Process invoices data
-      const totalAmount = invoices.reduce((sum, inv) => sum + parseFloat(inv.bedrag || 0), 0);
-      const totalBtw = invoices.reduce((sum, inv) => sum + parseFloat(inv.btw || 0), 0);
+      const totalAmount = invoices.reduce((sum, inv) => sum + parseFloat(inv.Bedrag || 0), 0);
+      const totalBtw = invoices.reduce((sum, inv) => sum + parseFloat(inv.BTW || 0), 0);
       
       const invoiceStats = {
         total: invoices.length,

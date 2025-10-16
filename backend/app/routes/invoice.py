@@ -21,9 +21,9 @@ def get_sheet(identifier):
             return jsonify({"category_identifier": identifier, "data": []}), 200
 
         # Reconstruct list of dicts
-        data_list = [json.loads(row.data) for row in rows]
+        data_list = [{**json.loads(row.data), "id": row.id, "source_doc": row.source_doc, "category_identifier": row.category_identifier} for row in rows]
 
-        return jsonify({"category_identifier": identifier, "data": data_list}), 200
+        return jsonify({"data":data_list}), 200
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
@@ -34,6 +34,7 @@ def get_sheet(identifier):
 def save_sheet():
     try:
         payload = request.json or {}
+        
         identifier = payload.get('category_identifier')
         data = payload.get('data')  # stringified JSON from client
 
@@ -46,7 +47,11 @@ def save_sheet():
         Invoice.query.filter_by(category_identifier=identifier).delete()
 
         for dt in data:
-            sheet = Invoice(category_identifier=identifier, data=json.dumps(dt))
+            tmp = dt.copy()
+            del tmp["id"]
+            del tmp["category_identifier"]
+            del tmp["source_doc"]
+            sheet = Invoice(category_identifier=dt["category_identifier"], source_doc = dt["source_doc"],  data=json.dumps(tmp))
             db.session.add(sheet)
 
         db.session.commit()

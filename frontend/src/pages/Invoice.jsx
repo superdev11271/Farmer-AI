@@ -20,9 +20,10 @@ import InvoiceTable15 from "./components/InvoiceTables/InvoiceTable15";
 import InvoiceTable16 from "./components/InvoiceTables/InvoiceTable16";
 import InvoiceTable17 from "./components/InvoiceTables/InvoiceTable17";
 import InvoiceTable18 from "./components/InvoiceTables/InvoiceTable18";
-import InvoiceTableR1_1 from "./components/InvoiceTables/InvoiceTableR1-1";
-import InvoiceTableR1_4 from "./components/InvoiceTables/InvoiceTableR1-4";
-import InvoiceTableR8_2 from "./components/InvoiceTables/InvoiceTableR8-2";
+import InvoiceTable19 from "./components/InvoiceTables/InvoiceTable19";
+import InvoiceTable20 from "./components/InvoiceTables/InvoiceTable20";
+import InvoiceTable21 from "./components/InvoiceTables/InvoiceTable21";
+import InvoiceTable22 from "./components/InvoiceTables/InvoiceTable22";
 
 
 const Invoices = () => {
@@ -50,10 +51,10 @@ const Invoices = () => {
       {invoice_types.type16.includes(currentCateoryIdentifier) && <InvoiceTable16 categoryIdentifier={currentCateoryIdentifier} />}
       {invoice_types.type17.includes(currentCateoryIdentifier) && <InvoiceTable17 categoryIdentifier={currentCateoryIdentifier} />}
       {invoice_types.type18.includes(currentCateoryIdentifier) && <InvoiceTable18 categoryIdentifier={currentCateoryIdentifier} />}
-
-      {currentCateoryIdentifier == "R1-1" && <InvoiceTableR1_1 categoryIdentifier={currentCateoryIdentifier}/>}
-      {currentCateoryIdentifier == "R1-4" && <InvoiceTableR1_4 categoryIdentifier={currentCateoryIdentifier}/>}
-      {currentCateoryIdentifier == "R8-2" && <InvoiceTableR8_2 categoryIdentifier={currentCateoryIdentifier}/>}
+      {invoice_types.type19.includes(currentCateoryIdentifier) && <InvoiceTable19 categoryIdentifier={currentCateoryIdentifier} />}
+      {invoice_types.type20.includes(currentCateoryIdentifier) && <InvoiceTable20 categoryIdentifier={currentCateoryIdentifier} />}
+      {invoice_types.type21.includes(currentCateoryIdentifier) && <InvoiceTable21 categoryIdentifier={currentCateoryIdentifier} />}
+      {invoice_types.type22.includes(currentCateoryIdentifier) && <InvoiceTable22 categoryIdentifier={currentCateoryIdentifier} />}
     </div>
   );
 };

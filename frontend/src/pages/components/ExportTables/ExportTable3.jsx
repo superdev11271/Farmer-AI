@@ -14,14 +14,14 @@ const TotalsTable = memo(({ sub_index, item_index, sub_name, categoryIdentifier,
 
             const data = res.data.data || [];
             const totalExcl = data.reduce(
-                (sum, inv) => sum + Number(inv.bedrag || 0),
+                (sum, inv) => sum + Number(inv.Bedrag || 0),
                 0
             );
             const totalIncl = data.reduce(
                 (sum, inv) =>
                     sum +
-                    Number(inv.bedrag || 0) +
-                    (Number(inv.bedrag || 0) * (Number(inv.btw || 0) / 100)),
+                    Number(inv.Bedrag || 0) +
+                    (Number(inv.Bedrag || 0) * (Number(inv.BTW || 0) / 100)),
                 0
             );
             const totalKg = data.reduce((sum, inv) => sum + Number(inv.kg || 0), 0);

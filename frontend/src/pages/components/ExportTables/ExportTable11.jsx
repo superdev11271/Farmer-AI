@@ -14,7 +14,7 @@ const TotalsTable = memo(({ sub_index, item_index, sub_name, categoryIdentifier,
 
             const data = res.data.data || [];
             const totalExcl = data.reduce(
-                (sum, inv) => sum + Number(inv.bedrag || 0),
+                (sum, inv) => sum + Number(inv.Bedrag || 0),
                 0
             );
 

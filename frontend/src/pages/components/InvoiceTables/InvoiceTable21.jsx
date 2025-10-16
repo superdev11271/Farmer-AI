@@ -43,11 +43,11 @@ export default function InvoiceTableR8_2({ categoryIdentifier }) {
   const fetchData = async () => {
     try {
       const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/invoice/${categoryIdentifier}`);
-   
+
       if (res.data && res.data.data.length > 0) {
         // Convert invoice data to our format
         const invoiceData = res.data.data[0];
-        
+
         const newData = {
           lening: invoiceData.lening || 0,
           kleineRisico: invoiceData.kleineRisico || 0,
@@ -103,7 +103,7 @@ export default function InvoiceTableR8_2({ categoryIdentifier }) {
     try {
       const payload = {
         category_identifier: categoryIdentifier,
-        data: [data]
+        data: [{ ...data, category_identifier: categoryIdentifier, source_doc: "", id: 123324234 }],
       };
 
 
