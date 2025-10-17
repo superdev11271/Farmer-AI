@@ -64,11 +64,10 @@ export default function InvoiceTable({ categoryIdentifier }) {
   const handleAddItem = () => {
     const newItem = {
       id: Date.now(),
-      category_identifier: categoryIdentifier,
+      category_identifier: categoryIdendatumr,
       source_doc: "",
       Datum: "",
       Omschrijving: "",
-      MK: null,
       Bedrag: 0,
       BTW: 21,
       MKK: 0,
@@ -226,7 +225,7 @@ export default function InvoiceTable({ categoryIdentifier }) {
           </div>
           <div>
             <p className="text-sm text-gray-500">BTW Bedrag[EUR]</p>
-            <p className="text-lg font-semibold text-gray-900">€{totalIncl.toFixed(2)}</p>
+            <p className="text-lg font-semibold text-gray-900">€{(totalIncl - totalExcl).toFixed(2)}</p>
           </div>
         </div>
       </div>

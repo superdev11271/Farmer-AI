@@ -4,7 +4,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 
 const ExportTable18 = memo(({ sub_index, item_index, sub_name, categoryIdentifier, setExportJsonArray }) => {
-    const [totals, setTotals] = useState({ totalExcl: 0, totalIncl: 0 });
+    const [totals, setTotals] = useState({ totalUren: 0, totalAK: 0 });
 
     const fetchTotals = async () => {
         try {
@@ -13,22 +13,19 @@ const ExportTable18 = memo(({ sub_index, item_index, sub_name, categoryIdentifie
             );
 
             const data = res.data.data || [];
-            const totalExcl = data.reduce(
-                (sum, inv) => sum + Number(inv.Bedrag || 0),
+            const totalUren = data.reduce(
+                (sum, inv) => sum + Number(inv.Uren || 0),
                 0
             );
-            const totalIncl = data.reduce(
-                (sum, inv) =>
-                    sum +
-                    Number(inv.Bedrag || 0) +
-                    (Number(inv.Bedrag || 0) * (Number(inv.BTW || 0) / 100)),
+             const totalAK = data.reduce(
+                (sum, inv) => sum + Number(inv.AK || 0),
                 0
             );
 
-            setTotals({ totalExcl, totalIncl });
+            setTotals({ totalUren, totalAK });
             setExportJsonArray(prev => [...prev, {
                 table_name: `${sub_index}${item_index ? " - " + item_index : ""}: ${sub_name}`,
-                data: { "Bedrag (excl)[EUR]": totalExcl, "BTW Bedrag[EUR]": totalIncl }
+                data: { "Uren/jiaar": totalUren, "AK": totalAK }
             }])
         } catch (err) {
             toast.error("Failed to fetch invoice data");
@@ -53,18 +50,18 @@ const ExportTable18 = memo(({ sub_index, item_index, sub_name, categoryIdentifie
                         <tr>
                             {/* Table headers with custom color */}
                             <th className="border border-gray-300 px-4 py-2 text-center bg-gray-100 text-green-700">
-                                Bedrag (excl)[EUR]
+                                Uren/jiaar
                             </th>
                             <th className="border border-gray-300 px-4 py-2 text-center bg-gray-100 text-green-700">
-                                BTW Bedrag[EUR]
+                                AK
                             </th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td className="border border-gray-300 px-4 py-2 text-center">€{totals.totalExcl.toFixed(2)}</td>
+                            <td className="border border-gray-300 px-4 py-2 text-center">{totals.totalUren.toFixed(2)}</td>
                             <td className="border border-gray-300 px-4 py-2 text-center">
-                                €{totals.totalIncl.toFixed(2)}
+                                {totals.totalAK.toFixed(2)}
                             </td>
                         </tr>
                     </tbody>

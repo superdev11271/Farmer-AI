@@ -24,16 +24,16 @@ const TotalsTable = memo(({ sub_index, item_index, sub_name, categoryIdentifier,
                     (Number(inv.Bedrag || 0) * (Number(inv.BTW || 0) / 100)),
                 0
             );
-            const totalKg = data.reduce((sum, inv) => sum + Number(inv.kg || 0), 0);
-            const totalMK = data.reduce((sum, inv) => sum + Number(inv.mk || 0), 0);
-            const totalJV = data.reduce((sum, inv) => sum + Number(inv.jv || 0), 0);
-            const totalMV = data.reduce((sum, inv) => sum + Number(inv.mv || 0), 0);
-            const totalZK = data.reduce((sum, inv) => sum + Number(inv.zk || 0), 0);
+            const totalKg = data.reduce((sum, inv) => sum + Number(inv.Kg || 0), 0);
+            const totalMK = data.reduce((sum, inv) => sum + Number(inv.MK || 0), 0);
+            const totalJV = data.reduce((sum, inv) => sum + Number(inv.JV || 0), 0);
+            const totalMV = data.reduce((sum, inv) => sum + Number(inv.MV || 0), 0);
+            const totalZK = data.reduce((sum, inv) => sum + Number(inv.ZK || 0), 0);
 
             setTotals({ totalKg, totalMK, totalJV, totalMV, totalZK, totalExcl, totalIncl });
             setExportJsonArray(prev => [...prev, {
                 table_name: `${sub_index}${item_index ? " - " + item_index : ""}: ${sub_name}`,
-                data: { "Kg": totalKg, "MK": totalMK, "JV": totalJV, "MV": totalMV, "ZK": totalZK, "Bedrag (excl)[EUR]": totalExcl, "BTW Bedrag[EUR]": totalIncl }
+                data: { "Kg": totalKg, "MK": totalMK, "JV": totalJV, "MV": totalMV, "ZK": totalZK, "Bedrag (excl)[EUR]": totalExcl, "BTW Bedrag[EUR]": totalIncl - totalExcl }
             }])
         } catch (err) {
             toast.error("Failed to fetch invoice data");
@@ -89,7 +89,7 @@ const TotalsTable = memo(({ sub_index, item_index, sub_name, categoryIdentifier,
                             <td className="border border-gray-300 px-4 py-2 text-center">{totals.totalZK.toFixed(2)}</td>
                             <td className="border border-gray-300 px-4 py-2 text-center">€{totals.totalExcl.toFixed(2)}</td>
                             <td className="border border-gray-300 px-4 py-2 text-center">
-                                €{totals.totalIncl.toFixed(2)}
+                                €{(totals.totalIncl - totals.totalExcl).toFixed(2)}
                             </td>
                         </tr>
                     </tbody>

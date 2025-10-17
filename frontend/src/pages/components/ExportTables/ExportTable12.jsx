@@ -4,7 +4,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 
 const ExportTable12 = memo(({ sub_index, item_index, sub_name, categoryIdentifier, setExportJsonArray }) => {
-    const [totals, setTotals] = useState({ totalExcl: 0, totalIncl: 0 });
+    const [totals, setTotals] = useState({ totalExcl: 0, totalOppervlakte: 0 });
 
     const fetchTotals = async () => {
         try {
@@ -17,18 +17,15 @@ const ExportTable12 = memo(({ sub_index, item_index, sub_name, categoryIdentifie
                 (sum, inv) => sum + Number(inv.Bedrag || 0),
                 0
             );
-            const totalIncl = data.reduce(
-                (sum, inv) =>
-                    sum +
-                    Number(inv.Bedrag || 0) +
-                    (Number(inv.Bedrag || 0) * (Number(inv.BTW || 0) / 100)),
+            const totalOppervlakte = data.reduce(
+                (sum, inv) => sum + Number(inv.Oppervlakte || 0),
                 0
             );
 
-            setTotals({ totalExcl, totalIncl });
+            setTotals({ totalExcl, totalOppervlakte });
             setExportJsonArray(prev => [...prev, {
                 table_name: `${sub_index}${item_index ? " - " + item_index : ""}: ${sub_name}`,
-                data: { "Bedrag (excl)[EUR]": totalExcl, "BTW Bedrag[EUR]": totalIncl }
+                data: { "Bedrag (excl)[EUR]": totalExcl, "Oppervlakte": totalOppervlakte }
             }])
         } catch (err) {
             toast.error("Failed to fetch invoice data");
@@ -51,21 +48,21 @@ const ExportTable12 = memo(({ sub_index, item_index, sub_name, categoryIdentifie
                 <table className="w-full border-collapse border border-gray-300 text-center">
                     <thead>
                         <tr>
+                            <th className="border border-gray-300 px-4 py-2 text-center bg-gray-100 text-green-700">
+                                Oppervlakte[ha]
+                            </th>
                             {/* Table headers with custom color */}
                             <th className="border border-gray-300 px-4 py-2 text-center bg-gray-100 text-green-700">
                                 Bedrag (excl)[EUR]
-                            </th>
-                            <th className="border border-gray-300 px-4 py-2 text-center bg-gray-100 text-green-700">
-                                BTW Bedrag[EUR]
                             </th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td className="border border-gray-300 px-4 py-2 text-center">€{totals.totalExcl.toFixed(2)}</td>
                             <td className="border border-gray-300 px-4 py-2 text-center">
-                                €{totals.totalIncl.toFixed(2)}
+                                {totals.totalOppervlakte.toFixed(2)}ha
                             </td>
+                            <td className="border border-gray-300 px-4 py-2 text-center">€{totals.totalExcl.toFixed(2)}</td>
                         </tr>
                     </tbody>
                 </table>

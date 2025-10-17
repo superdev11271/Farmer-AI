@@ -4,7 +4,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 
 const ExportTable15 = memo(({ sub_index, item_index, sub_name, categoryIdentifier, setExportJsonArray }) => {
-    const [totals, setTotals] = useState({ totalExcl: 0, totalIncl: 0 });
+    const [totals, setTotals] = useState({ totalExcl: 0, totalIncl: 0, totalLiters: 0 });
 
     const fetchTotals = async () => {
         try {
@@ -24,11 +24,14 @@ const ExportTable15 = memo(({ sub_index, item_index, sub_name, categoryIdentifie
                     (Number(inv.Bedrag || 0) * (Number(inv.BTW || 0) / 100)),
                 0
             );
-
-            setTotals({ totalExcl, totalIncl });
+            const totalLiters = data.reduce(
+                (sum, inv) => sum + Number(inv.LitersTotaal || 0),
+                0
+            );
+            setTotals({ totalExcl, totalIncl, totalLiters });
             setExportJsonArray(prev => [...prev, {
                 table_name: `${sub_index}${item_index ? " - " + item_index : ""}: ${sub_name}`,
-                data: { "Bedrag (excl)[EUR]": totalExcl, "BTW Bedrag[EUR]": totalIncl }
+                data: { "Bedrag (excl)[EUR]": totalExcl, "BTW Bedrag[EUR]": totalIncl - totalExcl, "Liters Totaal": totalLiters }
             }])
         } catch (err) {
             toast.error("Failed to fetch invoice data");
@@ -58,13 +61,19 @@ const ExportTable15 = memo(({ sub_index, item_index, sub_name, categoryIdentifie
                             <th className="border border-gray-300 px-4 py-2 text-center bg-gray-100 text-green-700">
                                 BTW Bedrag[EUR]
                             </th>
+                            <th className="border border-gray-300 px-4 py-2 text-center bg-gray-100 text-green-700">
+                                Liters Totaal
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td className="border border-gray-300 px-4 py-2 text-center">€{totals.totalExcl.toFixed(2)}</td>
                             <td className="border border-gray-300 px-4 py-2 text-center">
-                                €{totals.totalIncl.toFixed(2)}
+                                €{(totals.totalIncl - totals.totalExcl).toFixed(2)}
+                            </td>
+                            <td className="border border-gray-300 px-4 py-2 text-center">
+                                {totals.totalLiters.toFixed(2)}
                             </td>
                         </tr>
                     </tbody>

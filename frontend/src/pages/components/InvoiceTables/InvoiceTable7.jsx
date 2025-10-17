@@ -147,6 +147,7 @@ export default function InvoiceTable({ categoryIdentifier }) {
                 <th className="w-1/4 table-header">kWh</th>
                 <th className="w-1/6 table-header text-right">Bedrag</th>
                 <th className="w-1/12 table-header text-right">BTW %</th>
+                <th className="w-1/6 table-header text-right">BTW Bedrag</th>
                 <th className="w-1/6 table-header text-right">Bedrag Incl.</th>
                 <th className="w-1/12 table-header text-center">Actions</th>
               </tr>
@@ -176,6 +177,7 @@ export default function InvoiceTable({ categoryIdentifier }) {
                       )}
                     </td>
                   ))}
+                  <td className="px-3 py-2 text-right font-semibold">€{(invoice.BedragIncl - invoice.Bedrag).toFixed(2)}</td>
                   <td className="px-3 py-2 text-right font-semibold">€{invoice.BedragIncl.toFixed(2)}</td>
                   <td className="px-3 py-2 text-center">
                     <button
@@ -223,7 +225,7 @@ export default function InvoiceTable({ categoryIdentifier }) {
           </div>
           <div>
             <p className="text-sm text-gray-500">BTW Bedrag[EUR]</p>
-            <p className="text-lg font-semibold text-gray-900">€{totalIncl.toFixed(2)}</p>
+            <p className="text-lg font-semibold text-gray-900">€{(totalIncl - totalExcl).toFixed(2)}</p>
           </div>
         </div>
       </div>

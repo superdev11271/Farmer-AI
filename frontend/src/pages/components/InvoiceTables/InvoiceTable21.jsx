@@ -99,7 +99,7 @@ export default function InvoiceTableR8_2({ categoryIdentifier }) {
   };
 
   const handleSave = async () => {
-    console.log(data)
+    
     try {
       const payload = {
         category_identifier: categoryIdentifier,

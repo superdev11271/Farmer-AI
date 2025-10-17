@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Trash2, Plus, Save, X, DollarSign, TrendingUp } from "lucide-react";
+import { Trash2, Plus, Save, X, DollarSign, TrendingUp, Building2 } from "lucide-react";
 import toast from "react-hot-toast";
 import axios from "axios";
 
@@ -102,6 +102,7 @@ export default function InvoiceTable({ categoryIdentifier }) {
   // Totals
   const totalExcl = draftInvoices.reduce((sum, inv) => sum + Number(inv.Bedrag || 0), 0);
   const totalIncl = draftInvoices.reduce((sum, inv) => sum + Number(inv.BedragIncl || 0), 0);
+  const totalLiters = draftInvoices.reduce((sum, inv) => sum + Number(inv.LitersTotaal || 0), 0);
 
   return (
     <div className="space-y-6">
@@ -150,6 +151,7 @@ export default function InvoiceTable({ categoryIdentifier }) {
                 <th className="w-1/6 table-header text-right">Liters bedrijf</th>
                 <th className="w-1/6 table-header text-right">Bedrag</th>
                 <th className="w-1/12 table-header text-right">BTW %</th>
+                <th className="w-1/6 table-header text-right">BTW Bedrag</th>
                 <th className="w-1/6 table-header text-right">Bedrag Incl.</th>
                 <th className="w-1/12 table-header text-center">Actions</th>
               </tr>
@@ -179,6 +181,7 @@ export default function InvoiceTable({ categoryIdentifier }) {
                       )}
                     </td>
                   ))}
+                  <td className="px-3 py-2 text-right font-semibold">€{(invoice.BedragIncl - invoice.Bedrag).toFixed(2)}</td>
                   <td className="px-3 py-2 text-right font-semibold">€{invoice.BedragIncl.toFixed(2)}</td>
                   <td className="px-3 py-2 text-center">
                     <button
@@ -216,7 +219,17 @@ export default function InvoiceTable({ categoryIdentifier }) {
           </div>
           <div>
             <p className="text-sm text-gray-500">BTW Bedrag[EUR]</p>
-            <p className="text-lg font-semibold text-gray-900">€{totalIncl.toFixed(2)}</p>
+            <p className="text-lg font-semibold text-gray-900">€{(totalIncl - totalExcl).toFixed(2)}</p>
+          </div>
+        </div>
+        {/* Total Liters Totaal */}
+        <div className="flex items-center p-4 bg-white shadow rounded-lg">
+          <div className="p-3 rounded-full bg-pink-100 text-pink-600 mr-4">
+            <Building2 className="h-6 w-6" />
+          </div>
+          <div>
+            <p className="text-sm text-gray-500">Total Liters</p>
+            <p className="text-lg font-semibold text-gray-900">{totalLiters.toFixed(2)}</p>
           </div>
         </div>
       </div>

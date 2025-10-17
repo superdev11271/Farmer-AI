@@ -24,12 +24,12 @@ const TotalsTable = memo(({ sub_index, item_index, sub_name, categoryIdentifier,
                     (Number(inv.Bedrag || 0) * (Number(inv.BTW || 0) / 100)),
                 0
             );
-            const totalMK = data.reduce((sum, inv) => sum + Number(inv.MKK || 0), 0);
+            const totalMK = data.reduce((sum, inv) => sum + Number(inv.Bedrag || 0), 0);
 
             setTotals({ totalExcl, totalIncl, totalMK });
             setExportJsonArray(prev => [...prev, {
                 table_name: `${sub_index}${item_index ? " - " + item_index : ""}: ${sub_name}`,
-                data: { "Bedrag (excl)[EUR]": totalExcl, "BTW Bedrag[EUR]": totalIncl, "MK": totalMK }
+                data: { "Bedrag (excl)[EUR]": totalExcl, "BTW Bedrag[EUR]": totalIncl - totalExcl, "MK": totalMK }
             }])
         } catch (err) {
             toast.error("Failed to fetch invoice data");
@@ -68,7 +68,7 @@ const TotalsTable = memo(({ sub_index, item_index, sub_name, categoryIdentifier,
                         <tr>
                             <td className="border border-gray-300 px-4 py-2 text-center">€{totals.totalExcl.toFixed(2)}</td>
                             <td className="border border-gray-300 px-4 py-2 text-center">
-                                €{totals.totalIncl.toFixed(2)}
+                                €{(totals.totalIncl - totals.totalExcl).toFixed(2)}
                             </td>
                             <td className="border border-gray-300 px-4 py-2 text-center">
                                 {totals.totalMK.toFixed(2)}

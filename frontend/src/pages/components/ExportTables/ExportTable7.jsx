@@ -13,7 +13,7 @@ const TotalsTable = memo(({ sub_index, item_index, sub_name, categoryIdentifier,
             );
             const data = res.data.data || [];
             const totalKWh = data.reduce(
-                (sum, inv) => sum + Number(inv.kg || 0),
+                (sum, inv) => sum + Number(inv.kWh || 0),
                 0
             );
             const totalExcl = data.reduce(
@@ -31,7 +31,7 @@ const TotalsTable = memo(({ sub_index, item_index, sub_name, categoryIdentifier,
             setTotals({ totalKWh, totalExcl, totalIncl });
             setExportJsonArray(prev => [...prev, {
                 table_name: `${sub_index}${item_index ? " - " + item_index : ""}: ${sub_name}`,
-                data: { "kWh": totalKWh, "Bedrag (excl)[EUR]": totalExcl, "BTW Bedrag[EUR]": totalIncl }
+                data: { "kWh": totalKWh, "Bedrag (excl)[EUR]": totalExcl, "BTW Bedrag[EUR]": totalIncl - totalExcl }
             }])
         } catch (err) {
             toast.error("Failed to fetch invoice data");
@@ -71,7 +71,7 @@ const TotalsTable = memo(({ sub_index, item_index, sub_name, categoryIdentifier,
                             <td className="border border-gray-300 px-4 py-2 text-center">{totals.totalKWh.toFixed(2)}</td>
                             <td className="border border-gray-300 px-4 py-2 text-center">€{totals.totalExcl.toFixed(2)}</td>
                             <td className="border border-gray-300 px-4 py-2 text-center">
-                                €{totals.totalIncl.toFixed(2)}
+                                €{(totals.totalIncl - totals.totalExcl).toFixed(2)}
                             </td>
                         </tr>
                     </tbody>

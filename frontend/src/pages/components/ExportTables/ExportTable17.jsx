@@ -4,10 +4,10 @@ import axios from "axios";
 import toast from "react-hot-toast";
 
 const ExportTable17 = memo(({ sub_index, item_index, sub_name, categoryIdentifier, setExportJsonArray }) => {
-    const [totals, setTotals] = useState({ 
-        totalExcl: 0, 
-        totalIncl: 0, 
-        totalKg: 0, 
+    const [totals, setTotals] = useState({
+        totalExcl: 0,
+        totalIncl: 0,
+        totalKg: 0,
         totalKgDs: 0,
         totalMK: 0,
         totalJV: 0,
@@ -34,36 +34,36 @@ const ExportTable17 = memo(({ sub_index, item_index, sub_name, categoryIdentifie
                 0
             );
             const totalKg = data.reduce(
-                (sum, inv) => sum + Number(inv.kg || 0),
+                (sum, inv) => sum + Number(inv.Kg || 0),
                 0
             );
             const totalKgDs = data.reduce(
-                (sum, inv) => sum + Number(inv.kg_ds || 0),
+                (sum, inv) => sum + (Number(inv.Kg || 0) * Number(inv.DS_Percent || 0)) / 100,
                 0
             );
             const totalMK = data.reduce(
-                (sum, inv) => sum + Number(inv.mk || 0),
+                (sum, inv) => sum + Number(inv.MK || 0),
                 0
             );
             const totalJV = data.reduce(
-                (sum, inv) => sum + Number(inv.jv || 0),
+                (sum, inv) => sum + Number(inv.JV || 0),
                 0
             );
             const totalMV = data.reduce(
-                (sum, inv) => sum + Number(inv.mv || 0),
+                (sum, inv) => sum + Number(inv.MV || 0),
                 0
             );
             const totalZK = data.reduce(
-                (sum, inv) => sum + Number(inv.zk || 0),
+                (sum, inv) => sum + Number(inv.ZK || 0),
                 0
             );
 
             setTotals({ totalExcl, totalIncl, totalKg, totalKgDs, totalMK, totalJV, totalMV, totalZK });
             setExportJsonArray(prev => [...prev, {
                 table_name: `${sub_index}${item_index ? " - " + item_index : ""}: ${sub_name}`,
-                data: { 
-                    "Bedrag (excl)[EUR]": totalExcl, 
-                    "BTW Bedrag[EUR]": totalIncl,
+                data: {
+                    "Bedrag (excl)[EUR]": totalExcl,
+                    "BTW Bedrag[EUR]": totalIncl - totalExcl,
                     "Totaal Kg": totalKg,
                     "Totaal Kg DS": totalKgDs,
                     "Totaal MK": totalMK,
@@ -123,7 +123,7 @@ const ExportTable17 = memo(({ sub_index, item_index, sub_name, categoryIdentifie
                     <tbody>
                         <tr>
                             <td className="border border-gray-300 px-2 py-2 text-center">€{totals.totalExcl.toFixed(2)}</td>
-                            <td className="border border-gray-300 px-2 py-2 text-center">€{totals.totalIncl.toFixed(2)}</td>
+                            <td className="border border-gray-300 px-2 py-2 text-center">€{(totals.totalIncl - totals.totalExcl).toFixed(2)}</td>
                             <td className="border border-gray-300 px-2 py-2 text-center">{totals.totalKg.toFixed(2)}</td>
                             <td className="border border-gray-300 px-2 py-2 text-center">{totals.totalKgDs.toFixed(2)}</td>
                             <td className="border border-gray-300 px-2 py-2 text-center">{totals.totalMK.toFixed(2)}</td>

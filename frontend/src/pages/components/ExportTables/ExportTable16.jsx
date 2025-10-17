@@ -4,11 +4,11 @@ import axios from "axios";
 import toast from "react-hot-toast";
 
 const ExportTable16 = memo(({ sub_index, item_index, sub_name, categoryIdentifier, setExportJsonArray }) => {
-    const [totals, setTotals] = useState({ 
-        totalExcl: 0, 
-        totalIncl: 0, 
-        totalKgProduct: 0, 
-        totalKgDs: 0 
+    const [totals, setTotals] = useState({
+        totalExcl: 0,
+        totalIncl: 0,
+        totalKgProduct: 0,
+        totalKgDs: 0
     });
 
     const fetchTotals = async () => {
@@ -30,20 +30,20 @@ const ExportTable16 = memo(({ sub_index, item_index, sub_name, categoryIdentifie
                 0
             );
             const totalKgProduct = data.reduce(
-                (sum, inv) => sum + Number(inv["Kg Product"] || 0),
+                (sum, inv) => sum + (Number(inv.Kg_Product || 0) * Number(inv.DS_Percent || 0) / 100),
                 0
             );
             const totalKgDs = data.reduce(
-                (sum, inv) => sum + Number(inv.kg_ds || 0),
+                (sum, inv) => sum + Number(inv.Kg_Product || 0),
                 0
             );
 
             setTotals({ totalExcl, totalIncl, totalKgProduct, totalKgDs });
             setExportJsonArray(prev => [...prev, {
                 table_name: `${sub_index}${item_index ? " - " + item_index : ""}: ${sub_name}`,
-                data: { 
-                    "Bedrag (excl)[EUR]": totalExcl, 
-                    "BTW Bedrag[EUR]": totalIncl,
+                data: {
+                    "Bedrag (excl)[EUR]": totalExcl,
+                    "BTW Bedrag[EUR]": totalIncl - totalExcl,
                     "Totaal Kg Product": totalKgProduct,
                     "Totaal Kg DS": totalKgDs
                 }
@@ -87,7 +87,7 @@ const ExportTable16 = memo(({ sub_index, item_index, sub_name, categoryIdentifie
                     <tbody>
                         <tr>
                             <td className="border border-gray-300 px-4 py-2 text-center">€{totals.totalExcl.toFixed(2)}</td>
-                            <td className="border border-gray-300 px-4 py-2 text-center">€{totals.totalIncl.toFixed(2)}</td>
+                            <td className="border border-gray-300 px-4 py-2 text-center">€{(totals.totalIncl - totals.totalExcl).toFixed(2)}</td>
                             <td className="border border-gray-300 px-4 py-2 text-center">{totals.totalKgProduct.toFixed(2)}</td>
                             <td className="border border-gray-300 px-4 py-2 text-center">{totals.totalKgDs.toFixed(2)}</td>
                         </tr>

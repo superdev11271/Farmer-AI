@@ -35,12 +35,6 @@ export default function InvoiceTable({ categoryIdentifier }) {
       prev.map(inv => {
         if (inv.id === id) {
           const updated = { ...inv, [field]: value };
-          if (field === "Bedrag" || field === "BTW") {
-            const amountNum = parseFloat(updated.Bedrag) || 0;
-            const vatPerc = parseFloat(updated.BTW) || 0;
-            updated.BTW = vatPerc;
-            updated.BedragIncl = +(amountNum + amountNum * (vatPerc / 100)).toFixed(2);
-          }
           return updated;
         }
         return inv;
@@ -72,7 +66,7 @@ export default function InvoiceTable({ categoryIdentifier }) {
   const handleSave = async () => {
     try {
       // Send to backend using backend keys
-      const payload = draftInvoices.map(({ BedragIncl, ...rest }) => rest);
+      const payload = draftInvoices.map(({ ...rest }) => rest);
       await axios.post(import.meta.env.VITE_API_BASE_URL + "/api/invoice/", {
         category_identifier: categoryIdentifier,
         data: payload,
@@ -93,6 +87,8 @@ export default function InvoiceTable({ categoryIdentifier }) {
   };
 
   // Totals
+  
+  const totalOppervlakte = draftInvoices.reduce((sum, inv) => sum + Number(inv.Oppervlakte || 0), 0);
   const totalExcl = draftInvoices.reduce((sum, inv) => sum + Number(inv.Bedrag || 0), 0);
 
   return (
@@ -146,22 +142,22 @@ export default function InvoiceTable({ categoryIdentifier }) {
             <tbody className="bg-white divide-y divide-gray-200">
               {draftInvoices.map(invoice => (
                 <tr key={invoice.id} className="hover:bg-gray-50 transition-colors duration-150">
-                  {["category_identifier", "source_doc", "Datum", "Omschrijving", "kg", "Bedrag"].map(field => (
+                  {["category_identifier", "source_doc", "Datum", "Omschrijving", "Oppervlakte", "Bedrag"].map(field => (
                     <td
                       key={field}
-                      className={`px-3 py-2 text-sm ${field === "Bedrag" || field === "BTW" ? "text-right" : ""}`}
+                      className={`px-3 py-2 text-sm ${field === "Bedrag" ? "text-right" : ""}`}
                       onDoubleClick={() => handleDoubleClick(invoice.id, field)}
                     >
                       {editingCell.id === invoice.id && editingCell.field === field ? (
                         <input
-                          type={field === "Bedrag" || field === "BTW" ? "number" : "text"}
+                          type={field === "Bedrag" ? "number" : "text"}
                           autoFocus
                           onBlur={handleBlur}
                           value={invoice[field] != null ? invoice[field] : ""}
                           onChange={e => handleChange(invoice.id, field, e.target.value)}
                           className="w-full border border-blue-400 rounded px-2 py-1 text-sm text-right focus:outline-none box-border"
                         />
-                      ) : field === "Bedrag" || field === "BTW" ? (
+                      ) : field === "Bedrag" ? (
                         invoice[field]
                       ) : (
                         invoice[field]
@@ -186,6 +182,16 @@ export default function InvoiceTable({ categoryIdentifier }) {
 
       {/* Totals dashboard card */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {/* Total Oppervlakte */}
+        <div className="flex items-center p-4 bg-white shadow rounded-lg">
+          <div className="p-3 rounded-full bg-green-100 text-green-600 mr-4">
+            <TrendingUp className="h-6 w-6" />
+          </div>
+          <div>
+            <p className="text-sm text-gray-500">Oppervlakte[ha]</p>
+            <p className="text-lg font-semibold text-gray-900">{totalOppervlakte.toFixed(2)}ha</p>
+          </div>
+        </div>
         {/* Total excl */}
         <div className="flex items-center p-4 bg-white shadow rounded-lg">
           <div className="p-3 rounded-full bg-blue-100 text-blue-600 mr-4">
