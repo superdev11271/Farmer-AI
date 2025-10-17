@@ -46,16 +46,15 @@ const AgriculturalForm = ({ categoryIdentifier }) => {
       const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/invoice/${categoryIdentifier}`);
       const res1 = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/invoice/R1-2-1`);
       const res2 = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/invoice/R1-4`);
-
       const totalOppervlakte = res1.data.data.reduce((sum, inv) => sum + Number(inv.Oppervlakte || 0), 0);
-      const tmp = res2.data.data[0]
+      const tmp = res2.data.data[0] || []
       delete tmp["category_identifier"]
       delete tmp["id"]
       delete tmp["source_doc"]
-      const totalArea = Object.values(tmp).reduce((sum, val) => sum + Number(val || 0), 0);
 
+      const totalArea = Object.values(tmp).reduce((sum, val) => sum + Number(val || 0), 0);
       if (res.data && res.data.data && res.data.data.length > 0) {
-        const serverData = res.data.data[0];
+        const serverData = res.data.data[0] || [];
         // Map server data to form data structure
         const newFormData = {
           companyType: serverData.companyType || 'Standaard',

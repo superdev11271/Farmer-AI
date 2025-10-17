@@ -60,7 +60,7 @@ const ExportTable16 = memo(({ sub_index, item_index, sub_name, categoryIdentifie
 
     return (
         <div className="card p-6 shadow-md rounded-lg bg-white flex justify-center">
-            <div className="w-full max-w-xl">
+            <div className="w-full">
                 {/* Sub name with custom color */}
                 <h3 className="text-lg font-semibold mb-4 text-center text-blue-500">
                     {sub_index}{item_index ? " - " + item_index : ""}: {sub_name}

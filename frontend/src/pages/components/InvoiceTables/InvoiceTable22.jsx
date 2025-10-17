@@ -15,7 +15,7 @@ export default function StallplaatsenForm({ categoryIdentifier }) {
     const load = async () => {
       try {
         const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/invoice/${categoryIdentifier}`);
-        const serverData = res.data.data[0];
+        const serverData = res.data.data[0]  || [];
         setData(serverData);
         setBaseline(serverData);
 

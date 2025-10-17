@@ -46,7 +46,7 @@ export default function InvoiceTableR8_2({ categoryIdentifier }) {
 
       if (res.data && res.data.data.length > 0) {
         // Convert invoice data to our format
-        const invoiceData = res.data.data[0];
+        const invoiceData = res.data.data[0]  || [];
 
         const newData = {
           lening: invoiceData.lening || 0,

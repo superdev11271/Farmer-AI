@@ -12,7 +12,7 @@ const ExportTable18 = memo(({ sub_index, item_index, sub_name, categoryIdentifie
 
             if (res.data && res.data.data.length > 0) {
                 // Convert invoice data to our format
-                const invoiceData = res.data.data[0];
+                const invoiceData = res.data.data[0] || [];
 
                 const data = {
                     lening: invoiceData.lening || 0,
@@ -86,7 +86,7 @@ const ExportTable18 = memo(({ sub_index, item_index, sub_name, categoryIdentifie
 
     return (
         <div className="card p-6 shadow-md rounded-lg bg-white flex justify-center">
-            <div className="w-full max-w-xl">
+            <div className="w-full">
                 {/* Sub name with custom color */}
                 <h3 className="text-lg font-semibold mb-4 text-center text-blue-500">
                     {sub_index}{item_index ? " - " + item_index : ""}: {sub_name}

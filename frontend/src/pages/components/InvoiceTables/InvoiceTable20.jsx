@@ -40,7 +40,7 @@ export default function CropTable({ categoryIdentifier }) {
     try {
       const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/invoice/${categoryIdentifier}`);
       if (res.data && res.data.data && res.data.data.length > 0) {
-        const serverData = { ...initialData, ...res.data.data[0] }; // Merge to keep cropNames order
+        const serverData = { ...initialData, ...res.data.data[0] || [] }; // Merge to keep cropNames order
         delete serverData["id"];
         delete serverData["source_doc"];
         delete serverData["category_identifier"];

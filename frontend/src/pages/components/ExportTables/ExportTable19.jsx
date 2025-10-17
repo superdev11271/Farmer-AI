@@ -11,14 +11,13 @@ const ExportTable18 = memo(({ sub_index, item_index, sub_name, categoryIdentifie
             const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/invoice/${categoryIdentifier}`);
             const res1 = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/invoice/R1-2-1`);
             const res2 = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/invoice/R1-4`);
-
-            const totalOppervlakte = res1.data.data.reduce((sum, inv) => sum + Number(inv.Oppervlakte || 0), 0) + Number(res.data.data[0][["ownership"]] || 0);
-
-            const tmp = res2.data.data[0]
+            const totalOppervlakte = res.data.data.length > 0 ?
+                res1.data.data.reduce((sum, inv) => sum + Number(inv.Oppervlakte || 0), 0) + Number(res.data.data[0][["ownership"]] || 0) : 0;
+            const tmp = res2.data.data[0] || []
             delete tmp["category_identifier"]
             delete tmp["id"]
             delete tmp["source_doc"]
-            const totalArea = Object.values(tmp).reduce((sum, val) => sum + Number(val || 0), 0) + Number(res.data.data[0]["lostArea"] || 0);
+            const totalArea = res.data.data.length > 0 ? Object.values(tmp).reduce((sum, val) => sum + Number(val || 0), 0) + Number(res.data.data[0]["lostArea"] || 0) : 0;
             const totalUren = totalOppervlakte
             const totalAK = totalArea
 
@@ -39,7 +38,7 @@ const ExportTable18 = memo(({ sub_index, item_index, sub_name, categoryIdentifie
 
     return (
         <div className="card p-6 shadow-md rounded-lg bg-white flex justify-center">
-            <div className="w-full max-w-xl">
+            <div className="w-full">
                 {/* Sub name with custom color */}
                 <h3 className="text-lg font-semibold mb-4 text-center text-blue-500">
                     {sub_index}{item_index ? " - " + item_index : ""}: {sub_name}
