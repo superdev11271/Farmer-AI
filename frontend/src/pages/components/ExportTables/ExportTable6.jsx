@@ -48,7 +48,8 @@ const TotalsTable = memo(({ sub_index, item_index, sub_name, categoryIdentifier,
                     {sub_index}{item_index ? " - " + item_index : ""}: {sub_name}
                 </h3>
 
-                <table className="w-full border-collapse border border-gray-300 text-center">
+                <div className="overflow-x-auto">
+                    <table className="w-full border-collapse border border-gray-300 text-center min-w-max">
                     <thead>
                         <tr>
                             {/* Table headers with custom color */}
@@ -68,7 +69,8 @@ const TotalsTable = memo(({ sub_index, item_index, sub_name, categoryIdentifier,
                             </td>
                         </tr>
                     </tbody>
-                </table>
+                    </table>
+                </div>
             </div>
         </div>
     );

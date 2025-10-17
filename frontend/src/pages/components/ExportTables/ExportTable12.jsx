@@ -45,7 +45,8 @@ const ExportTable12 = memo(({ sub_index, item_index, sub_name, categoryIdentifie
                     {sub_index}{item_index ? " - " + item_index : ""}: {sub_name}
                 </h3>
 
-                <table className="w-full border-collapse border border-gray-300 text-center">
+                <div className="overflow-x-auto">
+                    <table className="w-full border-collapse border border-gray-300 text-center min-w-max">
                     <thead>
                         <tr>
                             <th className="border border-gray-300 px-4 py-2 text-center bg-gray-100 text-green-700">
@@ -65,7 +66,8 @@ const ExportTable12 = memo(({ sub_index, item_index, sub_name, categoryIdentifie
                             <td className="border border-gray-300 px-4 py-2 text-center">€{totals.totalExcl.toFixed(2)}</td>
                         </tr>
                     </tbody>
-                </table>
+                    </table>
+                </div>
             </div>
         </div>
     );

@@ -209,9 +209,15 @@ export default function MilkPayoutSheet({ categoryIdentifier }) {
   const saveToServer = async () => {
     try {
       setSaving(true);
+      const tmp = data
+      delete tmp["totaalBasisMelkgeld"]
+      delete tmp["totaalMelkgeld"]
+      delete tmp["totaalOntvangen"]
+      delete tmp["totaalOntvangenViaAfrekening"]
+      delete tmp["totaalOntvangenViaVoorschot"]
       const payload = {
         category_identifier: categoryIdentifier,
-        data: [{ ...data, category_identifier: categoryIdentifier, source_doc: "", id: 123324234 }],
+        data: [{ ...tmp, category_identifier: categoryIdentifier, source_doc: "", id: 123324234 }],
       };
       await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/invoice/`, payload);
       setBaseline(data);

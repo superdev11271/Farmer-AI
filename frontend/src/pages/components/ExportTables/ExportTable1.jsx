@@ -48,27 +48,29 @@ const TotalsTable = memo(({ sub_index, item_index, sub_name, categoryIdentifier,
                     {sub_index}{item_index ? " - " + item_index : ""}: {sub_name}
                 </h3>
 
-                <table className="w-full border-collapse border border-gray-300 text-center">
-                    <thead>
-                        <tr>
-                            {/* Table headers with custom color */}
-                            <th className="border border-gray-300 px-4 py-2 text-center bg-gray-100 text-green-700">
-                                Bedrag (excl)[EUR]
-                            </th>
-                            <th className="border border-gray-300 px-4 py-2 text-center bg-gray-100 text-green-700">
-                                BTW Bedrag[EUR]
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td className="border border-gray-300 px-4 py-2 text-center">€{totals.totalExcl.toFixed(2)}</td>
-                            <td className="border border-gray-300 px-4 py-2 text-center">
-                                €{(totals.totalIncl - totals.totalExcl).toFixed(2)}
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div className="overflow-x-auto">
+                    <table className="w-full border-collapse border border-gray-300 text-center min-w-max">
+                        <thead>
+                            <tr>
+                                {/* Table headers with custom color */}
+                                <th className="border border-gray-300 px-4 py-2 text-center bg-gray-100 text-green-700">
+                                    Bedrag (excl)[EUR]
+                                </th>
+                                <th className="border border-gray-300 px-4 py-2 text-center bg-gray-100 text-green-700">
+                                    BTW Bedrag[EUR]
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td className="border border-gray-300 px-4 py-2 text-center">€{totals.totalExcl.toFixed(2)}</td>
+                                <td className="border border-gray-300 px-4 py-2 text-center">
+                                    €{(totals.totalIncl - totals.totalExcl).toFixed(2)}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     );

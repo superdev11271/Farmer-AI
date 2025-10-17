@@ -54,7 +54,8 @@ const TotalsTable = memo(({ sub_index, item_index, sub_name, categoryIdentifier,
                     {sub_index}{item_index ? " - " + item_index : ""}: {sub_name}
                 </h3>
 
-                <table className="w-full border-collapse border border-gray-300 text-center">
+                <div className="overflow-x-auto">
+                    <table className="w-full border-collapse border border-gray-300 text-center min-w-max">
                     <thead>
                         <tr>
                             {/* Table headers with custom color */}
@@ -94,7 +95,8 @@ const TotalsTable = memo(({ sub_index, item_index, sub_name, categoryIdentifier,
                             <td className="border border-gray-300 px-4 py-2 text-center">€{totals.Verschil.toFixed(2)}</td>
                         </tr>
                     </tbody>
-                </table>
+                    </table>
+                </div>
             </div>
         </div>
     );

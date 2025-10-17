@@ -20,6 +20,10 @@ import ExportTotalsCard15 from './components/ExportTables/ExportTable15';
 import ExportTotalsCard16 from './components/ExportTables/ExportTable16';
 import ExportTotalsCard17 from './components/ExportTables/ExportTable17';
 import ExportTotalsCard18 from './components/ExportTables/ExportTable18';
+import ExportTotalsCard19 from './components/ExportTables/ExportTable19';
+import ExportTotalsCard20 from './components/ExportTables/ExportTable20';
+import ExportTotalsCard21 from './components/ExportTables/ExportTable21';
+import ExportTotalsCard22 from './components/ExportTables/ExportTable22';
 
 const Dashboard = () => {
   const [currentCateoryIdentifier, setCurrentCategoryIdentifier] = useState(null);
@@ -65,6 +69,15 @@ const Dashboard = () => {
       return <ExportTotalsCard17 key={key} sub_index={sub_index} item_index={item_index} sub_name={sub_name} categoryIdentifier={categoryIdentifier} setExportJsonArray={setExportJsonArray} />
     if (invoice_types.type18.includes(categoryIdentifier))
       return <ExportTotalsCard18 key={key} sub_index={sub_index} item_index={item_index} sub_name={sub_name} categoryIdentifier={categoryIdentifier} setExportJsonArray={setExportJsonArray} />
+    if (invoice_types.type19.includes(categoryIdentifier))
+      return <ExportTotalsCard19 key={key} sub_index={sub_index} item_index={item_index} sub_name={sub_name} categoryIdentifier={categoryIdentifier} setExportJsonArray={setExportJsonArray} />
+    if (invoice_types.type20.includes(categoryIdentifier))
+      return <ExportTotalsCard20 key={key} sub_index={sub_index} item_index={item_index} sub_name={sub_name} categoryIdentifier={categoryIdentifier} setExportJsonArray={setExportJsonArray} />
+    if (invoice_types.type21.includes(categoryIdentifier))
+      return <ExportTotalsCard21 key={key} sub_index={sub_index} item_index={item_index} sub_name={sub_name} categoryIdentifier={categoryIdentifier} setExportJsonArray={setExportJsonArray} />
+    if (invoice_types.type22.includes(categoryIdentifier))
+      return <ExportTotalsCard22 key={key} sub_index={sub_index} item_index={item_index} sub_name={sub_name} categoryIdentifier={categoryIdentifier} setExportJsonArray={setExportJsonArray} />
+
   }
   return (
     <div className="space-y-6">

@@ -146,6 +146,8 @@ export default function MilkPayoutSheet({ categoryIdentifier }) {
   const saveToServer = async () => {
     try {
       setSaving(true);
+      const tmp = data
+      delete tmp["BTW"]
       const payload = {
         category_identifier: categoryIdentifier,
         data: [{ ...data, category_identifier: categoryIdentifier, source_doc: "", id: 123324234 }],
@@ -175,7 +177,7 @@ export default function MilkPayoutSheet({ categoryIdentifier }) {
 
     months.forEach((m) => {
 
-      d.BTW[m] = d.BTW_percent[m] * d.Bedrag[m];
+      d.BTW[m] = d.BTW_percent[m] * d.Bedrag[m] / 100;
 
     });
 
