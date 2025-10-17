@@ -26,13 +26,13 @@ const ExportTable14 = memo(({ sub_index, item_index, sub_name, categoryIdentifie
             let totalOntvangen = 0;
 
             if (data.length > 0) {
-                const milkData = JSON.parse(data[0].data);
+                const milkData = data[0].data;
                 
                 // Sum up all monthly values for each category
-                Object.values(milkData.liters || {}).forEach(val => totalLiters += Number(val) || 0);
-                Object.values(milkData.voorschotOntvangen || {}).forEach(val => totalVoorschot += Number(val) || 0);
-                Object.values(milkData.totaalMelkgeld || {}).forEach(val => totalMelkgeld += Number(val) || 0);
-                Object.values(milkData.totaalOntvangen || {}).forEach(val => totalOntvangen += Number(val) || 0);
+                // Object.values(milkData["liters"] || {}).forEach(val => totalLiters += Number(val) || 0);
+                // Object.values(milkData["voorschotOntvangen"] || {}).forEach(val => totalVoorschot += Number(val) || 0);
+                // Object.values(milkData["totaalMelkgeld"] || {}).forEach(val => totalMelkgeld += Number(val) || 0);
+                // Object.values(milkData["totaalOntvangen"] || {}).forEach(val => totalOntvangen += Number(val) || 0);
             }
 
             setTotals({ totalLiters, totalVoorschot, totalMelkgeld, totalOntvangen });

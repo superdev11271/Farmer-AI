@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Save, X } from "lucide-react";
-
+import axios from "axios";
+import toast from "react-hot-toast";
 /**
  * MilkPayoutSheet — single-file React component (JS version)
  * - Green cells are editable user inputs
@@ -208,23 +209,24 @@ export default function MilkPayoutSheet({ categoryIdentifier }) {
   const saveToServer = async () => {
     try {
       setSaving(true);
-      await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/invoice/`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
-        },
-        body: JSON.stringify({ category_identifier: categoryIdentifier, data: [data] })
-      });
+      const payload = {
+        category_identifier: categoryIdentifier,
+        data: [{ ...data, category_identifier: categoryIdentifier, source_doc: "", id: 123324234 }],
+      };
+      await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/invoice/`, payload);
       setBaseline(data);
       setHasChanges(false);
-    } catch { }
+      toast.success("Changes saved successfully!");
+    } catch {
+      toast.error("Failed to save invoices");
+    }
     finally { setSaving(false); }
   };
 
   const cancelChanges = () => {
     setData(baseline);
     setHasChanges(false);
+    toast("Changes canceled.");
   };
 
 

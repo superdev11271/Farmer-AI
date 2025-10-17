@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState , useEffect} from "react";
 import { Save, X } from "lucide-react";
 import toast from "react-hot-toast";
 import axios from "axios";
@@ -11,7 +11,19 @@ export default function StallplaatsenForm({ categoryIdentifier }) {
 
   const [baseline, setBaseline] = useState({ ...data });
   const [hasChanges, setHasChanges] = useState(false);
+  useEffect(() => {
+    const load = async () => {
+      try {
+        const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/invoice/${categoryIdentifier}`);
+        const serverData = res.data.data[0];
+        setData(serverData);
+        setBaseline(serverData);
 
+      } catch { }
+
+    };
+    load();
+  }, [categoryIdentifier]);
   const handleChange = (field, value) => {
     const newData = { ...data, [field]: Number(value) || 0 };
     setData(newData);
