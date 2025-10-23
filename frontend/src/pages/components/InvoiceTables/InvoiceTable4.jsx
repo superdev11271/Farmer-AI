@@ -8,6 +8,12 @@ export default function InvoiceTable({ categoryIdentifier }) {
   const [draftInvoices, setDraftInvoices] = useState([]);
   const [editingCell, setEditingCell] = useState({ id: null, field: null });
   const [hasChanges, setHasChanges] = useState(false);
+  const [percentages, setPercentages] = useState({
+    MK: '',
+    JV: '',
+    MV: '',
+    ZK: ''
+  });
 
   // Load invoices from backend
   const fetchInvoices = async () => {
@@ -106,6 +112,52 @@ export default function InvoiceTable({ categoryIdentifier }) {
     setHasChanges(false);
     toast("Changes canceled.");
   };
+
+  const handlePercentageChange = (field, value) => {
+    setPercentages(prev => ({
+      ...prev,
+      [field]: value
+    }));
+  };
+
+  const handleSetPercentages = () => {
+    const mkPercent = parseFloat(percentages.MK) || 0;
+    const jvPercent = parseFloat(percentages.JV) || 0;
+    const mvPercent = parseFloat(percentages.MV) || 0;
+    const zkPercent = parseFloat(percentages.ZK) || 0;
+
+    if (mkPercent === 0 && jvPercent === 0 && mvPercent === 0 && zkPercent === 0) {
+      toast.error("Please enter at least one percentage value");
+      return;
+    }
+
+    setDraftInvoices(prev =>
+      prev.map(invoice => {
+        const bedrag = parseFloat(invoice.Bedrag) || 0;
+        const updated = { ...invoice };
+        
+        if (mkPercent > 0) updated.MK = (bedrag * mkPercent / 100).toFixed(2);
+        if (jvPercent > 0) updated.JV = (bedrag * jvPercent / 100).toFixed(2);
+        if (mvPercent > 0) updated.MV = (bedrag * mvPercent / 100).toFixed(2);
+        if (zkPercent > 0) updated.ZK = (bedrag * zkPercent / 100).toFixed(2);
+
+        // Recalculate BedragIncl and Verschil
+        const amountNum = parseFloat(updated.Bedrag) || 0;
+        const vatPerc = parseFloat(updated.BTW) || 0;
+        const mk = parseFloat(updated.MK) || 0;
+        const jv = parseFloat(updated.JV) || 0;
+        const mv = parseFloat(updated.MV) || 0;
+        const zk = parseFloat(updated.ZK) || 0;
+        
+        updated.BedragIncl = +(amountNum + amountNum * (vatPerc / 100)).toFixed(2);
+        updated.Verschil = +((mk + jv + mv + zk - amountNum)).toFixed(2);
+
+        return updated;
+      })
+    );
+    setHasChanges(true);
+    toast.success("Percentages applied to all items");
+  };
   // Totals
   const totalExcl = draftInvoices.reduce((sum, inv) => sum + Number(inv.Bedrag || 0), 0);
   const totalIncl = draftInvoices.reduce((sum, inv) => sum + Number(inv.BedragIncl || 0), 0);
@@ -149,6 +201,66 @@ export default function InvoiceTable({ categoryIdentifier }) {
               Add Item
             </button>
           </div>
+        </div>
+
+        {/* Percentage Input Section */}
+        <div className="mb-6 p-4 bg-gray-50 rounded-lg">
+          <div className="flex items-center gap-4 mb-3">
+            <h4 className="text-sm font-medium text-gray-700">Set Percentages:</h4>
+            <div className="flex items-center gap-2">
+              <label className="text-xs text-gray-600">MK %:</label>
+              <input
+                type="number"
+                step="1"
+                value={percentages.MK}
+                onChange={(e) => handlePercentageChange('MK', e.target.value)}
+                className="w-16 px-2 py-1 text-sm border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="0"
+              />
+            </div>
+            <div className="flex items-center gap-2">
+              <label className="text-xs text-gray-600">JV %:</label>
+              <input
+                type="number"
+                step="1"
+                value={percentages.JV}
+                onChange={(e) => handlePercentageChange('JV', e.target.value)}
+                className="w-16 px-2 py-1 text-sm border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="0"
+              />
+            </div>
+            <div className="flex items-center gap-2">
+              <label className="text-xs text-gray-600">MV %:</label>
+              <input
+                type="number"
+                step="1"
+                value={percentages.MV}
+                onChange={(e) => handlePercentageChange('MV', e.target.value)}
+                className="w-16 px-2 py-1 text-sm border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="0"
+              />
+            </div>
+            <div className="flex items-center gap-2">
+              <label className="text-xs text-gray-600">ZK %:</label>
+              <input
+                type="number"
+                step="1"
+                value={percentages.ZK}
+                onChange={(e) => handlePercentageChange('ZK', e.target.value)}
+                className="w-16 px-2 py-1 text-sm border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="0"
+              />
+            </div>
+            <button
+              onClick={handleSetPercentages}
+              className="px-3 py-1 bg-blue-600 text-white text-sm rounded hover:bg-blue-700 transition-colors"
+            >
+              Set
+            </button>
+          </div>
+          <p className="text-xs text-gray-500">
+            Enter percentages to automatically calculate MK, JV, MV, ZK values based on Bedrag for all items.
+          </p>
         </div>
 
         <div className="overflow-x-auto">

@@ -596,21 +596,59 @@
         ]
     },
     {
-        "name": "Melkproduktie en melkbestemming",
+        "name": "Mdelkproduktie en melkbestemming",
         "identifier": "R5",
         "description": "In dit bestand kan u het volgdende ingeven: geleverde liters en ontvangen melkgeld. Melk die verkocht is aan derden of voor eigen gebruik. Melk voor de kalveren of probleemmelk dat in de put wordt gedaan.",
         "sub_items": [
             {
                 "name": "MELKGELD EERSTE BEDRIJF",
                 "identifier": "R5-1",
-                "return_value": [],
+                "return_value": [
+                    "liters:{Januari: , Februari:, Maart: , April:, Mei: ,Juni: ,Juli: , Augustus: ,September: ,Oktober: ,November: ,December}",
+                    "vetgehalte:{Januari: , Februari:, Maart: , April:, Mei: ,Juni: ,Juli: , Augustus: ,September: ,Oktober: ,November: ,December}",
+                    "eiwitgehalte:{Januari: , Februari:, Maart: , April:, Mei: ,Juni: ,Juli: , Augustus: ,September: ,Oktober: ,November: ,December}",
+                    "voorschotOntvangen:{Januari: , Februari:, Maart: , April:, Mei: ,Juni: ,Juli: , Augustus: ,September: ,Oktober: ,November: ,December}",
+                    "BTWOpVoorschot:{Januari: , Februari:, Maart: , April:, Mei: ,Juni: ,Juli: , Augustus: ,September: ,Oktober: ,November: ,December}",
+                    "melkgeldVet:{Januari: , Februari:, Maart: , April:, Mei: ,Juni: ,Juli: , Augustus: ,September: ,Oktober: ,November: ,December}",
+                    "melkgeldEiwit:{Januari: , Februari:, Maart: , April:, Mei: ,Juni: ,Juli: , Augustus: ,September: ,Oktober: ,November: ,December}",
+                    "negatieveGrondstofprijs:{Januari: , Februari:, Maart: , April:, Mei: ,Juni: ,Juli: , Augustus: ,September: ,Oktober: ,November: ,December}",
+                    "kwaliteitsPremie:{Januari: , Februari:, Maart: , April:, Mei: ,Juni: ,Juli: , Augustus: ,September: ,Oktober: ,November: ,December}",
+                    "ikmPremie:{Januari: , Februari:, Maart: , April:, Mei: ,Juni: ,Juli: , Augustus: ,September: ,Oktober: ,November: ,December}",
+                    "hoeveelheidspremie:{Januari: , Februari:, Maart: , April:, Mei: ,Juni: ,Juli: , Augustus: ,September: ,Oktober: ,November: ,December}",
+                    "getrouwheidspremie:{Januari: , Februari:, Maart: , April:, Mei: ,Juni: ,Juli: , Augustus: ,September: ,Oktober: ,November: ,December}",
+                    "anderePremies:{Januari: , Februari:, Maart: , April:, Mei: ,Juni: ,Juli: , Augustus: ,September: ,Oktober: ,November: ,December}",
+                    "ophaalKostenFabriek:{Januari: , Februari:, Maart: , April:, Mei: ,Juni: ,Juli: , Augustus: ,September: ,Oktober: ,November: ,December}",
+                    "BedragStrafpunten:{Januari: , Februari:, Maart: , April:, Mei: ,Juni: ,Juli: , Augustus: ,September: ,Oktober: ,November: ,December}",
+                    "heffingenBijdragen:{Januari: , Februari:, Maart: , April:, Mei: ,Juni: ,Juli: , Augustus: ,September: ,Oktober: ,November: ,December}",
+                    "BTWMelkgeld:{Januari: , Februari:, Maart: , April:, Mei: ,Juni: ,Juli: , Augustus: ,September: ,Oktober: ,November: ,December}",
+                    "BTWHeffingenBijdragen:{Januari: , Februari:, Maart: , April:, Mei: ,Juni: ,Juli: , Augustus: ,September: ,Oktober: ,November: ,December}"
+                ],
                 "description": "",
                 "items": []
             },
             {
                 "name": "MELKGELD TWEEDE BEDRIJF",
                 "identifier": "R5-2",
-                "return_value": [],
+                "return_value": [
+                    "liters:{Januari: , Februari:, Maart: , April:, Mei: ,Juni: ,Juli: , Augustus: ,September: ,Oktober: ,November: ,December}",
+                    "vetgehalte:{Januari: , Februari:, Maart: , April:, Mei: ,Juni: ,Juli: , Augustus: ,September: ,Oktober: ,November: ,December}",
+                    "eiwitgehalte:{Januari: , Februari:, Maart: , April:, Mei: ,Juni: ,Juli: , Augustus: ,September: ,Oktober: ,November: ,December}",
+                    "voorschotOntvangen:{Januari: , Februari:, Maart: , April:, Mei: ,Juni: ,Juli: , Augustus: ,September: ,Oktober: ,November: ,December}",
+                    "BTWOpVoorschot:{Januari: , Februari:, Maart: , April:, Mei: ,Juni: ,Juli: , Augustus: ,September: ,Oktober: ,November: ,December}",
+                    "melkgeldVet:{Januari: , Februari:, Maart: , April:, Mei: ,Juni: ,Juli: , Augustus: ,September: ,Oktober: ,November: ,December}",
+                    "melkgeldEiwit:{Januari: , Februari:, Maart: , April:, Mei: ,Juni: ,Juli: , Augustus: ,September: ,Oktober: ,November: ,December}",
+                    "negatieveGrondstofprijs:{Januari: , Februari:, Maart: , April:, Mei: ,Juni: ,Juli: , Augustus: ,September: ,Oktober: ,November: ,December}",
+                    "kwaliteitsPremie:{Januari: , Februari:, Maart: , April:, Mei: ,Juni: ,Juli: , Augustus: ,September: ,Oktober: ,November: ,December}",
+                    "ikmPremie:{Januari: , Februari:, Maart: , April:, Mei: ,Juni: ,Juli: , Augustus: ,September: ,Oktober: ,November: ,December}",
+                    "hoeveelheidspremie:{Januari: , Februari:, Maart: , April:, Mei: ,Juni: ,Juli: , Augustus: ,September: ,Oktober: ,November: ,December}",
+                    "getrouwheidspremie:{Januari: , Februari:, Maart: , April:, Mei: ,Juni: ,Juli: , Augustus: ,September: ,Oktober: ,November: ,December}",
+                    "anderePremies:{Januari: , Februari:, Maart: , April:, Mei: ,Juni: ,Juli: , Augustus: ,September: ,Oktober: ,November: ,December}",
+                    "ophaalKostenFabriek:{Januari: , Februari:, Maart: , April:, Mei: ,Juni: ,Juli: , Augustus: ,September: ,Oktober: ,November: ,December}",
+                    "BedragStrafpunten:{Januari: , Februari:, Maart: , April:, Mei: ,Juni: ,Juli: , Augustus: ,September: ,Oktober: ,November: ,December}",
+                    "heffingenBijdragen:{Januari: , Februari:, Maart: , April:, Mei: ,Juni: ,Juli: , Augustus: ,September: ,Oktober: ,November: ,December}",
+                    "BTWMelkgeld:{Januari: , Februari:, Maart: , April:, Mei: ,Juni: ,Juli: , Augustus: ,September: ,Oktober: ,November: ,December}",
+                    "BTWHeffingenBijdragen:{Januari: , Februari:, Maart: , April:, Mei: ,Juni: ,Juli: , Augustus: ,September: ,Oktober: ,November: ,December}"
+                ],
                 "description": "",
                 "items": []
             },
@@ -618,7 +656,14 @@
                 "name": "ANDERE BESTEMMINGEN VAN MELK",
                 "identifier": "R5-3",
                 "description": "",
-                "return_value": [],
+                "return_value": [
+                    "liters:{Januari: , Februari:, Maart: , April:, Mei: ,Juni: ,Juli: , Augustus: ,September: ,Oktober: ,November: ,December}",
+                    "Bedrag:{Januari: , Februari:, Maart: , April:, Mei: ,Juni: ,Juli: , Augustus: ,September: ,Oktober: ,November: ,December}",
+                    "BTW_percent:{Januari: , Februari:, Maart: , April:, Mei: ,Juni: ,Juli: , Augustus: ,September: ,Oktober: ,November: ,December}",
+                    "Huishoudenliters:{Januari: , Februari:, Maart: , April:, Mei: ,Juni: ,Juli: , Augustus: ,September: ,Oktober: ,November: ,December}",
+                    "Kalverenliters:{Januari: , Februari:, Maart: , April:, Mei: ,Juni: ,Juli: , Augustus: ,September: ,Oktober: ,November: ,December}",
+                    "Probleemmelk:{Januari: , Februari:, Maart: , April:, Mei: ,Juni: ,Juli: , Augustus: ,September: ,Oktober: ,November: ,December}"  
+                ],
                 "items": []
             }
         ]
