@@ -14,6 +14,7 @@ export default function InvoiceTable({ categoryIdentifier }) {
     MV: '',
     ZK: ''
   });
+  const [selectedItems, setSelectedItems] = useState(new Set());
 
   // Load invoices from backend
   const fetchInvoices = async () => {
@@ -120,6 +121,27 @@ export default function InvoiceTable({ categoryIdentifier }) {
     }));
   };
 
+  const handleItemSelection = (itemId, isSelected) => {
+    setSelectedItems(prev => {
+      const newSet = new Set(prev);
+      if (isSelected) {
+        newSet.add(itemId);
+      } else {
+        newSet.delete(itemId);
+      }
+      return newSet;
+    });
+  };
+
+  const handleSelectAll = () => {
+    const allIds = draftInvoices.map(invoice => invoice.id);
+    setSelectedItems(new Set(allIds));
+  };
+
+  const handleSelectNone = () => {
+    setSelectedItems(new Set());
+  };
+
   const handleSetPercentages = () => {
     const mkPercent = parseFloat(percentages.MK) || 0;
     const jvPercent = parseFloat(percentages.JV) || 0;
@@ -131,8 +153,18 @@ export default function InvoiceTable({ categoryIdentifier }) {
       return;
     }
 
+    if (selectedItems.size === 0) {
+      toast.error("Please select at least one item");
+      return;
+    }
+
     setDraftInvoices(prev =>
       prev.map(invoice => {
+        // Only apply to selected items
+        if (!selectedItems.has(invoice.id)) {
+          return invoice;
+        }
+
         const bedrag = parseFloat(invoice.Bedrag) || 0;
         const updated = { ...invoice };
         
@@ -156,7 +188,7 @@ export default function InvoiceTable({ categoryIdentifier }) {
       })
     );
     setHasChanges(true);
-    toast.success("Percentages applied to all items");
+    toast.success(`Percentages applied to ${selectedItems.size} selected item(s)`);
   };
   // Totals
   const totalExcl = draftInvoices.reduce((sum, inv) => sum + Number(inv.Bedrag || 0), 0);
@@ -258,8 +290,27 @@ export default function InvoiceTable({ categoryIdentifier }) {
               Set
             </button>
           </div>
+          <div className="flex items-center gap-4 mb-2">
+            <div className="flex items-center gap-2">
+              <button
+                onClick={handleSelectAll}
+                className="px-2 py-1 bg-green-100 text-green-700 text-xs rounded hover:bg-green-200 transition-colors"
+              >
+                Select All
+              </button>
+              <button
+                onClick={handleSelectNone}
+                className="px-2 py-1 bg-red-100 text-red-700 text-xs rounded hover:bg-red-200 transition-colors"
+              >
+                Select None
+              </button>
+            </div>
+            <span className="text-xs text-gray-600">
+              {selectedItems.size} of {draftInvoices.length} items selected
+            </span>
+          </div>
           <p className="text-xs text-gray-500">
-            Enter percentages to automatically calculate MK, JV, MV, ZK values based on Bedrag for all items.
+            Enter percentages to automatically calculate MK, JV, MV, ZK values based on Bedrag for selected items only.
           </p>
         </div>
 
@@ -267,6 +318,14 @@ export default function InvoiceTable({ categoryIdentifier }) {
           <table className="min-w-full divide-y divide-gray-200 table-fixed">
             <thead className="bg-gray-50">
               <tr>
+                <th className="w-12 table-header text-center">
+                  <input
+                    type="checkbox"
+                    checked={selectedItems.size === draftInvoices.length && draftInvoices.length > 0}
+                    onChange={(e) => e.target.checked ? handleSelectAll() : handleSelectNone()}
+                    className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                  />
+                </th>
                 <th className="w-1/6 table-header">Category ID</th>
                 <th className="w-1/3 table-header">Source Doc</th>
                 <th className="w-1/6 table-header text-right">Datum</th>
@@ -284,7 +343,15 @@ export default function InvoiceTable({ categoryIdentifier }) {
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
               {draftInvoices.map(invoice => (
-                <tr key={invoice.id} className="hover:bg-gray-50 transition-colors duration-150">
+                <tr key={invoice.id} className={`hover:bg-gray-50 transition-colors duration-150 ${selectedItems.has(invoice.id) ? 'bg-blue-50' : ''}`}>
+                  <td className="px-3 py-2 text-center">
+                    <input
+                      type="checkbox"
+                      checked={selectedItems.has(invoice.id)}
+                      onChange={(e) => handleItemSelection(invoice.id, e.target.checked)}
+                      className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                    />
+                  </td>
                   {["category_identifier", "source_doc", "Datum", "Omschrijving", "MK", "JV", "MV", "ZK", "Bedrag", "BTW"].map(field => (
                     <td
                       key={field}
