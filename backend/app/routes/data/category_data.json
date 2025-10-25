@@ -678,6 +678,7 @@
                 "identifier": "R6-1",
                 "return_value": [
                     "Datum",
+                    "Supplier",
                     "Omschrijving",
                     "Kg",
                     "MK",
@@ -695,6 +696,7 @@
                 "identifier": "R6-2",
                 "return_value": [
                     "Datum",
+                    "Supplier",
                     "Omschrijving",
                     "Kg",
                     "MK",
@@ -724,6 +726,7 @@
                 "identifier": "R6-4",
                 "return_value": [
                     "Datum",
+                    "Supplier",
                     "Omschrijving",
                     "Kg",
                     "MK",
@@ -753,6 +756,7 @@
                 "identifier": "R6-6",
                 "return_value": [
                     "Datum",
+                    "Supplier",
                     "Omschrijving",
                     "Kg",
                     "MK",

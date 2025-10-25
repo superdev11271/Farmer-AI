@@ -339,6 +339,7 @@ export default function InvoiceTable({ categoryIdentifier }) {
                 </th>
                 <th className="w-1/6 table-header">Category ID</th>
                 <th className="w-1/6 table-header text-right">Datum</th>
+                <th className="w-1/4 table-header">Supplier</th>
                 <th className="w-1/4 table-header">Omschrijving</th>
                 <th className="w-1/6 table-header text-right">MK</th>
                 <th className="w-1/6 table-header text-right">JV</th>
@@ -362,7 +363,7 @@ export default function InvoiceTable({ categoryIdentifier }) {
                       className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                     />
                   </td>
-                  {["category_identifier", "Datum", "Omschrijving", "MK", "JV", "MV", "ZK", "Bedrag", "BTW"].map(field => (
+                  {["category_identifier", "Datum", "Supplier", "Omschrijving", "MK", "JV", "MV", "ZK", "Bedrag", "BTW"].map(field => (
                     <td
                       key={field}
                       className={`px-3 py-2 text-sm text-right`}
