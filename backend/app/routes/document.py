@@ -133,7 +133,7 @@ def handle_result(data, doc_id):
         print("Processing succeeded. Result:")
         for item in data:
             if item.get("category_identifier"):
-                sheet = Invoice(category_identifier=item.get("category_identifier"), source_doc = doc.original_name, data=json.dumps(item.get("data")))
+                sheet = Invoice(category_identifier=item.get("category_identifier"), source_doc = doc.path, data=json.dumps(item.get("data")))
                 db.session.add(sheet)
         try:
             db.session.commit()

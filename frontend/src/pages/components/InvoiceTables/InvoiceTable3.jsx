@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Trash2, Plus, Save, X, DollarSign, Scale, Factory, Briefcase, Users, Building2, TrendingUp } from "lucide-react";
+import { Trash2, Plus, Save, X, DollarSign, Scale, Factory, Briefcase, Users, Building2, TrendingUp, Eye } from "lucide-react";
 import toast from "react-hot-toast";
 import axios from "axios";
 
@@ -60,7 +60,16 @@ export default function InvoiceTable({ categoryIdentifier }) {
     setHasChanges(true);
     toast("Item removed.");
   };
-
+  const handleView = (invoice) => {
+    // Display the PDF file from source_doc
+    if (invoice.source_doc) {
+      const pdfUrl = `${import.meta.env.VITE_API_BASE_URL}/${invoice.source_doc}`;
+      // Open PDF in a new tab
+      window.open(pdfUrl, '_blank');
+    } else {
+      toast.error("No PDF file available for this item");
+    }
+  };
   const handleAddItem = () => {
     const newItem = {
       id: Date.now(),
@@ -153,7 +162,6 @@ export default function InvoiceTable({ categoryIdentifier }) {
             <thead className="bg-gray-50">
               <tr>
                 <th className="w-1/6 table-header">Category ID</th>
-                <th className="w-1/3 table-header">Source Doc</th>
                 <th className="w-1/6 table-header text-right">Datum</th>
                 <th className="w-1/4 table-header">Omschrijving</th>
                 <th className="w-1/6 table-header text-right">Kg</th>
@@ -172,7 +180,7 @@ export default function InvoiceTable({ categoryIdentifier }) {
             <tbody className="bg-white divide-y divide-gray-200">
               {draftInvoices.map(invoice => (
                 <tr key={invoice.id} className="hover:bg-gray-50 transition-colors duration-150">
-                  {["category_identifier", "source_doc", "Datum", "Omschrijving", "Kg", "MK", "JV", "MV", "ZK", "Bedrag", "BTW"].map(field => (
+                  {["category_identifier", "Datum", "Omschrijving", "Kg", "MK", "JV", "MV", "ZK", "Bedrag", "BTW"].map(field => (
                     <td
                       key={field}
                       className={`px-3 py-2 text-sm text-right`}
@@ -200,13 +208,22 @@ export default function InvoiceTable({ categoryIdentifier }) {
 
 
                   <td className="px-3 py-2 text-center">
-                    <button
-                      onClick={() => handleRemove(invoice.id)}
-                      className="p-1 text-red-600 hover:text-red-800 rounded transition-colors"
-                      title="Remove Item"
-                    >
-                      <Trash2 className="h-4 w-4" />
-                    </button>
+                    <div className="flex items-center justify-center gap-2">
+                      <button
+                        onClick={() => handleView(invoice)}
+                        className="p-1 text-blue-600 hover:text-blue-800 rounded transition-colors"
+                        title="View Details"
+                      >
+                        <Eye className="h-4 w-4" />
+                      </button>
+                      <button
+                        onClick={() => handleRemove(invoice.id)}
+                        className="p-1 text-red-600 hover:text-red-800 rounded transition-colors"
+                        title="Remove Item"
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}

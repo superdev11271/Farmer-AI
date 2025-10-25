@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Trash2, Plus, Save, X, DollarSign, Scale, Factory, Briefcase, Users, Building2, TrendingUp } from "lucide-react";
+import { Trash2, Plus, Save, X, DollarSign, Factory, Briefcase, Users, Building2, TrendingUp, Eye } from "lucide-react";
 import toast from "react-hot-toast";
 import axios from "axios";
 
@@ -69,6 +69,17 @@ export default function InvoiceTable({ categoryIdentifier }) {
     setDraftInvoices(prev => prev.filter(inv => inv.id !== id));
     setHasChanges(true);
     toast("Item removed.");
+  };
+
+  const handleView = (invoice) => {
+    // Display the PDF file from source_doc
+    if (invoice.source_doc) {
+      const pdfUrl = `${import.meta.env.VITE_API_BASE_URL}/${invoice.source_doc}`;
+      // Open PDF in a new tab
+      window.open(pdfUrl, '_blank');
+    } else {
+      toast.error("No PDF file available for this item");
+    }
   };
 
   const handleAddItem = () => {
@@ -167,7 +178,7 @@ export default function InvoiceTable({ categoryIdentifier }) {
 
         const bedrag = parseFloat(invoice.Bedrag) || 0;
         const updated = { ...invoice };
-        
+
         if (mkPercent > 0) updated.MK = (bedrag * mkPercent / 100).toFixed(2);
         if (jvPercent > 0) updated.JV = (bedrag * jvPercent / 100).toFixed(2);
         if (mvPercent > 0) updated.MV = (bedrag * mvPercent / 100).toFixed(2);
@@ -180,7 +191,7 @@ export default function InvoiceTable({ categoryIdentifier }) {
         const jv = parseFloat(updated.JV) || 0;
         const mv = parseFloat(updated.MV) || 0;
         const zk = parseFloat(updated.ZK) || 0;
-        
+
         updated.BedragIncl = +(amountNum + amountNum * (vatPerc / 100)).toFixed(2);
         updated.Verschil = +((mk + jv + mv + zk - amountNum)).toFixed(2);
 
@@ -327,7 +338,6 @@ export default function InvoiceTable({ categoryIdentifier }) {
                   />
                 </th>
                 <th className="w-1/6 table-header">Category ID</th>
-                <th className="w-1/3 table-header">Source Doc</th>
                 <th className="w-1/6 table-header text-right">Datum</th>
                 <th className="w-1/4 table-header">Omschrijving</th>
                 <th className="w-1/6 table-header text-right">MK</th>
@@ -352,7 +362,7 @@ export default function InvoiceTable({ categoryIdentifier }) {
                       className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                     />
                   </td>
-                  {["category_identifier", "source_doc", "Datum", "Omschrijving", "MK", "JV", "MV", "ZK", "Bedrag", "BTW"].map(field => (
+                  {["category_identifier", "Datum", "Omschrijving", "MK", "JV", "MV", "ZK", "Bedrag", "BTW"].map(field => (
                     <td
                       key={field}
                       className={`px-3 py-2 text-sm text-right`}
@@ -379,13 +389,22 @@ export default function InvoiceTable({ categoryIdentifier }) {
 
 
                   <td className="px-3 py-2 text-center">
-                    <button
-                      onClick={() => handleRemove(invoice.id)}
-                      className="p-1 text-red-600 hover:text-red-800 rounded transition-colors"
-                      title="Remove Item"
-                    >
-                      <Trash2 className="h-4 w-4" />
-                    </button>
+                    <div className="flex items-center justify-center gap-2">
+                      <button
+                        onClick={() => handleView(invoice)}
+                        className="p-1 text-blue-600 hover:text-blue-800 rounded transition-colors"
+                        title="View Details"
+                      >
+                        <Eye className="h-4 w-4" />
+                      </button>
+                      <button
+                        onClick={() => handleRemove(invoice.id)}
+                        className="p-1 text-red-600 hover:text-red-800 rounded transition-colors"
+                        title="Remove Item"
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}
