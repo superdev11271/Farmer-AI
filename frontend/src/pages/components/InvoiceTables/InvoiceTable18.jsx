@@ -65,7 +65,9 @@ export default function InvoiceTable({ categoryIdentifier }) {
       source_doc: "",
       Naam: "",
       Geboortejaar: "",
-      Uren: 0,
+      Hoev: "",
+      Eenh: "",
+      Prijs_eenheid: "",
       AK: 21
     };
     setDraftInvoices(prev => [...prev, newItem]);
@@ -96,7 +98,7 @@ export default function InvoiceTable({ categoryIdentifier }) {
   };
 
   // Totals
-  const totalUren = draftInvoices.reduce((sum, inv) => sum + Number(inv.Uren || 0), 0);
+  const totalUren = draftInvoices.reduce((sum, inv) => sum + Number(inv.Hoev || 0), 0);
   const totalAK = draftInvoices.reduce((sum, inv) => sum + Number(inv.AK || 0), 0);
 
   return (
@@ -149,7 +151,7 @@ export default function InvoiceTable({ categoryIdentifier }) {
             <tbody className="bg-white divide-y divide-gray-200">
               {draftInvoices.map(invoice => (
                 <tr key={invoice.id} className="hover:bg-gray-50 transition-colors duration-150">
-                  {["category_identifier", "Naam", "Geboortejaar", "Uren", "AK"].map(field => (
+                  {["category_identifier", "Naam", "Geboortejaar", "Hoev", "Eenh", "Prijs_eenheid", "AK"].map(field => (
                     <td
                       key={field}
                       className={`px-3 py-2 text-sm ${field === "Bedrag" || field === "BTW" ? "text-right" : ""}`}

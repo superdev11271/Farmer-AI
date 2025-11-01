@@ -65,7 +65,9 @@ export default function InvoiceTable({ categoryIdentifier }) {
       source_doc: "",
       Datum: "",
       Omschrijving: "",
-      Oppervlakte: null,
+      Hoev: "",
+      Eenh: "",
+      Prijs_eenheid: "",
       Bedrag: 0,
     };
     setDraftInvoices(prev => [...prev, newItem]);
@@ -142,7 +144,9 @@ export default function InvoiceTable({ categoryIdentifier }) {
                 <th className="w-1/6 table-header">Category ID</th>
                 <th className="w-1/6 table-header">Datum</th>
                 <th className="w-1/4 table-header">Omschrijving</th>
-                <th className="w-1/4 table-header">Oppervlakte</th>
+                <th className="w-1/6 table-header text-right">Hoev.</th>
+                <th className="w-1/6 table-header text-right">Eenh.</th>
+                <th className="w-1/6 table-header text-right">€/eenh.</th>
                 <th className="w-1/6 table-header text-right">Bedrag</th>
                 <th className="w-1/12 table-header text-center">Actions</th>
               </tr>
@@ -150,7 +154,7 @@ export default function InvoiceTable({ categoryIdentifier }) {
             <tbody className="bg-white divide-y divide-gray-200">
               {draftInvoices.map(invoice => (
                 <tr key={invoice.id} className="hover:bg-gray-50 transition-colors duration-150">
-                  {["category_identifier", "Datum", "Omschrijving", "Oppervlakte", "Bedrag"].map(field => (
+                  {["category_identifier", "Datum", "Omschrijving", "Hoev", "Eenh", "Prijs_eenheid", "Bedrag"].map(field => (
                     <td
                       key={field}
                       className={`px-3 py-2 text-sm ${field === "Bedrag" ? "text-right" : ""}`}

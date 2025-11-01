@@ -18,7 +18,7 @@ export default function InvoiceTable({ categoryIdentifier }) {
         source_doc: inv.source_doc,
         ...inv,
         BedragIncl: +(Number(inv.Bedrag || 0) + Number(inv.Bedrag || 0) * (Number(inv.BTW || 0) / 100)).toFixed(2),
-        Prijs: Number(inv.Kg) > 0 ? +((Number(inv.Bedrag || 0) / Number(inv.Kg || 1)) * 100).toFixed(2) : 0
+        Prijs: Number(inv.Hoev) > 0 ? +((Number(inv.Bedrag || 0) / Number(inv.Hoev || 1)) * 100).toFixed(2) : 0
       }));
       setInvoices(data);
       setDraftInvoices(data);
@@ -77,7 +77,9 @@ export default function InvoiceTable({ categoryIdentifier }) {
       source_doc: "",
       Datum: "",
       Omschrijving: "",
-      Kg: null,
+      Hoev: "",
+      Eenh: "",
+      Prijs_eenheid: "",
       MK: null,
       JV: null,
       MV: null,
@@ -116,7 +118,7 @@ export default function InvoiceTable({ categoryIdentifier }) {
   // Totals
   const totalExcl = draftInvoices.reduce((sum, inv) => sum + Number(inv.Bedrag || 0), 0);
   const totalIncl = draftInvoices.reduce((sum, inv) => sum + Number(inv.BedragIncl || 0), 0);
-  const totalKg = draftInvoices.reduce((sum, inv) => sum + Number(inv.Kg || 0), 0);
+  const totalKg = draftInvoices.reduce((sum, inv) => sum + Number(inv.Hoev || 0), 0);
   const totalMK = draftInvoices.reduce((sum, inv) => sum + Number(inv.MK || 0), 0);
   const totalJV = draftInvoices.reduce((sum, inv) => sum + Number(inv.JV || 0), 0);
   const totalMV = draftInvoices.reduce((sum, inv) => sum + Number(inv.MV || 0), 0);
@@ -164,7 +166,9 @@ export default function InvoiceTable({ categoryIdentifier }) {
                 <th className="w-1/6 table-header">Category ID</th>
                 <th className="w-1/6 table-header text-right">Datum</th>
                 <th className="w-1/4 table-header">Omschrijving</th>
-                <th className="w-1/6 table-header text-right">Kg</th>
+                <th className="w-1/6 table-header text-right">Hoev.</th>
+                <th className="w-1/6 table-header text-right">Eenh.</th>
+                <th className="w-1/6 table-header text-right">€/eenh.</th>
                 <th className="w-1/6 table-header text-right">MK</th>
                 <th className="w-1/6 table-header text-right">JV</th>
                 <th className="w-1/6 table-header text-right">MV</th>
@@ -180,7 +184,7 @@ export default function InvoiceTable({ categoryIdentifier }) {
             <tbody className="bg-white divide-y divide-gray-200">
               {draftInvoices.map(invoice => (
                 <tr key={invoice.id} className="hover:bg-gray-50 transition-colors duration-150">
-                  {["category_identifier", "Datum", "Omschrijving", "Kg", "MK", "JV", "MV", "ZK", "Bedrag", "BTW"].map(field => (
+                  {["category_identifier", "Datum", "Omschrijving", "Hoev", "Eenh", "Prijs_eenheid", "MK", "JV", "MV", "ZK", "Bedrag", "BTW"].map(field => (
                     <td
                       key={field}
                       className={`px-3 py-2 text-sm text-right`}

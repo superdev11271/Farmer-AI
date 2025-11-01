@@ -34,11 +34,11 @@ const ExportTable17 = memo(({ sub_index, item_index, sub_name, categoryIdentifie
                 0
             );
             const totalKg = data.reduce(
-                (sum, inv) => sum + Number(inv.Kg || 0),
+                (sum, inv) => sum + Number(inv.Hoev || 0),
                 0
             );
             const totalKgDs = data.reduce(
-                (sum, inv) => sum + (Number(inv.Kg || 0) * Number(inv.DS_Percent || 0)) / 100,
+                (sum, inv) => sum + (Number(inv.Hoev || 0) * Number(inv.DS_Percent || 0)) / 100,
                 0
             );
             const totalMK = data.reduce(

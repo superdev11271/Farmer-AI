@@ -14,7 +14,7 @@ const ExportTable18 = memo(({ sub_index, item_index, sub_name, categoryIdentifie
 
             const data = res.data.data || [];
             const totalUren = data.reduce(
-                (sum, inv) => sum + Number(inv.Uren || 0),
+                (sum, inv) => sum + Number(inv.Hoev || 0),
                 0
             );
              const totalAK = data.reduce(

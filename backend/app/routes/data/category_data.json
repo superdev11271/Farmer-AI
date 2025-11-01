@@ -39,7 +39,9 @@
                         "return_value": [
                             "Datum",
                             "Omschrijving",
-                            "Oppervlakte",
+                            "Hoev",
+                            "Eenh",
+                            "Prijs_eenheid",
                             "Bedrag"
                         ],
                         "items": []
@@ -50,7 +52,9 @@
                         "return_value": [
                             "Datum",
                             "Omschrijving",
-                            "Oppervlakte",
+                            "Hoev",
+                            "Eenh",
+                            "Prijs_eenheid",
                             "Bedrag"
                         ],
                         "description": "",
@@ -64,6 +68,9 @@
                 "return_value": [
                     "Datum",
                     "Omschrijving",
+                    "Hoev",
+                    "Eenh",
+                    "Prijs_eenheid",
                     "Bedrag"
                 ],
                 "description": "Onroerende voorheffng op de gebouwen in hoofdstuk 2 bij de kosten van de gebouwen noterem",
@@ -91,6 +98,9 @@
                 "return_value": [
                     "Datum",
                     "Omschrijving",
+                    "Hoev",
+                    "Eenh",
+                    "Prijs_eenheid",
                     "Bedrag",
                     "BTW"
                 ],
@@ -117,6 +127,9 @@
                 "return_value": [
                     "Datum",
                     "Omschrijving",
+                    "Hoev",
+                    "Eenh",
+                    "Prijs_eenheid",
                     "Bedrag",
                     "BTW"
                 ],
@@ -129,6 +142,9 @@
                 "return_value": [
                     "Datum",
                     "Omschrijving",
+                    "Hoev",
+                    "Eenh",
+                    "Prijs_eenheid",
                     "Bedrag",
                     "BTW"
                 ],
@@ -141,6 +157,9 @@
                 "return_value": [
                     "Datum",
                     "Omschrijving",
+                    "Hoev",
+                    "Eenh",
+                    "Prijs_eenheid",
                     "Bedrag",
                     "BTW"
                 ],
@@ -167,6 +186,9 @@
                         "return_value": [
                             "Datum",
                             "Omschrijving",
+                            "Hoev",
+                            "Eenh",
+                            "Prijs_eenheid",
                             "Bedrag",
                             "BTW"
                         ],
@@ -177,6 +199,9 @@
                         "return_value": [
                             "Datum",
                             "Omschrijving",
+                            "Hoev",
+                            "Eenh",
+                            "Prijs_eenheid",
                             "Bedrag",
                             "BTW"
                         ],
@@ -189,6 +214,9 @@
                         "return_value": [
                             "Datum",
                             "Omschrijving",
+                            "Hoev",
+                            "Eenh",
+                            "Prijs_eenheid",
                             "Bedrag",
                             "BTW"
                         ],
@@ -200,6 +228,9 @@
                         "return_value": [
                             "Datum",
                             "Omschrijving",
+                            "Hoev",
+                            "Eenh",
+                            "Prijs_eenheid",
                             "Bedrag",
                             "BTW"
                         ],
@@ -211,6 +242,9 @@
                         "return_value": [
                             "Datum",
                             "Omschrijving",
+                            "Hoev",
+                            "Eenh",
+                            "Prijs_eenheid",
                             "Bedrag",
                             "BTW"
                         ],
@@ -225,6 +259,9 @@
                 "return_value": [
                     "Datum",
                     "Omschrijving",
+                    "Hoev",
+                    "Eenh",
+                    "Prijs_eenheid",
                     "Bedrag",
                     "BTW"
                 ],
@@ -248,6 +285,9 @@
                         "return_value": [
                             "Datum",
                             "Omschrijving",
+                            "Hoev",
+                            "Eenh",
+                            "Prijs_eenheid",
                             "Bedrag",
                             "BTW"
                         ],
@@ -257,7 +297,9 @@
                         "name": "SILOMAIS",
                         "return_value": [
                             "Datum",
-                            "Kg_Product",
+                            "Hoev",
+                            "Eenh",
+                            "Prijs_eenheid",
                             "DS_Percent",
                             "Bedrag",
                             "BTW"
@@ -269,7 +311,9 @@
                         "name": "GRASKUIL - HOOI",
                         "return_value": [
                             "Datum",
-                            "Kg_Product",
+                            "Hoev",
+                            "Eenh",
+                            "Prijs_eenheid",
                             "DS_Percent",
                             "Bedrag",
                             "BTW"
@@ -282,7 +326,9 @@
                         "description": "",
                         "return_value": [
                             "Datum",
-                            "Kg_Product",
+                            "Hoev",
+                            "Eenh",
+                            "Prijs_eenheid",
                             "DS_Percent",
                             "Bedrag",
                             "BTW"
@@ -294,7 +340,9 @@
                         "description": "",
                         "return_value": [
                             "Datum",
-                            "Kg_Product",
+                            "Hoev",
+                            "Eenh",
+                            "Prijs_eenheid",
                             "DS_Percent",
                             "Bedrag",
                             "BTW"
@@ -307,7 +355,9 @@
                         "identifier": "R4-1-6",
                         "return_value": [
                             "Datum",
-                            "Kg_Product",
+                            "Hoev",
+                            "Eenh",
+                            "Prijs_eenheid",
                             "DS_Percent",
                             "Bedrag",
                             "BTW"
@@ -325,7 +375,9 @@
                         "description": "",
                         "return_value": [
                             "Datum",
-                            "Kg",
+                            "Hoev",
+                            "Eenh",
+                            "Prijs_eenheid",
                             "DS_Percent",
                             "MK",
                             "JV",
@@ -341,7 +393,9 @@
                         "description": "",
                         "return_value": [
                             "Datum",
-                            "Kg",
+                            "Hoev",
+                            "Eenh",
+                            "Prijs_eenheid",
                             "DS_Percent",
                             "MK",
                             "JV",
@@ -357,7 +411,9 @@
                         "description": "",
                         "return_value": [
                             "Datum",
-                            "Kg",
+                            "Hoev",
+                            "Eenh",
+                            "Prijs_eenheid",
                             "DS_Percent",
                             "MK",
                             "JV",
@@ -373,7 +429,9 @@
                         "description": "",
                         "return_value": [
                             "Datum",
-                            "Kg",
+                            "Hoev",
+                            "Eenh",
+                            "Prijs_eenheid",
                             "DS_Percent",
                             "MK",
                             "JV",
@@ -388,7 +446,9 @@
                         "name": "CORN COB MIX (C-C-M-)",
                         "return_value": [
                             "Datum",
-                            "Kg",
+                            "Hoev",
+                            "Eenh",
+                            "Prijs_eenheid",
                             "DS_Percent",
                             "MK",
                             "JV",
@@ -404,7 +464,9 @@
                         "name": "MAISKOLVENSCHROOT (MKS)",
                         "return_value": [
                             "Datum",
-                            "Kg",
+                            "Hoev",
+                            "Eenh",
+                            "Prijs_eenheid",
                             "DS_Percent",
                             "MK",
                             "JV",
@@ -421,7 +483,9 @@
                         "description": "",
                         "return_value": [
                             "Datum",
-                            "Kg",
+                            "Hoev",
+                            "Eenh",
+                            "Prijs_eenheid",
                             "DS_Percent",
                             "MK",
                             "JV",
@@ -443,7 +507,9 @@
                         "name": "SOJASCHROOT",
                         "return_value": [
                             "Datum",
-                            "Kg",
+                            "Hoev",
+                            "Eenh",
+                            "Prijs_eenheid",
                             "MK",
                             "JV",
                             "MV",
@@ -459,7 +525,9 @@
                         "description": "",
                         "return_value": [
                             "Datum",
-                            "Kg",
+                            "Hoev",
+                            "Eenh",
+                            "Prijs_eenheid",
                             "MK",
                             "JV",
                             "MV",
@@ -473,7 +541,9 @@
                         "name": "MAISGLUTEN (80-100 DVE)",
                         "return_value": [
                             "Datum",
-                            "Kg",
+                            "Hoev",
+                            "Eenh",
+                            "Prijs_eenheid",
                             "MK",
                             "JV",
                             "MV",
@@ -489,7 +559,9 @@
                         "description": "",
                         "return_value": [
                             "Datum",
-                            "Kg",
+                            "Hoev",
+                            "Eenh",
+                            "Prijs_eenheid",
                             "MK",
                             "JV",
                             "MV",
@@ -504,7 +576,9 @@
                         "description": "",
                         "return_value": [
                             "Datum",
-                            "Kg",
+                            "Hoev",
+                            "Eenh",
+                            "Prijs_eenheid",
                             "MK",
                             "JV",
                             "MV",
@@ -519,7 +593,9 @@
                         "description": "",
                         "return_value": [
                             "Datum",
-                            "Kg",
+                            "Hoev",
+                            "Eenh",
+                            "Prijs_eenheid",
                             "MK",
                             "JV",
                             "MV",
@@ -534,7 +610,9 @@
                         "description": "",
                         "return_value": [
                             "Datum",
-                            "Kg",
+                            "Hoev",
+                            "Eenh",
+                            "Prijs_eenheid",
                             "MK",
                             "JV",
                             "MV",
@@ -549,7 +627,9 @@
                         "description": "",
                         "return_value": [
                             "Datum",
-                            "Kg",
+                            "Hoev",
+                            "Eenh",
+                            "Prijs_eenheid",
                             "MK",
                             "JV",
                             "MV",
@@ -564,7 +644,9 @@
                         "description": "",
                         "return_value": [
                             "Datum",
-                            "Kg",
+                            "Hoev",
+                            "Eenh",
+                            "Prijs_eenheid",
                             "MK",
                             "JV",
                             "MV",
@@ -582,7 +664,9 @@
                 "return_value": [
                     "Datum",
                     "Omschrijving",
-                    "Kg",
+                    "Hoev",
+                    "Eenh",
+                    "Prijs_eenheid",
                     "MK",
                     "JV",
                     "MV",
@@ -662,7 +746,7 @@
                     "BTW_percent:{Januari: , Februari:, Maart: , April:, Mei: ,Juni: ,Juli: , Augustus: ,September: ,Oktober: ,November: ,December}",
                     "Huishoudenliters:{Januari: , Februari:, Maart: , April:, Mei: ,Juni: ,Juli: , Augustus: ,September: ,Oktober: ,November: ,December}",
                     "Kalverenliters:{Januari: , Februari:, Maart: , April:, Mei: ,Juni: ,Juli: , Augustus: ,September: ,Oktober: ,November: ,December}",
-                    "Probleemmelk:{Januari: , Februari:, Maart: , April:, Mei: ,Juni: ,Juli: , Augustus: ,September: ,Oktober: ,November: ,December}"  
+                    "Probleemmelk:{Januari: , Februari:, Maart: , April:, Mei: ,Juni: ,Juli: , Augustus: ,September: ,Oktober: ,November: ,December}"
                 ],
                 "items": []
             }
@@ -680,7 +764,9 @@
                     "Datum",
                     "Supplier",
                     "Omschrijving",
-                    "Kg",
+                    "Hoev",
+                    "Eenh",
+                    "Prijs_eenheid",
                     "MK",
                     "JV",
                     "MV",
@@ -698,7 +784,9 @@
                     "Datum",
                     "Supplier",
                     "Omschrijving",
-                    "Kg",
+                    "Hoev",
+                    "Eenh",
+                    "Prijs_eenheid",
                     "MK",
                     "JV",
                     "MV",
@@ -728,7 +816,9 @@
                     "Datum",
                     "Supplier",
                     "Omschrijving",
-                    "Kg",
+                    "Hoev",
+                    "Eenh",
+                    "Prijs_eenheid",
                     "MK",
                     "JV",
                     "MV",
@@ -745,6 +835,9 @@
                 "return_value": [
                     "Datum",
                     "Omschrijving",
+                    "Hoev",
+                    "Eenh",
+                    "Prijs_eenheid",
                     "Bedrag",
                     "BTW"
                 ],
@@ -758,7 +851,9 @@
                     "Datum",
                     "Supplier",
                     "Omschrijving",
-                    "Kg",
+                    "Hoev",
+                    "Eenh",
+                    "Prijs_eenheid",
                     "MK",
                     "JV",
                     "MV",
@@ -776,6 +871,9 @@
                 "return_value": [
                     "Datum",
                     "Omschrijving",
+                    "Hoev",
+                    "Eenh",
+                    "Prijs_eenheid",
                     "Bedrag",
                     "BTW"
                 ],
@@ -793,7 +891,9 @@
                 "identifier": "R7-1",
                 "return_value": [
                     "Datum",
-                    "kWh",
+                    "Hoev",
+                    "Eenh",
+                    "Prijs_eenheid",
                     "Bedrag",
                     "BTW"
                 ],
@@ -805,7 +905,9 @@
                 "identifier": "R7-2",
                 "return_value": [
                     "Datum",
-                    "m3",
+                    "Hoev",
+                    "Eenh",
+                    "Prijs_eenheid",
                     "Bedrag",
                     "BTW"
                 ],
@@ -817,6 +919,9 @@
                 "identifier": "R7-3",
                 "return_value": [
                     "Datum",
+                    "Hoev",
+                    "Eenh",
+                    "Prijs_eenheid",
                     "Bedrag",
                     "BTW"
                 ],
@@ -838,6 +943,9 @@
                 "return_value": [
                     "Datum",
                     "Omschrijving",
+                    "Hoev",
+                    "Eenh",
+                    "Prijs_eenheid",
                     "Bedrag"
                 ],
                 "description": "",
@@ -849,6 +957,9 @@
                 "return_value": [
                     "Datum",
                     "Omschrijving",
+                    "Hoev",
+                    "Eenh",
+                    "Prijs_eenheid",
                     "Bedrag",
                     "BTW"
                 ],
@@ -861,6 +972,9 @@
                 "return_value": [
                     "Datum",
                     "Omschrijving",
+                    "Hoev",
+                    "Eenh",
+                    "Prijs_eenheid",
                     "Bedrag",
                     "BTW"
                 ],
@@ -873,6 +987,9 @@
                 "return_value": [
                     "Datum",
                     "Omschrijving",
+                    "Hoev",
+                    "Eenh",
+                    "Prijs_eenheid",
                     "Bedrag",
                     "BTW"
                 ],
@@ -892,7 +1009,9 @@
                 "return_value": [
                     "Naam",
                     "Geboortejaar",
-                    "Uren",
+                    "Hoev",
+                    "Eenh",
+                    "Prijs_eenheid",
                     "AK"
                 ],
                 "description": "",
@@ -945,7 +1064,9 @@
                 "identifier": "R8-4",
                 "return_value": [
                     "Datum",
-                    "Uren",
+                    "Hoev",
+                    "Eenh",
+                    "Prijs_eenheid",
                     "Bedrag",
                     "BTW"
                 ],
@@ -966,6 +1087,9 @@
                 "return_value": [
                     "Datum",
                     "Omschrijving",
+                    "Hoev",
+                    "Eenh",
+                    "Prijs_eenheid",
                     "Bedrag",
                     "BTW"
                 ],
@@ -978,6 +1102,9 @@
                 "return_value": [
                     "Datum",
                     "Omschrijving",
+                    "Hoev",
+                    "Eenh",
+                    "Prijs_eenheid",
                     "Bedrag",
                     "BTW"
                 ],
@@ -996,6 +1123,9 @@
                 "return_value": [
                     "Datum",
                     "Omschrijving",
+                    "Hoev",
+                    "Eenh",
+                    "Prijs_eenheid",
                     "Bedrag",
                     "BTW"
                 ],
@@ -1008,6 +1138,9 @@
                 "return_value": [
                     "Datum",
                     "Omschrijving",
+                    "Hoev",
+                    "Eenh",
+                    "Prijs_eenheid",
                     "Bedrag",
                     "BTW"
                 ],
@@ -1032,7 +1165,9 @@
                         "return_value": [
                             "Datum",
                             "Omschrijving",
-                            "kWh",
+                            "Hoev",
+                            "Eenh",
+                            "Prijs_eenheid",
                             "Bedrag",
                             "BTW"
                         ],
@@ -1044,7 +1179,9 @@
                         "return_value": [
                             "Datum",
                             "Omschrijving",
-                            "kWh",
+                            "Hoev",
+                            "Eenh",
+                            "Prijs_eenheid",
                             "Bedrag",
                             "BTW"
                         ],
@@ -1063,7 +1200,9 @@
                         "return_value": [
                             "Datum",
                             "Omschrijving",
-                            "kWh",
+                            "Hoev",
+                            "Eenh",
+                            "Prijs_eenheid",
                             "Bedrag",
                             "BTW"
                         ],
@@ -1075,6 +1214,9 @@
                         "return_value": [
                             "Datum",
                             "Omschrijving",
+                            "Hoev",
+                            "Eenh",
+                            "Prijs_eenheid",
                             "Bedrag"
                         ],
                         "identifier": "R12-2-2"
@@ -1092,6 +1234,9 @@
                         "return_value": [
                             "Datum",
                             "Omschrijving",
+                            "Hoev",
+                            "Eenh",
+                            "Prijs_eenheid",
                             "Bedrag",
                             "BTW"
                         ],
@@ -1103,6 +1248,9 @@
                         "return_value": [
                             "Datum",
                             "Omschrijving",
+                            "Hoev",
+                            "Eenh",
+                            "Prijs_eenheid",
                             "Bedrag"
                         ],
                         "identifier": "R12-3-2"
@@ -1113,6 +1261,9 @@
                         "return_value": [
                             "Datum",
                             "Omschrijving",
+                            "Hoev",
+                            "Eenh",
+                            "Prijs_eenheid",
                             "Bedrag",
                             "BTW"
                         ],

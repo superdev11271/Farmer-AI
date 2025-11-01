@@ -74,7 +74,9 @@ export default function InvoiceTable({ categoryIdentifier }) {
       category_identifier: categoryIdentifier,
       source_doc: "",
       Datum: "",
-      Uren: null,
+      Hoev: "",
+      Eenh: "",
+      Prijs_eenheid: "",
       Bedrag: 0,
       BTW: 21,
       BedragIncl: 0,
@@ -152,7 +154,9 @@ export default function InvoiceTable({ categoryIdentifier }) {
               <tr>
                 <th className="w-1/6 table-header">Category ID</th>
                 <th className="w-1/6 table-header">Datum</th>
-                <th className="w-1/4 table-header">Uren</th>
+                <th className="w-1/6 table-header text-right">Hoev.</th>
+                <th className="w-1/6 table-header text-right">Eenh.</th>
+                <th className="w-1/6 table-header text-right">€/eenh.</th>
                 <th className="w-1/6 table-header text-right">Bedrag</th>
                 <th className="w-1/12 table-header text-right">BTW %</th>
                 <th className="w-1/6 table-header text-right">BTW Bedrag</th>
@@ -163,7 +167,7 @@ export default function InvoiceTable({ categoryIdentifier }) {
             <tbody className="bg-white divide-y divide-gray-200">
               {draftInvoices.map(invoice => (
                 <tr key={invoice.id} className="hover:bg-gray-50 transition-colors duration-150">
-                  {["category_identifier", "Datum", "Uren", "Bedrag", "BTW"].map(field => (
+                  {["category_identifier", "Datum", "Hoev", "Eenh", "Prijs_eenheid", "Bedrag", "BTW"].map(field => (
                     <td
                       key={field}
                       className={`px-3 py-2 text-sm ${field === "Bedrag" || field === "BTW" ? "text-right" : ""}`}

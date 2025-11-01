@@ -24,7 +24,7 @@ const TotalsTable = memo(({ sub_index, item_index, sub_name, categoryIdentifier,
                     (Number(inv.Bedrag || 0) * (Number(inv.BTW || 0) / 100)),
                 0
             );
-            const totalKg = data.reduce((sum, inv) => sum + Number(inv.Kg || 0), 0);
+            const totalKg = data.reduce((sum, inv) => sum + Number(inv.Hoev || 0), 0);
             const totalMK = data.reduce((sum, inv) => sum + Number(inv.MK || 0), 0);
             const totalJV = data.reduce((sum, inv) => sum + Number(inv.JV || 0), 0);
             const totalMV = data.reduce((sum, inv) => sum + Number(inv.MV || 0), 0);

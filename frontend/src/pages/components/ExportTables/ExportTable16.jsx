@@ -30,11 +30,11 @@ const ExportTable16 = memo(({ sub_index, item_index, sub_name, categoryIdentifie
                 0
             );
             const totalKgProduct = data.reduce(
-                (sum, inv) => sum + (Number(inv.Kg_Product || 0) * Number(inv.DS_Percent || 0) / 100),
+                (sum, inv) => sum + (Number(inv.Hoev_Product || 0) * Number(inv.DS_Percent || 0) / 100),
                 0
             );
             const totalKgDs = data.reduce(
-                (sum, inv) => sum + Number(inv.Kg_Product || 0),
+                (sum, inv) => sum + Number(inv.Hoev_Product || 0),
                 0
             );
 

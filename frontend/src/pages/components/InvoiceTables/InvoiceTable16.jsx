@@ -18,7 +18,7 @@ export default function InvoiceTable({ categoryIdentifier }) {
         source_doc: inv.source_doc,
         ...inv,
         BedragIncl: +(Number(inv.Bedrag || 0) + Number(inv.Bedrag || 0) * (Number(inv.BTW || 0) / 100)).toFixed(2),
-        kg_ds: +(Number(inv.Kg_Product || 0) * Number(inv.DS_Percent || 0) / 100).toFixed(2)
+        kg_ds: +(Number(inv.Hoev|| 0) * Number(inv.DS_Percent || 0) / 100).toFixed(2)
       }));
       setInvoices(data);
       setDraftInvoices(data);
@@ -40,14 +40,14 @@ export default function InvoiceTable({ categoryIdentifier }) {
       prev.map(inv => {
         if (inv.id === id) {
           const updated = { ...inv, [field]: value };
-          if (field === "Bedrag" || field === "BTW" || field === "Kg_Product" || field === "DS_Percent") {
+          if (field === "Bedrag" || field === "BTW" || field === "Hoev" || field === "DS_Percent") {
             const amountNum = parseFloat(updated.Bedrag) || 0;
             const vatPerc = parseFloat(updated.BTW) || 0;
-            const Kg_Product = parseFloat(updated.Kg_Product) || 0;
+            const Hoev = parseFloat(updated.Hoev) || 0;
             const DS_Percent = parseFloat(updated.DS_Percent) || 0;
             updated.BTW = vatPerc;
             updated.BedragIncl = +(amountNum + amountNum * (vatPerc / 100)).toFixed(2);
-            updated.kg_ds = +((Kg_Product * DS_Percent) / 100).toFixed(2);
+            updated.kg_ds = +((Hoev * DS_Percent) / 100).toFixed(2);
           }
           return updated;
         }
@@ -78,6 +78,9 @@ export default function InvoiceTable({ categoryIdentifier }) {
       category_identifier: categoryIdentifier,
       source_doc: "",
       Datum: "",
+      Hoev: "",
+      Eenh: "",
+      Prijs_eenheid: "",
       Bedrag: 0,
       BTW: 21,
       BedragIncl: 0,
@@ -116,7 +119,7 @@ export default function InvoiceTable({ categoryIdentifier }) {
   const totalExcl = draftInvoices.reduce((sum, inv) => sum + Number(inv.Bedrag || 0), 0);
   const totalIncl = draftInvoices.reduce((sum, inv) => sum + Number(inv.BedragIncl || 0), 0);
   const totalKgDs = draftInvoices.reduce((sum, inv) => sum + Number(inv.kg_ds || 0), 0);
-  const totalKgProduct = draftInvoices.reduce((sum, inv) => sum + Number(inv.Kg_Product || 0), 0);
+  const totalKgProduct = draftInvoices.reduce((sum, inv) => sum + Number(inv.Hoev || 0), 0);
 
   return (
     <div className="space-y-6">
@@ -159,7 +162,9 @@ export default function InvoiceTable({ categoryIdentifier }) {
               <tr>
                 <th className="w-1/6 table-header">Category ID</th>
                 <th className="w-1/6 table-header">Datum</th>
-                <th className="w-1/6 table-header text-right">Kg Product</th>
+                <th className="w-1/6 table-header text-right">Hoev.</th>
+                <th className="w-1/6 table-header text-right">Eenh.</th>
+                <th className="w-1/6 table-header text-right">€/eenh.</th>
                 <th className="w-1/6 table-header text-right">% D.S.</th>
                 <th className="w-1/6 table-header text-right">Kg D.s.</th>
                 <th className="w-1/6 table-header text-right">Bedrag</th>
@@ -172,7 +177,7 @@ export default function InvoiceTable({ categoryIdentifier }) {
             <tbody className="bg-white divide-y divide-gray-200">
               {draftInvoices.map(invoice => (
                 <tr key={invoice.id} className="hover:bg-gray-50 transition-colors duration-150">
-                  {["category_identifier", "Datum", "Kg_Product", "DS_Percent"].map(field => (
+                  {["category_identifier", "Datum", "Hoev", "Eenh", "Prijs_eenheid", "DS_Percent"].map(field => (
                     <td
                       key={field}
                       className={`px-3 py-2 text-sm ${field === "Bedrag" || field === "BTW" ? "text-right" : ""}`}
