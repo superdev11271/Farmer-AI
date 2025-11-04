@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Trash2, Plus, Save, X, DollarSign, Factory, Briefcase, Users, Building2, TrendingUp, Eye } from "lucide-react";
+import { Trash2, Plus, Save, X, DollarSign, TrendingUp, Eye } from "lucide-react";
 import toast from "react-hot-toast";
 import axios from "axios";
 
@@ -88,7 +88,7 @@ export default function InvoiceTable({ categoryIdentifier }) {
       category_identifier: categoryIdentifier,
       source_doc: "",
       Datum: "",
-      Supplier:"",
+      Supplier: "",
       Omschrijving: "",
       Hoev: "",
       Eenh: "",
@@ -213,6 +213,21 @@ export default function InvoiceTable({ categoryIdentifier }) {
   const totalJV = draftInvoices.reduce((sum, inv) => sum + Number(inv.JV || 0), 0);
   const totalMV = draftInvoices.reduce((sum, inv) => sum + Number(inv.MV || 0), 0);
   const totalZK = draftInvoices.reduce((sum, inv) => sum + Number(inv.ZK || 0), 0);
+
+  // Calculate totals for Hoeveelheid and Bedrag per category
+  const totBedragMK = draftInvoices
+    .filter(inv => Number(inv.MK || 0) > 0)
+    .reduce((sum, inv) => sum + Number(inv.MK || 0) * (Number(inv.Prijs_eenheid || 0) / 1000), 0);
+  const totBedragJV = draftInvoices
+    .filter(inv => Number(inv.JV || 0) > 0)
+    .reduce((sum, inv) => sum + Number(inv.JV || 0) * (Number(inv.Prijs_eenheid || 0) / 1000), 0);
+  const totBedragMV = draftInvoices
+    .filter(inv => Number(inv.MV || 0) > 0)
+    .reduce((sum, inv) => sum + Number(inv.MV || 0) * (Number(inv.Prijs_eenheid || 0) / 1000), 0);
+  const totBedragZK = draftInvoices
+    .filter(inv => Number(inv.ZK || 0) > 0)
+    .reduce((sum, inv) => sum + Number(inv.ZK || 0) * (Number(inv.Prijs_eenheid || 0) / 1000), 0);
+
 
 
   return (
@@ -370,7 +385,7 @@ export default function InvoiceTable({ categoryIdentifier }) {
                       className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                     />
                   </td>
-                  {["category_identifier", "Datum", "Supplier", "Omschrijving","Hoev", "Eenh", "Prijs_eenheid", "MK", "JV", "MV", "ZK", "Bedrag", "BTW"].map(field => (
+                  {["category_identifier", "Datum", "Supplier", "Omschrijving", "Hoev", "Eenh", "Prijs_eenheid", "MK", "JV", "MV", "ZK", "Bedrag", "BTW"].map(field => (
                     <td
                       key={field}
                       className={`px-3 py-2 text-sm text-right`}
@@ -421,54 +436,45 @@ export default function InvoiceTable({ categoryIdentifier }) {
         </div>
       </div>
 
+      {/* Summary Totals Table */}
+      <div className="card p-6 shadow-md rounded-lg bg-white">
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">Summary Totals</h3>
+        <div className="overflow-x-auto">
+          <table className="min-w-full divide-y divide-gray-200 border border-gray-300">
+            <thead className="bg-gray-50">
+              <tr>
+                <th className="w-1/4 table-header text-left px-4 py-2 border border-gray-300"></th>
+                <th className="w-1/6 table-header text-right px-4 py-2 border border-gray-300">MK</th>
+                <th className="w-1/6 table-header text-right px-4 py-2 border border-gray-300">JV</th>
+                <th className="w-1/6 table-header text-right px-4 py-2 border border-gray-300">MV</th>
+                <th className="w-1/6 table-header text-right px-4 py-2 border border-gray-300">ZK</th>
+              </tr>
+            </thead>
+            <tbody className="bg-white divide-y divide-gray-200">
+              <tr>
+                <td className="px-4 py-2 text-left font-medium border border-gray-300">Tot. Hoeveelheid</td>
+                <td className="px-4 py-2 text-right border border-gray-300">{totalMK > 0 ? totalMK.toFixed(2) : ''}</td>
+                <td className="px-4 py-2 text-right border border-gray-300">{totalJV > 0 ? totalJV.toFixed(2) : ''}</td>
+                <td className="px-4 py-2 text-right border border-gray-300">{totalMV > 0 ? totalMV.toFixed(2) : ''}</td>
+                <td className="px-4 py-2 text-right border border-gray-300">{totalZK > 0 ? totalZK.toFixed(2) : ''}</td>
+              </tr>
+              <tr>
+                <td className="px-4 py-2 text-left font-medium border border-gray-300">Tot. Bedrag</td>
+                <td className="px-4 py-2 text-right border border-gray-300">{totBedragMK > 0 ? `€${totBedragMK.toFixed(2)}` : ''}</td>
+                <td className="px-4 py-2 text-right border border-gray-300">{totBedragJV > 0 ? `€${totBedragJV.toFixed(2)}` : ''}</td>
+                <td className="px-4 py-2 text-right border border-gray-300">{totBedragMV > 0 ? `€${totBedragMV.toFixed(2)}` : ''}</td>
+                <td className="px-4 py-2 text-right border border-gray-300">{totBedragZK > 0 ? `€${totBedragZK.toFixed(2)}` : ''}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
       {/* Totals dashboard card */}
       <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
 
 
-        {/* Total MK */}
-        <div className="flex items-center p-4 bg-white shadow rounded-lg">
-          <div className="p-3 rounded-full bg-purple-100 text-purple-600 mr-4">
-            <Factory className="h-6 w-6" />
-          </div>
-          <div>
-            <p className="text-sm text-gray-500">Total MK</p>
-            <p className="text-lg font-semibold text-gray-900">{totalMK.toFixed(2)}</p>
-          </div>
-        </div>
-
-        {/* Total JV */}
-        <div className="flex items-center p-4 bg-white shadow rounded-lg">
-          <div className="p-3 rounded-full bg-orange-100 text-orange-600 mr-4">
-            <Briefcase className="h-6 w-6" />
-          </div>
-          <div>
-            <p className="text-sm text-gray-500">Total JV</p>
-            <p className="text-lg font-semibold text-gray-900">{totalJV.toFixed(2)}</p>
-          </div>
-        </div>
-
-        {/* Total MV */}
-        <div className="flex items-center p-4 bg-white shadow rounded-lg">
-          <div className="p-3 rounded-full bg-yellow-100 text-yellow-600 mr-4">
-            <Users className="h-6 w-6" />
-          </div>
-          <div>
-            <p className="text-sm text-gray-500">Total MV</p>
-            <p className="text-lg font-semibold text-gray-900">{totalMV.toFixed(2)}</p>
-          </div>
-        </div>
-
-        {/* Total ZK */}
-        <div className="flex items-center p-4 bg-white shadow rounded-lg">
-          <div className="p-3 rounded-full bg-pink-100 text-pink-600 mr-4">
-            <Building2 className="h-6 w-6" />
-          </div>
-          <div>
-            <p className="text-sm text-gray-500">Total ZK</p>
-            <p className="text-lg font-semibold text-gray-900">{totalZK.toFixed(2)}</p>
-          </div>
-        </div>
-
+       
         {/* Bedrag (excl)[EUR] */}
         <div className="flex items-center p-4 bg-white shadow rounded-lg">
           <div className="p-3 rounded-full bg-indigo-100 text-indigo-600 mr-4">

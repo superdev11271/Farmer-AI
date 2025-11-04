@@ -9,6 +9,13 @@ export default function InvoiceTable({ categoryIdentifier }) {
   const [draftInvoices, setDraftInvoices] = useState([]);
   const [editingCell, setEditingCell] = useState({ id: null, field: null });
   const [hasChanges, setHasChanges] = useState(false);
+  const [percentages, setPercentages] = useState({
+    MK: '',
+    JV: '',
+    MV: '',
+    ZK: ''
+  });
+  const [selectedItems, setSelectedItems] = useState(new Set());
 
   // Load invoices from backend
   const fetchInvoices = async () => {
@@ -121,6 +128,82 @@ export default function InvoiceTable({ categoryIdentifier }) {
     toast("Changes canceled.");
   };
 
+  const handlePercentageChange = (field, value) => {
+    setPercentages(prev => ({
+      ...prev,
+      [field]: value
+    }));
+  };
+
+  const handleItemSelection = (itemId, isSelected) => {
+    setSelectedItems(prev => {
+      const newSet = new Set(prev);
+      if (isSelected) {
+        newSet.add(itemId);
+      } else {
+        newSet.delete(itemId);
+      }
+      return newSet;
+    });
+  };
+
+  const handleSelectAll = () => {
+    const allIds = draftInvoices.map(invoice => invoice.id);
+    setSelectedItems(new Set(allIds));
+  };
+
+  const handleSelectNone = () => {
+    setSelectedItems(new Set());
+  };
+
+  const handleSetPercentages = () => {
+    const mkPercent = parseFloat(percentages.MK) || 0;
+    const jvPercent = parseFloat(percentages.JV) || 0;
+    const mvPercent = parseFloat(percentages.MV) || 0;
+    const zkPercent = parseFloat(percentages.ZK) || 0;
+
+    if (mkPercent === 0 && jvPercent === 0 && mvPercent === 0 && zkPercent === 0) {
+      toast.error("Please enter at least one percentage value");
+      return;
+    }
+
+    if (selectedItems.size === 0) {
+      toast.error("Please select at least one item");
+      return;
+    }
+
+    setDraftInvoices(prev =>
+      prev.map(invoice => {
+        // Only apply to selected items
+        if (!selectedItems.has(invoice.id)) {
+          return invoice;
+        }
+
+        const bedrag = parseFloat(invoice.Bedrag) || 0;
+        const updated = { ...invoice };
+
+        if (mkPercent > 0) updated.MK = (bedrag * mkPercent / 100).toFixed(2);
+        if (jvPercent > 0) updated.JV = (bedrag * jvPercent / 100).toFixed(2);
+        if (mvPercent > 0) updated.MV = (bedrag * mvPercent / 100).toFixed(2);
+        if (zkPercent > 0) updated.ZK = (bedrag * zkPercent / 100).toFixed(2);
+
+        // Recalculate BedragIncl, Prijs, and kg_ds
+        const amountNum = parseFloat(updated.Bedrag) || 0;
+        const vatPerc = parseFloat(updated.BTW) || 0;
+        const weight = parseFloat(updated.Hoev) || 0;
+        const DS_Percent = parseFloat(updated.DS_Percent) || 0;
+
+        updated.BedragIncl = +(amountNum + amountNum * (vatPerc / 100)).toFixed(2);
+        updated.Prijs = weight > 0 ? +((amountNum / weight) * 100).toFixed(2) : 0;
+        updated.kg_ds = +((weight * DS_Percent) / 100).toFixed(2);
+
+        return updated;
+      })
+    );
+    setHasChanges(true);
+    toast.success(`Percentages applied to ${selectedItems.size} selected item(s)`);
+  };
+
   // Totals
   const totalExcl = draftInvoices.reduce((sum, inv) => sum + Number(inv.Bedrag || 0), 0);
   const totalIncl = draftInvoices.reduce((sum, inv) => sum + Number(inv.BedragIncl || 0), 0);
@@ -130,6 +213,20 @@ export default function InvoiceTable({ categoryIdentifier }) {
   const totalJV = draftInvoices.reduce((sum, inv) => sum + Number(inv.JV || 0), 0);
   const totalMV = draftInvoices.reduce((sum, inv) => sum + Number(inv.MV || 0), 0);
   const totalZK = draftInvoices.reduce((sum, inv) => sum + Number(inv.ZK || 0), 0);
+
+  // Calculate totals for Hoeveelheid and Bedrag per category
+  const totBedragMK = draftInvoices
+    .filter(inv => Number(inv.MK || 0) > 0)
+    .reduce((sum, inv) => sum + Number(inv.MK || 0) * (Number(inv.Prijs_eenheid || 0) / 1000), 0);
+  const totBedragJV = draftInvoices
+    .filter(inv => Number(inv.JV || 0) > 0)
+    .reduce((sum, inv) => sum + Number(inv.JV || 0) * (Number(inv.Prijs_eenheid || 0) / 1000), 0);
+  const totBedragMV = draftInvoices
+    .filter(inv => Number(inv.MV || 0) > 0)
+    .reduce((sum, inv) => sum + Number(inv.MV || 0) * (Number(inv.Prijs_eenheid || 0) / 1000), 0);
+  const totBedragZK = draftInvoices
+    .filter(inv => Number(inv.ZK || 0) > 0)
+    .reduce((sum, inv) => sum + Number(inv.ZK || 0) * (Number(inv.Prijs_eenheid || 0) / 1000), 0);
 
   return (
     <div className="space-y-6">
@@ -166,10 +263,97 @@ export default function InvoiceTable({ categoryIdentifier }) {
           </div>
         </div>
 
+        {/* Percentage Input Section */}
+        <div className="mb-6 p-4 bg-gray-50 rounded-lg">
+          <div className="flex items-center gap-4 mb-3">
+            <h4 className="text-sm font-medium text-gray-700">Set Percentages:</h4>
+            <div className="flex items-center gap-2">
+              <label className="text-xs text-gray-600">MK %:</label>
+              <input
+                type="number"
+                step="1"
+                value={percentages.MK}
+                onChange={(e) => handlePercentageChange('MK', e.target.value)}
+                className="w-16 px-2 py-1 text-sm border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="0"
+              />
+            </div>
+            <div className="flex items-center gap-2">
+              <label className="text-xs text-gray-600">JV %:</label>
+              <input
+                type="number"
+                step="1"
+                value={percentages.JV}
+                onChange={(e) => handlePercentageChange('JV', e.target.value)}
+                className="w-16 px-2 py-1 text-sm border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="0"
+              />
+            </div>
+            <div className="flex items-center gap-2">
+              <label className="text-xs text-gray-600">MV %:</label>
+              <input
+                type="number"
+                step="1"
+                value={percentages.MV}
+                onChange={(e) => handlePercentageChange('MV', e.target.value)}
+                className="w-16 px-2 py-1 text-sm border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="0"
+              />
+            </div>
+            <div className="flex items-center gap-2">
+              <label className="text-xs text-gray-600">ZK %:</label>
+              <input
+                type="number"
+                step="1"
+                value={percentages.ZK}
+                onChange={(e) => handlePercentageChange('ZK', e.target.value)}
+                className="w-16 px-2 py-1 text-sm border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="0"
+              />
+            </div>
+            <button
+              onClick={handleSetPercentages}
+              className="px-3 py-1 bg-blue-600 text-white text-sm rounded hover:bg-blue-700 transition-colors"
+            >
+              Set
+            </button>
+          </div>
+          <div className="flex items-center gap-4 mb-2">
+            <div className="flex items-center gap-2">
+              <button
+                onClick={handleSelectAll}
+                className="px-2 py-1 bg-green-100 text-green-700 text-xs rounded hover:bg-green-200 transition-colors"
+              >
+                Select All
+              </button>
+              <button
+                onClick={handleSelectNone}
+                className="px-2 py-1 bg-red-100 text-red-700 text-xs rounded hover:bg-red-200 transition-colors"
+              >
+                Select None
+              </button>
+            </div>
+            <span className="text-xs text-gray-600">
+              {selectedItems.size} of {draftInvoices.length} items selected
+            </span>
+          </div>
+          <p className="text-xs text-gray-500">
+            Enter percentages to automatically calculate MK, JV, MV, ZK values based on Bedrag for selected items only.
+          </p>
+        </div>
+
         <div className="overflow-x-auto">
           <table className="min-w-full divide-y divide-gray-200 table-fixed">
             <thead className="bg-gray-50">
               <tr>
+                <th className="w-12 table-header text-center">
+                  <input
+                    type="checkbox"
+                    checked={selectedItems.size === draftInvoices.length && draftInvoices.length > 0}
+                    onChange={(e) => e.target.checked ? handleSelectAll() : handleSelectNone()}
+                    className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                  />
+                </th>
                 <th className="w-1/6 table-header">Category ID</th>
                 <th className="w-1/6 table-header text-right">Datum</th>
                 <th className="w-1/6 table-header text-right">Hoev.</th>
@@ -191,7 +375,15 @@ export default function InvoiceTable({ categoryIdentifier }) {
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
               {draftInvoices.map(invoice => (
-                <tr key={invoice.id} className="hover:bg-gray-50 transition-colors duration-150">
+                <tr key={invoice.id} className={`hover:bg-gray-50 transition-colors duration-150 ${selectedItems.has(invoice.id) ? 'bg-blue-50' : ''}`}>
+                  <td className="px-3 py-2 text-center">
+                    <input
+                      type="checkbox"
+                      checked={selectedItems.has(invoice.id)}
+                      onChange={(e) => handleItemSelection(invoice.id, e.target.checked)}
+                      className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                    />
+                  </td>
                   {["category_identifier", "Datum", "Hoev", "Eenh", "Prijs_eenheid", "DS_Percent"].map(field => (
                     <td
                       key={field}
@@ -267,6 +459,40 @@ export default function InvoiceTable({ categoryIdentifier }) {
         </div>
       </div>
 
+      {/* Summary Totals Table */}
+      <div className="card p-6 shadow-md rounded-lg bg-white">
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">Summary Totals</h3>
+        <div className="overflow-x-auto">
+          <table className="min-w-full divide-y divide-gray-200 border border-gray-300">
+            <thead className="bg-gray-50">
+              <tr>
+                <th className="w-1/4 table-header text-left px-4 py-2 border border-gray-300"></th>
+                <th className="w-1/6 table-header text-right px-4 py-2 border border-gray-300">MK</th>
+                <th className="w-1/6 table-header text-right px-4 py-2 border border-gray-300">JV</th>
+                <th className="w-1/6 table-header text-right px-4 py-2 border border-gray-300">MV</th>
+                <th className="w-1/6 table-header text-right px-4 py-2 border border-gray-300">ZK</th>
+              </tr>
+            </thead>
+            <tbody className="bg-white divide-y divide-gray-200">
+              <tr>
+                <td className="px-4 py-2 text-left font-medium border border-gray-300">Tot. Hoeveelheid</td>
+                <td className="px-4 py-2 text-right border border-gray-300">{totalMK > 0 ? totalMK.toFixed(2) : ''}</td>
+                <td className="px-4 py-2 text-right border border-gray-300">{totalJV > 0 ? totalJV.toFixed(2) : ''}</td>
+                <td className="px-4 py-2 text-right border border-gray-300">{totalMV > 0 ? totalMV.toFixed(2) : ''}</td>
+                <td className="px-4 py-2 text-right border border-gray-300">{totalZK > 0 ? totalZK.toFixed(2) : ''}</td>
+              </tr>
+              <tr>
+                <td className="px-4 py-2 text-left font-medium border border-gray-300">Tot. Bedrag</td>
+                <td className="px-4 py-2 text-right border border-gray-300">{totBedragMK > 0 ? `€${totBedragMK.toFixed(2)}` : ''}</td>
+                <td className="px-4 py-2 text-right border border-gray-300">{totBedragJV > 0 ? `€${totBedragJV.toFixed(2)}` : ''}</td>
+                <td className="px-4 py-2 text-right border border-gray-300">{totBedragMV > 0 ? `€${totBedragMV.toFixed(2)}` : ''}</td>
+                <td className="px-4 py-2 text-right border border-gray-300">{totBedragZK > 0 ? `€${totBedragZK.toFixed(2)}` : ''}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
       {/* Totals dashboard card */}
       <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
         {/* Total Kg */}
@@ -290,49 +516,7 @@ export default function InvoiceTable({ categoryIdentifier }) {
           </div>
         </div>
 
-        {/* Total MK */}
-        <div className="flex items-center p-4 bg-white shadow rounded-lg">
-          <div className="p-3 rounded-full bg-purple-100 text-purple-600 mr-4">
-            <Factory className="h-6 w-6" />
-          </div>
-          <div>
-            <p className="text-sm text-gray-500">Total MK</p>
-            <p className="text-lg font-semibold text-gray-900">{totalMK.toFixed(2)}</p>
-          </div>
-        </div>
 
-        {/* Total JV */}
-        <div className="flex items-center p-4 bg-white shadow rounded-lg">
-          <div className="p-3 rounded-full bg-orange-100 text-orange-600 mr-4">
-            <Briefcase className="h-6 w-6" />
-          </div>
-          <div>
-            <p className="text-sm text-gray-500">Total JV</p>
-            <p className="text-lg font-semibold text-gray-900">{totalJV.toFixed(2)}</p>
-          </div>
-        </div>
-
-        {/* Total MV */}
-        <div className="flex items-center p-4 bg-white shadow rounded-lg">
-          <div className="p-3 rounded-full bg-yellow-100 text-yellow-600 mr-4">
-            <Users className="h-6 w-6" />
-          </div>
-          <div>
-            <p className="text-sm text-gray-500">Total MV</p>
-            <p className="text-lg font-semibold text-gray-900">{totalMV.toFixed(2)}</p>
-          </div>
-        </div>
-
-        {/* Total ZK */}
-        <div className="flex items-center p-4 bg-white shadow rounded-lg">
-          <div className="p-3 rounded-full bg-pink-100 text-pink-600 mr-4">
-            <Building2 className="h-6 w-6" />
-          </div>
-          <div>
-            <p className="text-sm text-gray-500">Total ZK</p>
-            <p className="text-lg font-semibold text-gray-900">{totalZK.toFixed(2)}</p>
-          </div>
-        </div>
 
         {/* Bedrag (excl)[EUR] */}
         <div className="flex items-center p-4 bg-white shadow rounded-lg">

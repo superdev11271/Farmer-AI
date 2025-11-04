@@ -61,7 +61,9 @@ def get_prompt(prompts):
 
     If you can't find information about specific json key, you can make it as null.
 
-    Datum means date of invoice, not mean item date
+    Datum means date of invoice, not mean item date.
+    change all unit of mass as kilograms and return.
+    
     Here is the reference prompts:
     """ + all_refercence + """
     """
