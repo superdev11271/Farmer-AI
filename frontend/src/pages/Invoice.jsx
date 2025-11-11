@@ -24,6 +24,8 @@ import InvoiceTable19 from "./components/InvoiceTables/InvoiceTable19";
 import InvoiceTable20 from "./components/InvoiceTables/InvoiceTable20";
 import InvoiceTable21 from "./components/InvoiceTables/InvoiceTable21";
 import InvoiceTable22 from "./components/InvoiceTables/InvoiceTable22";
+import InvoiceTable23 from "./components/InvoiceTables/InvoiceTable23";
+import InvoiceTable24 from "./components/InvoiceTables/InvoiceTable24";
 
 
 const Invoices = () => {
@@ -55,6 +57,8 @@ const Invoices = () => {
       {invoice_types.type20.includes(currentCateoryIdentifier) && <InvoiceTable20 categoryIdentifier={currentCateoryIdentifier} />}
       {invoice_types.type21.includes(currentCateoryIdentifier) && <InvoiceTable21 categoryIdentifier={currentCateoryIdentifier} />}
       {invoice_types.type22.includes(currentCateoryIdentifier) && <InvoiceTable22 categoryIdentifier={currentCateoryIdentifier} />}
+      {invoice_types.type23.includes(currentCateoryIdentifier) && <InvoiceTable23 categoryIdentifier={currentCateoryIdentifier} />}
+      {invoice_types.type24.includes(currentCateoryIdentifier) && <InvoiceTable24 categoryIdentifier={currentCateoryIdentifier} />}
     </div>
   );
 };

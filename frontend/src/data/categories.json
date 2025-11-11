@@ -40,6 +40,61 @@
                 "identifier": "R1-4",
                 "description": "Vooraleer u kan invullen djent u oppetvlakte per teelt in te vullen in onderstaande lijst. Bij invullen van oppetvlakte per teelt verschijnt onderaan het tabblad van deze teelt en kan u deze teelt",
                 "items": []
+            },
+            {
+                "name": "TEELTPLAN",
+                "identifier": "R1-5",
+                "description": "Vooraleer u kan invullen djent u oppetvlakte per teelt in te vullen in onderstaande lijst. Bij invullen van oppetvlakte per teelt verschijnt onderaan het tabblad van deze teelt en kan u deze teelt",
+                "items": [
+                    {
+                        "name": "Kunstmeststoffen (N.P.K.)",
+                        "identifier": "R1-5-1",
+                        "description": "Uitsluitend meststoffen noteren waar N, P of K in zit. De oærige meststoffen zoals bijvoorbeeld kalk, kieseriet, zout etc. noteren bij het hoofdstuk andere bemesting:",
+                        "items": []
+                    },
+                    {
+                        "name": "Drijfmest",
+                        "identifier": "R1-5-2",
+                        "description": "",
+                        "items": []
+                    },
+                    {
+                        "name": "Andere bemesting (kalk, kieseriet, groenbemester, zout en andere waar geen N, P of K inzit)",
+                        "identifier": "R1-5-3",
+                        "description": "",
+                        "items": []
+                    },
+                    {
+                        "name": "Zaden",
+                        "identifier": "R1-5-4",
+                        "description": "",
+                        "items": []
+                    },
+                    {
+                        "name": "Sproeistoffen",
+                        "identifier": "R1-5-5",
+                        "description": "",
+                        "items": []
+                    },
+                    {
+                        "name": "Loonwerk. huur machines (hakselen van aanqekochte mais bij ruwvoeraankopen noteren)",
+                        "identifier": "R1-5-6",
+                        "description": "",
+                        "items": []
+                    },
+                    {
+                        "name": "Bewaarmiddelen en plastiek",
+                        "identifier": "R1-5-7",
+                        "description": "",
+                        "items": []
+                    },
+                    {
+                        "name": "Verkopen van mais",
+                        "identifier": "R1-5-8",
+                        "description": "",
+                        "items": []
+                    }
+                ]
             }
         ]
     },
